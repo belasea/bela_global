@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Jayed Hossain Jibon">
+    <meta name='designer' content='Jayed Hossain Jibon'>
+    <title>Home - BellaGlobal</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    
+</head>
+<body>
+
+    <!--===== Main Content ====-->
+    <section class="main-content">
+        <!--===== Navbar ====-->
+        <div class="navbar-section">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg">
+                    <div class="container-fluid px-4">
+
+                        <!-- Logo -->
+                        <a class="navbar-brand p-0" href="#">
+                            <div class="logo-container">
+                                <div class="logo-main">Thebella</div>
+                                <div class="logo-sub">DERMATOLOGIE</div>
+                                <div class="logo-year">Since 2026</div>
+                            </div>
+                        </a>
+
+                        <!-- Toggle -->
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <!-- Menu -->
+                        <div class="collapse navbar-collapse" id="mainNav">
+                            <div class="ms-auto d-flex flex-column align-items-end">
+
+                                <!-- Utility -->
+                                <div class="utility-box d-none d-lg-block">
+                                    <a href="#" class="lang-link active">EN</a>
+                                    <!-- Search Icon -->
+                                    <a href="javascript:void(0)" class="lang-link ms-2" id="openSearch">
+                                        <i class="bi bi-search"></i>
+                                    </a>
+                                     <!--===== Search Overlay ====-->
+                                    <div class="search-overlay" id="searchOverlay">
+                                        <div class="search-box container">
+                                            <input type="text" placeholder="Search for products, skin concerns...">
+                                            <button class="close-search" id="closeSearch">&times;</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Nav Links -->
+                                <ul class="navbar-nav">
+                                    <li class="nav-item dropdown-parent">
+                                        <a class="nav-link" href="#">Your skin</a>
+                                        <!-- Dropdown -->
+                                        <div class="dropdown-menu-custom">
+                                            <ul>
+                                                <li><a href="#">Irritated and damaged skin</a></li>
+                                                <li><a href="#">Scaly skin and hyperkeratosis</a></li>
+                                                <li><a href="#">Sun protection</a></li>
+                                                <li><a href="#">Dry skin</a></li>
+                                                <li><a href="#">Skin ageing</a></li>
+                                                <li><a href="#">Oily and acne-prone skin</a></li>
+                                                <li><a href="#">Pigmentation disorders</a></li>
+                                                <li><a href="#">Scaly scalp</a></li>
+                                                <li><a href="#">Sensitive skin with redness</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" href="#">Our solutions</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#">The laboratory</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!--===== Slider ====-->
+        <div class="slider-section">
+            <div id="isisSlider" class="carousel slide hero-slider" data-bs-ride="carousel" data-bs-interval="5000">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#isisSlider" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#isisSlider" data-bs-slide-to="1"></button>
+                </div>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active slide-light-gray">
+                        <div class="container-fluid">
+                            <div class="slider-container">
+                                <div class="slider-text-side">
+                                    <div class="slider-label">New</div>
+                                    <h1 class="slider-title">Repairing has never been this easy.</h1>
+                                    <p class="slider-subtitle">Your daily SOS reflex, precisely formulated for fast, safe and pleasant skin recovery.</p>
+                                    <a href="#" class="btn btn-learn-more">LEARN MORE</a>
+                                </div>
+                                <div class="slider-image-side">
+                                    <img src="img/cosrx.png" alt="Product Image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item slide-light-gray">
+                        <div class="container-fluid">
+                            <div class="slider-container reverse">
+                                <div class="slider-text-side">
+                                    <div class="slider-label">New</div>
+                                    <h1 class="slider-title">Cicapro Cream: precisely formulated to repair and soothe.</h1>
+                                    <p class="slider-subtitle">Expert care for everyday skin irritations.</p>
+                                    <a href="#" class="btn btn-learn-more">LEARN MORE</a>
+                                </div>
+                                <div class="slider-image-side">
+                                    <img src="img/salicylic.png" alt="Product Image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#isisSlider" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" style="filter: invert(1);"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#isisSlider" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" style="filter: invert(1);"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="container-fluid px-5">
+    <div class="row">
+        <div class="col-md-2 sidebar-nav">
+            <ul>
+                <li class="active">New</li>
+                <li>Essentials</li>
+                <li>Star products</li>
+            </ul>
+        </div>
+
+        <div class="col-md-10 py-5">
+            <div class="row g-4">
+                
+                <div class="col-sm-6 col-lg-3">
+                    <div class="product-card">
+                        <div class="product-img-wrapper bg-pink">
+                            <img src="img/sp1.jpg" alt="Ruboril Cleansing Balm">
+                        </div>
+                        <div class="product-title ruboril-text">Ruboril</div>
+                        <div class="product-subtitle">Sensitive skin with redness</div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="product-card">
+                        <div class="product-img-wrapper bg-mint">
+                            <img src="img/sp2.jpg" alt="Secalia Balm">
+                        </div>
+                        <div class="product-title secalia-text">Secalia</div>
+                        <div class="product-subtitle">Dry skin. Atopic tendency</div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="product-card">
+                        <div class="product-img-wrapper bg-mint">
+                            <img src="img/sp3.jpg" alt="Secalia Shower Cream">
+                        </div>
+                        <div class="product-title secalia-text">Secalia</div>
+                        <div class="product-subtitle">Dry skin. Atopic tendency</div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="product-card">
+                        <div class="product-img-wrapper bg-mint">
+                            <img src="img/sp1.jpg" alt="Secalia Body Lotion">
+                        </div>
+                        <div class="product-title secalia-text">Secalia</div>
+                        <div class="product-subtitle">Dry skin. Atopic tendency</div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="section-footer">New</div>
+        </div>
+    </div>
+</div>
+
+
+    </section>
+
+
+   
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,351 @@
+:root {
+    --brand-dark: #001229;
+    --text-gray: #6c757d;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--brand-dark);
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* ===============================
+Main Content
+=============================== */
+.main-content {
+    margin-top: 80px;
+    margin-left: 130px;
+    background-color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -10px 10px 30px rgba(0,0,0,0.3);
+}
+
+/* ===============================
+Navbar
+=============================== */
+.navbar {
+    background-color: #fff !important;
+    padding: 1rem 0;
+    transition: 0.3s;
+}
+
+/* ===============================
+Dropdown Menu
+=============================== */
+.dropdown-parent {
+    position: relative;
+}
+
+/* Hidden by default */
+.dropdown-menu-custom {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 300px;
+    background: #f5f6f8;
+    padding: 20px;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(15px);
+    transition: 0.3s ease;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    z-index: 999;
+}
+
+/* Show on hover */
+.dropdown-parent:hover .dropdown-menu-custom {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* List style */
+.dropdown-menu-custom ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-menu-custom li {
+    margin-bottom: 8px;
+}
+
+.dropdown-menu-custom a {
+    text-decoration: none;
+    color: #6c7a89;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+/* Hover effect */
+.dropdown-menu-custom a:hover {
+    color: #001229;
+    padding-left: 5px;
+}
+
+/* Logo */
+.logo-container {
+    text-align: left;
+    line-height: 1.1;
+    margin-right: 40px;
+}
+
+.logo-main {
+    letter-spacing: 3px;
+    color: var(--brand-dark);
+    font-weight: 800;
+    font-size: 1.3rem;
+}
+
+.logo-sub {
+    font-size: 0.6rem;
+    border-top: 1.5px solid #004a99;
+    border-bottom: 1.5px solid #d91a21;
+    padding: 1px 0;
+    margin: 3px 0;
+    font-weight: 700;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.logo-year {
+    font-size: 0.5rem;
+    color: var(--text-gray);
+    text-align: center;
+}
+
+/* Nav Links */
+.nav-link {
+    color: var(--text-gray) !important;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.5rem 1.2rem !important;
+    text-transform: uppercase;
+    position: relative;
+}
+
+/* Hover underline */
+.nav-link::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: var(--brand-dark);
+    transition: 0.3s;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Utility */
+.utility-box {
+    font-size: 0.75rem;
+    margin-bottom: 5px;
+}
+
+.lang-link {
+    color: var(--text-gray);
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 12px;
+}
+
+.lang-link.active {
+    color: var(--brand-dark);
+}
+
+/* ===============================
+Search Overlay
+=============================== */
+.search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    padding: 30px 0;
+    transform: translateY(-100%);
+    transition: 0.4s ease;
+    z-index: 9999;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.search-overlay.active {
+    transform: translateY(0);
+}
+
+.search-box {
+    position: relative;
+    max-width: 700px;
+}
+
+.search-box input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #000;
+    font-size: 1.2rem;
+    padding: 10px 40px 10px 0;
+    outline: none;
+}
+
+.close-search {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 28px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Montserrat:wght@400;500;700&display=swap');
+
+/* --- General Styles --- */
+.slide-light-gray {
+    background-color: #f4f4f4;
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column-reverse; /* Mobile: Image on top, Text bottom */
+    align-items: center;
+    justify-content: center;
+    min-height: 500px;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* --- Image Side --- */
+.slider-image-side {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 30px;
+}
+
+.slider-image-side img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* --- Text Side --- */
+.slider-text-side {
+    width: 100%;
+}
+
+.slider-label {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: #001229;
+    margin-bottom: 0;
+}
+
+.slider-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #001229;
+    line-height: 1.2;
+    margin-bottom: 15px;
+}
+
+.slider-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    color: #444;
+    margin-bottom: 25px;
+}
+
+.btn-learn-more {
+    background-color: #001229;
+    color: #fff !important;
+    padding: 14px 40px;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 0;
+    display: inline-block;
+    border: none;
+}
+
+.btn-learn-more:hover {
+    background-color: #FFF;
+    color: #001229 !important;
+    padding: 14px 40px;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 0;
+    display: inline-block;
+    border: none;
+}
+
+
+/* --- Indicators & Controls --- */
+.carousel-indicators [data-bs-target] {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #001229;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    width: 5%;
+}
+
+
+
+
+/* Sidebar Styling */
+.sidebar-nav { padding-top: 100px; }
+.sidebar-nav ul { list-style: none; padding: 0; }
+.sidebar-nav li { margin-bottom: 20px; font-weight: 500; color: #8898aa; cursor: pointer; }
+.sidebar-nav li.active { color: #000; }
+.sidebar-nav li.active::before { content: "— "; }
+
+/* Product Card Styling */
+.product-card {
+    border: none;
+    border-radius: 0;
+    text-align: center;
+    height: 100%;
+    padding-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+.product-card:hover { transform: translateY(-5px); }
+
+.bg-pink { background-color: #fce4e8; }
+.bg-mint { background-color: #e0f2f1; }
+
+.product-img-wrapper {
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 350px;
+}
+.product-img-wrapper img {
+    max-width: 100%;
+    height: auto;
+    /* Simple shadow to mimic the "floating" look */
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+}
+
+.product-title { font-weight: bold; text-transform: uppercase; margin-top: 15px; font-size: 0.9rem; }
+.product-subtitle { font-size: 0.85rem; color: #333; margin-top: 5px; }
+
+.ruboril-text { color: #d63384; }
+.secalia-text { color: #00897b; }
+
+.section-footer { border-top: 1px solid #eee; margin-top: 50px; padding-top: 10px; color: #8898aa; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }

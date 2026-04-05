@@ -1,0 +1,99 @@
+/* ===============================
+Responsive Navbar
+=============================== */
+
+/* Tablet & Mobile */
+@media (max-width: 991px) {
+
+    .main-content {
+        margin-left: 0;
+        margin-top: 0;
+        box-shadow: none;
+    }
+
+    .navbar {
+        padding: 10px 0;
+    }
+
+    .navbar-collapse {
+        background: #fff;
+        padding: 15px;
+        border-top: 1px solid #eee;
+    }
+
+    .navbar-nav {
+        width: 100%;
+        align-items: flex-start !important;
+    }
+
+    .nav-link {
+        padding: 10px 0 !important;
+        font-size: 14px;
+    }
+
+    /* Dropdown becomes full width */
+    .dropdown-menu-custom {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        padding: 10px 0;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        display: none;
+        background: #f9f9f9;
+    }
+
+    /* Show when active */
+    .dropdown-parent.active .dropdown-menu-custom {
+        display: block;
+    }
+
+    .dropdown-menu-custom li {
+        padding-left: 10px;
+    }
+
+    /* Utility section */
+    .utility-box {
+        width: 100%;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+
+/* --- DESKTOP RESPONSIVE (992px and up) --- */
+@media (min-width: 992px) {
+    .slider-container {
+        flex-direction: row; /* Desktop: side by side */
+        height: 600px;
+        text-align: left;
+        padding: 0 8%;
+    }
+
+    .slider-container.reverse {
+        flex-direction: row-reverse;
+    }
+
+    .slider-text-side, .slider-image-side {
+        flex: 1;
+    }
+
+    .slider-image-side {
+        max-width: none;
+        height: 100%;
+        display: flex;
+        align-items: flex-end; /* Sits at bottom */
+        margin-bottom: 0;
+    }
+
+    .slider-image-side img {
+        max-height: 90%;
+        width: auto;
+    }
+
+    .slider-label { font-size: 3rem; }
+    .slider-title { font-size: 3rem; max-width: 500px; }
+    .slider-subtitle { font-size: 1.1rem; max-width: 450px; }
+}
