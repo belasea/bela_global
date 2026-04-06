@@ -93,9 +93,11 @@
         <!--===== Slider ====-->
         <div class="slider-section">
             <div id="isisSlider" class="carousel slide hero-slider" data-bs-ride="carousel" data-bs-interval="5000">
+                
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#isisSlider" data-bs-slide-to="0" class="active"></button>
                     <button type="button" data-bs-target="#isisSlider" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#isisSlider" data-bs-slide-to="2"></button>
                 </div>
 
                 <div class="carousel-inner">
@@ -109,7 +111,7 @@
                                     <a href="#" class="btn btn-learn-more">LEARN MORE</a>
                                 </div>
                                 <div class="slider-image-side">
-                                    <img src="img/cosrx.png" alt="Product Image">
+                                    <img src="img/banner.png" alt="Product Image">
                                 </div>
                             </div>
                         </div>
@@ -130,6 +132,22 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="carousel-item slide-light-gray">
+                        <div class="container-fluid">
+                            <div class="slider-container">
+                                <div class="slider-text-side">
+                                    <div class="slider-label">Essentials</div>
+                                    <h1 class="slider-title">Complete protection for your skin.</h1>
+                                    <p class="slider-subtitle">Advanced dermatological solutions for your daily routine.</p>
+                                    <a href="#" class="btn btn-learn-more">LEARN MORE</a>
+                                </div>
+                                <div class="slider-image-side">
+                                    <img src="img/cosrx.png" alt="Product Image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <button class="carousel-control-prev" type="button" data-bs-target="#isisSlider" data-bs-slide="prev">
@@ -141,74 +159,279 @@
             </div>
         </div>
 
-        <div class="container-fluid px-5">
-    <div class="row">
-        <div class="col-md-2 sidebar-nav">
-            <ul>
-                <li class="active">New</li>
-                <li>Essentials</li>
-                <li>Star products</li>
-            </ul>
-        </div>
+        <div class="sidebar-nav-item">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3 d-md-flex align-items-md-center justify-content-md-center">
+                        <ul class="nav flex-column sidebar-nav w-100" id="sidebarMenu">
+                            <li class="nav-item">
+                                <a class="sidebar-link nav-link active" href="#" data-target="group-new">
+                                    <span class="line"></span> New
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="sidebar-link nav-link" href="#" data-target="group-essentials">
+                                    <span class="line"></span> Essentials
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="sidebar-link nav-link" href="#" data-target="group-star">
+                                    <span class="line"></span> Star products
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="product-scroll-area" id="scrollContainer">
+                            <div class="product-row">
+                                <div class="product-group d-flex" id="group-new">
+                                    <div class="product-item">
+                                        <div class="product-card bg-pink">
+                                            <img src="img/salicylic.png" alt="Product">
+                                            <div class="product-info">
+                                                <h5 class="brand-name text-danger">RUBORIL</h5>
+                                                <p class="description">New Arrival Item 1</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-item">
+                                        <div class="product-card bg-pink">
+                                            <img src="img/cosrx.png" alt="Product">
+                                            <div class="product-info">
+                                                <h5 class="brand-name text-danger">RUBORIL</h5>
+                                                <p class="description">New Arrival Item 1</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-item">
+                                        <div class="product-card bg-pink">
+                                            <img src="img/low.png" alt="Product">
+                                            <div class="product-info">
+                                                <h5 class="brand-name text-danger">RUBORIL</h5>
+                                                <p class="description">New Arrival Item 1</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-item">
+                                        <div class="product-card bg-pink">
+                                            <img src="img/aqua.webp" alt="Product">
+                                            <div class="product-info">
+                                                <h5 class="brand-name text-danger">RUBORIL</h5>
+                                                <p class="description">New Arrival Item 1</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-group d-flex" id="group-essentials">
+                                    <div class="product-item">
+                                        <div class="product-card bg-mint">
+                                            <img src="img/salicylic.png" alt="Product">
+                                            <div class="product-info">
+                                                <h5 class="brand-name text-danger">RUBORIL</h5>
+                                                <p class="description">New Arrival Item 1</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-item">
+                                        <div class="product-card bg-mint">
+                                            <img src="img/cosrx.png" alt="Product">
+                                            <div class="product-info">
+                                                <h5 class="brand-name text-danger">RUBORIL</h5>
+                                                <p class="description">New Arrival Item 1</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-item">
+                                        <div class="product-card bg-mint">
+                                            <img src="img/low.png" alt="Product">
+                                            <div class="product-info">
+                                                <h5 class="brand-name text-danger">RUBORIL</h5>
+                                                <p class="description">New Arrival Item 1</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-item">
+                                        <div class="product-card bg-mint">
+                                            <img src="img/aqua.webp" alt="Product">
+                                            <div class="product-info">
+                                                <h5 class="brand-name text-danger">RUBORIL</h5>
+                                                <p class="description">New Arrival Item 1</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-        <div class="col-md-10 py-5">
-            <div class="row g-4">
-                
-                <div class="col-sm-6 col-lg-3">
-                    <div class="product-card">
-                        <div class="product-img-wrapper bg-pink">
-                            <img src="img/sp1.jpg" alt="Ruboril Cleansing Balm">
+                                <div class="product-group d-flex" id="group-star">
+                                    <div class="product-item">
+                                        <div class="product-card bg-yellow">
+                                            <img src="img/salicylic.png" alt="Product">
+                                            <div class="product-info">
+                                                <h5 class="brand-name text-danger">RUBORIL</h5>
+                                                <p class="description">New Arrival Item 1</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-item">
+                                        <div class="product-card bg-yellow">
+                                            <img src="img/cosrx.png" alt="Product">
+                                            <div class="product-info">
+                                                <h5 class="brand-name text-danger">RUBORIL</h5>
+                                                <p class="description">New Arrival Item 1</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-item">
+                                        <div class="product-card bg-yellow">
+                                            <img src="img/low.png" alt="Product">
+                                            <div class="product-info">
+                                                <h5 class="brand-name text-danger">RUBORIL</h5>
+                                                <p class="description">New Arrival Item 1</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-item">
+                                        <div class="product-card bg-yellow">
+                                            <img src="img/aqua.webp" alt="Product">
+                                            <div class="product-info">
+                                                <h5 class="brand-name text-danger">RUBORIL</h5>
+                                                <p class="description">New Arrival Item 1</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="product-title ruboril-text">Ruboril</div>
-                        <div class="product-subtitle">Sensitive skin with redness</div>
+                        <!-- Scroll Progress & Label -->
+                        <div class="scroll-progress-container">
+                            <div class="progress-line-bg">
+                                <div class="progress-line-fill" id="scrollProgress" style="width: 0%;"></div>
+                            </div>
+                            <div class="section-label-bottom" id="currentLabel">NEW</div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-lg-3">
-                    <div class="product-card">
-                        <div class="product-img-wrapper bg-mint">
-                            <img src="img/sp2.jpg" alt="Secalia Balm">
-                        </div>
-                        <div class="product-title secalia-text">Secalia</div>
-                        <div class="product-subtitle">Dry skin. Atopic tendency</div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-lg-3">
-                    <div class="product-card">
-                        <div class="product-img-wrapper bg-mint">
-                            <img src="img/sp3.jpg" alt="Secalia Shower Cream">
-                        </div>
-                        <div class="product-title secalia-text">Secalia</div>
-                        <div class="product-subtitle">Dry skin. Atopic tendency</div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-lg-3">
-                    <div class="product-card">
-                        <div class="product-img-wrapper bg-mint">
-                            <img src="img/sp1.jpg" alt="Secalia Body Lotion">
-                        </div>
-                        <div class="product-title secalia-text">Secalia</div>
-                        <div class="product-subtitle">Dry skin. Atopic tendency</div>
-                    </div>
-                </div>
-
             </div>
-            
-            <div class="section-footer">New</div>
         </div>
-    </div>
-</div>
 
+        <div class="efficiency-section">
+            <div class="image-grid-container">
+                <div class="image-wrapper img-large-left">
+                    <img src="img/aqua.webp" 
+                        data-alt-src="img/low.png" 
+                        class="dynamic-img" alt="Skin Care">
+                </div>
+                <div class="image-wrapper img-small-top">
+                    <img src="img/aqua.webp" 
+                        data-alt-src="img/low.png" 
+                        class="dynamic-img" alt="Application">
+                </div>
+                <div class="image-wrapper img-medium-bottom">
+                    <img src="img/aqua.webp" 
+                        data-alt-src="img/low.png" 
+                        class="dynamic-img" alt="Natural Ingredients">
+                </div>
+            </div>
+
+            <div class="center-controls">
+                <div class="spinner-container">
+                    <svg class="progress-ring" width="60" height="60">
+                        <circle class="progress-ring__circle-bg" stroke="#e0e6ed" stroke-width="2" fill="transparent" r="28" cx="30" cy="30"/>
+                        <circle class="progress-ring__circle-fill" id="spinnerCircle" stroke="#001229" stroke-width="2" fill="transparent" r="28" cx="30" cy="30"/>
+                    </svg>
+                </div>
+                <div class="efficiency-label">EFFICIENCY</div>
+                
+                <h2 class="efficiency-title" 
+                    id="changingText" 
+                    data-text-one="you're talking about" 
+                    data-text-two="for your skin">
+                    you're talking about
+                </h2>
+            </div>
+        </div>
 
     </section>
 
 
-   
+
+
     <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>
 
+    <script>
+        /**
+        * BELLA GLOBAL - Product Gallery Controller
+        */
+        const scrollContainer = document.getElementById("scrollContainer");
+        const progressFill = document.getElementById("scrollProgress");
+        const labelBottom = document.getElementById("currentLabel");
+        const navLinks = document.querySelectorAll(".sidebar-nav .nav-link");
+
+        // --- 1. CLICK TO NAVIGATE CATEGORIES ---
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+
+                if (targetSection) {
+                    scrollContainer.scrollTo({
+                        left: targetSection.offsetLeft - scrollContainer.offsetLeft,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // --- 2. CLICK AND DRAG TO SCROLL ---
+        let isPressed = false;
+        let startX;
+        let scrollLeft;
+
+        scrollContainer.addEventListener("mousedown", (e) => {
+            isPressed = true;
+            startX = e.pageX - scrollContainer.offsetLeft;
+            scrollLeft = scrollContainer.scrollLeft;
+        });
+
+        scrollContainer.addEventListener("mouseleave", () => { isPressed = false; });
+        scrollContainer.addEventListener("mouseup", () => { isPressed = false; });
+
+        scrollContainer.addEventListener("mousemove", (e) => {
+            if (!isPressed) return;
+            e.preventDefault();
+            const x = e.pageX - scrollContainer.offsetLeft;
+            const walk = (x - startX) * 2; // Sensitivity
+            scrollContainer.scrollLeft = scrollLeft - walk;
+        });
+
+        // --- 3. PROGRESS BAR & ACTIVE STATE SYNC ---
+        scrollContainer.addEventListener("scroll", () => {
+            // Update Line
+            const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+            const percentage = (scrollContainer.scrollLeft / maxScroll) * 100;
+            progressFill.style.width = percentage + "%";
+
+            // Update Sidebar Active Link based on scroll position
+            const groups = ['group-new', 'group-essentials', 'group-star'];
+            groups.forEach(id => {
+                const section = document.getElementById(id);
+                const rect = section.getBoundingClientRect();
+                
+                // If the section is in the middle of the view
+                if (rect.left >= 0 && rect.left < window.innerWidth / 2) {
+                    navLinks.forEach(l => {
+                        const isActive = l.getAttribute('data-target') === id;
+                        l.classList.toggle('active', isActive);
+                        if(isActive) labelBottom.innerText = l.innerText.toUpperCase();
+                    });
+                }
+            });
+        });
+    </script>
+
+  
+   
 </body>
 </html>

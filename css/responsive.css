@@ -97,3 +97,107 @@ Responsive Navbar
     .slider-title { font-size: 3rem; max-width: 500px; }
     .slider-subtitle { font-size: 1.1rem; max-width: 450px; }
 }
+
+
+/* ===============================
+   RESPONSIVE FIXES
+   =============================== */
+@media (max-width: 991px) {
+    .main-content {
+        margin-left: 0 !important; /* Removes the 150px desktop offset */
+        margin-top: 50px;
+    }
+
+    .custom-horizontal-wrapper {
+        flex-direction: column; /* Stacks sidebar menu above products */
+    }
+
+    .sticky-sidebar {
+        position: relative;
+        min-width: 100%;
+        margin-bottom: 20px;
+        padding-top: 10px;
+    }
+
+    .sidebar-nav {
+        flex-direction: row !important; /* Menu items go side-by-side */
+        overflow-x: auto;
+        white-space: nowrap;
+        gap: 15px;
+    }
+
+    .scroll-progress-container {
+        padding-left: 0 !important; /* Full width progress bar */
+    }
+}
+
+
+/* --- Desktop Default (Already in your code) --- */
+.sticky-sidebar {
+    position: sticky;
+    top: 100px;
+    left: 0;
+    z-index: 20;
+    background-color: #fff;
+    min-width: 280px;
+    padding-top: 100px;
+    flex-shrink: 0;
+}
+
+/* --- Responsive Media Queries --- */
+
+/* MOBILE & TABLET (Below 992px) */
+@media (max-width: 991.98px) {
+    .sticky-sidebar {
+        position: relative; /* Not sticky on mobile */
+        min-width: 100%;
+        padding-top: 0;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #eee;
+        overflow-x: auto; /* Allow menu to scroll left/right */
+    }
+
+    .sidebar-nav {
+        gap: 20px;
+        padding-bottom: 10px;
+    }
+
+    .sidebar-nav .sidebar-link {
+        font-size: 0.9rem;
+        white-space: nowrap; /* Keep text on one line */
+        padding: 10px 0 !important;
+    }
+
+    /* Adjust Card size for mobile */
+    .product-item {
+        flex: 0 0 280px; /* Slightly smaller cards */
+    }
+
+    .product-card {
+        height: 500px;
+        padding: 40px 20px;
+    }
+
+    .product-card img {
+        max-height: 280px;
+    }
+
+    .scroll-progress-container {
+        padding-left: 0 !important;
+        text-align: center;
+    }
+}
+
+/* TABLET SPECIFIC (Between 768px and 991px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .product-item {
+        flex: 0 0 320px;
+    }
+}
+
+/* DESKTOP RESET (Ensures padding matches sidebar) */
+@media (min-width: 992px) {
+    .scroll-progress-container {
+        padding-left: 280px; 
+    }
+}

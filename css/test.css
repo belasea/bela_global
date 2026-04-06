@@ -1,0 +1,150 @@
+
+
+/* --- Interactive Sidebar --- */
+.sticky-sidebar {
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    background-color: #fff;
+    min-width: 280px;
+    padding-top: 100px; /* Aligned with product center */
+    flex-shrink: 0;
+}
+
+.sidebar-nav .nav-link {
+    color: #9ea8b4 !important;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 15px 0 !important;
+    transition: all 0.3s ease;
+}
+
+.sidebar-nav .nav-link.active {
+    color: #001229 !important;
+    font-weight: 600;
+}
+
+.sidebar-nav .nav-link .line {
+    width: 25px;
+    height: 2px;
+    background-color: #001229;
+    margin-right: 15px;
+    display: inline-block;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.sidebar-nav .nav-link.active .line {
+    opacity: 1;
+    width: 40px;
+}
+
+/* --- Product Gallery Layout --- */
+.product-scroll-area {
+    flex-grow: 1;
+    overflow-x: auto;
+    scrollbar-width: none;
+    cursor: grab;
+    user-select: none;
+    padding: 40px 0;
+}
+
+.product-row {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.product-group {
+    gap: 15px; /* Tight gap like the image */
+    padding-right: 15px; 
+}
+
+/* --- Product Card Styling (Match Screenshot) --- */
+.product-item {
+    flex: 0 0 340px; /* Slightly wider cards */
+}
+
+.product-card {
+    height: 550px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Text at bottom */
+    align-items: center;
+    padding: 60px 30px;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+}
+
+.product-card img {
+    max-height: 250px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 40px;
+    pointer-events: none;
+    /* Soft shadow for the bottles */
+    filter: drop-shadow(0 15px 15px rgba(0,0,0,0.08));
+}
+
+
+
+/* Background Colors from Image */
+.bg-pink { background-color: #F9E2E6; } /* Ruboril Pink */
+.bg-pink:hover { background-color: #f8bbd0; transform: translateY(-5px); }
+.bg-mint { background-color: #D6EAEB; } /* Secalia Mint */
+.bg-mint:hover { background-color: #b2dfdb; transform: translateY(-5px); }
+
+.bg-yellow { background-color: #efd9b5; } /* Secalia Mint */
+.bg-yellow:hover { background-color: #f69f12; transform: translateY(-5px); }
+
+/* Product Info Text */
+.product-info {
+    text-align: center;
+}
+
+.brand-name {
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.description {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #001229;
+}
+
+.text-danger { color: #D81B60 !important; } /* Ruboril Text */
+.text-teal { color: #008D91 !important; }   /* Secalia Text */
+
+/* --- Progress Bar --- */
+.scroll-progress-container {
+    margin-top: 20px;
+    padding-left: 280px; /* Match sidebar width */
+}
+
+.progress-line-bg {
+    width: 100%;
+    height: 1px;
+    background-color: #e0e6ed;
+}
+
+.progress-line-fill {
+    height: 2px;
+    /* background-color: #001229; */
+    transition: width 0.2s ease-out;
+}
+
+.section-label-bottom {
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    color: #9ea8b4;
+    margin-top: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
