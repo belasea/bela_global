@@ -49,51 +49,38 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-const circle = document.getElementById("spinnerCircle");
-const textElement = document.getElementById("changingText");
-const imageElements = document.querySelectorAll(".dynamic-img");
-
+/* ============================================================
+skincare-section
+===============================================================*/
+const section = document.getElementById("skincare-section");
+const circle = document.getElementById("spinner-path");
 const radius = circle.r.baseVal.value;
 const circumference = radius * 2 * Math.PI;
+
+// Initialize Circle
 circle.style.strokeDasharray = `${circumference} ${circumference}`;
+circle.style.strokeDashoffset = circumference;
 
-let progress = 0;
-let isStateOne = true; // Toggle tracker
+function runCycle() {
+  // 1. Reset Circle Progress instantly
+  circle.style.transition = "none";
+  circle.style.strokeDashoffset = circumference;
 
-function updateDesign() {
-  progress += 1;
-  const offset = circumference - (progress / 100) * circumference;
-  circle.style.strokeDashoffset = offset;
+  // 2. Trigger the Visual Switch (Text & Images)
+  section.classList.toggle("state-switched");
 
-  if (progress >= 100) {
-    progress = 0;
-    isStateOne = !isStateOne; // Switch state
-
-    // Fade out
-    textElement.style.opacity = 0;
-    imageElements.forEach((img) => (img.style.opacity = 0));
-
-    setTimeout(() => {
-      // 1. Swap Text from Data Attributes
-      textElement.innerText = isStateOne
-        ? textElement.getAttribute("data-text-one")
-        : textElement.getAttribute("data-text-two");
-
-      // 2. Swap Images
-      imageElements.forEach((img) => {
-        const currentSrc = img.src;
-        const altSrc = img.getAttribute("data-alt-src");
-
-        // Swap the actual src with the one stored in data-alt-src
-        img.src = altSrc;
-        img.setAttribute("data-alt-src", currentSrc);
-      });
-
-      // Fade back in
-      textElement.style.opacity = 1;
-      imageElements.forEach((img) => (img.style.opacity = 1));
-    }, 400);
-  }
+  // 3. Restart Circle Progress after a tiny frame gap
+  setTimeout(() => {
+    circle.style.transition = "stroke-dashoffset 4.9s linear";
+    circle.style.strokeDashoffset = 0;
+  }, 50);
 }
 
-setInterval(updateDesign, 50);
+// First initialization
+setTimeout(() => {
+  circle.style.transition = "stroke-dashoffset 4.9s linear";
+  circle.style.strokeDashoffset = 0;
+}, 100);
+
+// Set the loop (5 seconds total cycle)
+setInterval(runCycle, 5000);
