@@ -34,6 +34,18 @@ Main Content
 /* ===============================
 Navbar
 =============================== */
+.navbar-section {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+}
+
+.navbar-section.scrolled {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+}
+
 .navbar {
     background-color: #fff !important;
     padding: 1rem 0;
@@ -629,3 +641,132 @@ sidebar nav
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
 }
 
+
+/* --- Skincare Review Section Styles --- */
+
+
+
+/* Image Styling */
+.image-wrapper {
+    transition: transform 0.6s ease;
+}
+
+.hero-product-img {
+    max-height: 300px;
+    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.08));
+    animation: float 4s ease-in-out infinite;
+}
+
+/* Floating animation for the product */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Stars & Typography */
+.stars {
+    color: #00122e; /* Dark navy for contrast */
+    letter-spacing: 3px;
+    font-size: 0.9rem;
+}
+
+.skin-headline {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 300;
+    line-height: 1.4;
+    color: #00122e;
+    font-size: clamp(1.5rem, 3vw, 2.2rem); /* Responsive font size */
+}
+
+.reviewer-meta p {
+    color: #7d8ea3;
+    letter-spacing: 0.05em;
+}
+
+.product-link {
+    color: #7d8ea3;
+    transition: color 0.3s ease;
+}
+
+.product-link:hover {
+    color: #00122e;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .bg-light-soft {
+        margin: 0 10px;
+        padding: 30px !important;
+    }
+    .skin-headline {
+        font-size: 1.5rem;
+    }
+}
+
+/*================================
+Custom Brand Styles 
+==================================*/
+.bg-navy {
+    background-color: #00122e; /* Specific dark navy from screenshot */
+}
+
+.tracking-wider {
+    letter-spacing: 0.15em;
+}
+
+h2.display-6 {
+    line-height: 1.4;
+    font-size: 1.75rem; /* Matches the text density of the lab description */
+}
+
+footer a:hover {
+    opacity: 1 !important;
+    color: #fff;
+}
+
+/* Optional: Back to top arrow styling seen on the left of screenshot */
+.back-to-top {
+    position: absolute;
+    left: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ===============================
+   Jump to Top Button
+=============================== */
+.jump-to-top-btn {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    width: 48px;
+    height: 48px;
+    background-color: #001229;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+    pointer-events: none;
+    box-shadow: 0 4px 15px rgba(0, 18, 41, 0.3);
+}
+
+.jump-to-top-btn.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.jump-to-top-btn:hover {
+    background-color: #003580;
+    box-shadow: 0 6px 20px rgba(0, 18, 41, 0.4);
+}
