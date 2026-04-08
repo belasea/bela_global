@@ -40,12 +40,17 @@ document.addEventListener("DOMContentLoaded", function () {
    */
   const dropdown = document.querySelector(".dropdown-parent");
   if (dropdown) {
-    dropdown.addEventListener("click", function (e) {
-      if (window.innerWidth < 992) {
-        e.preventDefault(); // Prevents top-level link navigation on mobile
-        this.classList.toggle("active");
-      }
-    });
+    // Only the top-level nav-link should toggle the dropdown
+    const dropdownToggle = dropdown.querySelector(":scope > .nav-link");
+    if (dropdownToggle) {
+      dropdownToggle.addEventListener("click", function (e) {
+        if (window.innerWidth < 992) {
+          e.preventDefault(); // Prevents top-level link navigation on mobile
+          e.stopPropagation(); // Don't bubble to parent
+          dropdown.classList.toggle("active");
+        }
+      });
+    }
   }
 
   /**

@@ -900,6 +900,49 @@ Responsive Wrapper
     }
 }
 
+
+
+
+/* Accordion Customization */
+.accordion-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 40px;
+}
+
+.accordion-item {
+    border: none;
+    border-bottom: 1px solid #e9ecef !important;
+    background: transparent;
+}
+
+.accordion-button {
+    background-color: transparent !important;
+    color: #001229 !important;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 25px 0;
+    box-shadow: none !important;
+}
+
+/* Customizing the chevron icon color */
+.accordion-button::after {
+    filter: grayscale(1) opacity(0.5);
+}
+
+.accordion-button:not(.collapsed) {
+    border-bottom: none;
+}
+
+.accordion-body {
+    padding: 0 0 25px 0;
+    color: #6c757d;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+   
+
 /*================================
 Terms Styles 
 ==================================*/
