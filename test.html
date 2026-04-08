@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Care Grid Layout</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #f8f1eb;
+            --text-grey: #8a8a8a;
+            --cicapro-pink: #eaddeb;
+            --suavigel-blue: #d1e3f3;
+            --xerolan-teal: #0d6e7a;
+            --accent-purple: #8e4483;
+            --accent-blue: #2e6fa0;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Split Screen Layout */
+        .main-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Left Side: Navigation */
+        .sidebar {
+            width: 40%;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+        }
+
+        .nav-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav-item {
+            color: var(--text-grey);
+            margin: 15px 0;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .nav-item::before {
+            content: "—";
+            margin-right: 15px;
+            opacity: 0.3;
+        }
+
+        .nav-item.active {
+            color: #000;
+            font-weight: bold;
+        }
+
+        .nav-item.active::before {
+            opacity: 1;
+        }
+
+        /* Right Side: Grid Content */
+        .content-area {
+            width: 60%;
+            background-color: var(--bg-cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        /* CSS GRID CORE */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 280px); /* Fixed width columns for the "boxed" look */
+            grid-template-rows: auto auto;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .card-base {
+            padding: 60px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: transform 0.4s ease;
+        }
+
+        .card-base:hover {
+            transform: scale(1.02);
+        }
+
+        .title {
+            letter-spacing: 3px;
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            margin-bottom: 50px;
+            line-height: 1.4;
+        }
+
+        .count {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Card Variations */
+        .cicapro {
+            background-color: var(--cicapro-pink);
+            color: var(--accent-purple);
+        }
+
+        .suavigel {
+            background-color: var(--suavigel-blue);
+            color: var(--accent-blue);
+        }
+
+        .xerolan {
+            background-color: var(--xerolan-teal);
+            color: #fff;
+            grid-row: 1 / span 2; /* Spans two rows */
+            align-self: center;   /* Centers it vertically relative to the other two */
+            height: 450px;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .main-wrapper { flex-direction: column; }
+            .sidebar, .content-area { width: 100%; padding: 40px 20px; }
+            .product-grid { grid-template-columns: 1fr; }
+            .xerolan { height: auto; grid-row: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div class="sidebar">
+        <ul class="nav-list">
+            <li class="nav-item">All needs</li>
+            <li class="nav-item active">Irritated and damaged skin</li>
+            <li class="nav-item">Scaly skin and hyperkeratosis</li>
+            <li class="nav-item">Sun protection</li>
+            <li class="nav-item">Dry skin</li>
+            <li class="nav-item">Skin ageing</li>
+            <li class="nav-item">Oily and acne-prone skin</li>
+            <li class="nav-item">Pigmentation disorders</li>
+            <li class="nav-item">Scaly scalp</li>
+            <li class="nav-item">Sensitive skin with redness</li>
+        </ul>
+    </div>
+
+    <div class="content-area">
+        <div class="product-grid">
+            
+            <div class="card-base cicapro">
+                <div class="title">Cicapro</div>
+                <div class="subtitle">Irritated and damaged skin</div>
+                <div class="count">4 Products</div>
+            </div>
+
+            <div class="card-base xerolan">
+                <div class="title">Xerolan</div>
+                <div class="subtitle">Affected skin barrier</div>
+                <div class="count">1 Product</div>
+            </div>
+
+            <div class="card-base suavigel">
+                <div class="title">Suavigel</div>
+                <div class="subtitle">Intolerant, irritated,<br>weakened skin</div>
+                <div class="count">1 Product</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
