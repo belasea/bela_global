@@ -40,10 +40,12 @@ Navbar
     z-index: 1000;
     background-color: #fff;
     transition: box-shadow 0.3s ease;
+    border-bottom: 1px solid #eaeaea;
 }
 
 .navbar-section.scrolled {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+    border-bottom: 1px solid transparent;
 }
 
 .navbar {
@@ -705,10 +707,202 @@ sidebar nav
 }
 
 
+
+/*==================================================
+Responsive Wrapper 
+==================================================*/
+.category-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    min-height: 100vh;
+}
+
+/* Sidebar Section */
+.category-sidebar {
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 80px;
+}
+
+.side-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.side-nav-item {
+    color: #8a8a8a;
+    margin: 12px 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.side-nav-item::before {
+    content: "—";
+    margin-right: 12px;
+    opacity: 0.4;
+}
+
+.side-nav-item.active {
+    color: #000;
+    font-weight: 700;
+}
+
+.side-nav-item.active::before { 
+    opacity: 1; 
+}
+
+.side-nav-item:hover {
+    color: #000;
+    padding-left: 5px;
+}
+
+/* Main Content Section */
+.category-section {
+    background-color: #f9f4f0;
+    padding: 20px 20%;
+
+}
+
+.category-header-box {
+    max-width: 440px;
+    margin-bottom: 100px;
+    margin-top: 100px;
+}
+
+.category-header-box h2 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.category-header-box h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.category-header-box p {
+    font-size: 1rem;
+    color: #8a8a8a;
+    line-height: 1.8;
+}
+
+/* The Grid */
+.category-product-grid {
+    display: grid;
+    grid-template-columns: 280px 280px;
+    gap: 20px;
+    align-items: start;
+    margin-bottom: 100px;
+}
+
+.category-card-custom {
+    padding: 60px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 380px;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor: pointer;
+    position: relative;
+    border: 1px solid transparent;
+}
+
+.category-card-custom:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+    z-index: 10;
+}
+
+.category-card-custom .title {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.category-card-custom .desc {
+    font-size: 13px;
+    margin: 15px 0 40px 0;
+    line-height: 1.4;
+}
+
+.category-card-custom .count {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+
+/* Pink - Cicapro */
+.category-bg-pink { 
+    background-color: #eaddeb; 
+    color: #8e4483; 
+}
+.category-bg-pink:hover { 
+    background-color: #f5eff5 !important; 
+    border-color: #eaddeb; 
+}
+
+/* Blue - Suavigel */
+.category-bg-blue { 
+    background-color: #d1e3f3; 
+    color: #2e6fa0; 
+}
+.category-bg-blue:hover { 
+    background-color: #e8f2fb !important; 
+    border-color: #d1e3f3; 
+}
+
+/* Teal - Xerolan */
+.category-bg-teal { 
+    background-color: #d1e3e5; 
+    color: #0d6e7a; 
+}
+.category-bg-teal:hover { 
+    background-color: #eef7f8 !important; 
+    border-color: #d1e3e5; 
+}
+
+.category-offset-down { 
+    margin-top: 100px; 
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1200px) {
+    .category-container {
+        grid-template-columns: 1fr; 
+    }
+    .category-sidebar {
+        justify-content: flex-start; 
+        padding: 40px; 
+    }
+    .category-content {
+        padding: 40px;
+    }
+}
+
+@media (max-width: 600px) {
+    .category-product-grid {
+        grid-template-columns: 1fr; 
+    }
+    .category-offset-down {
+        margin-top: 0; 
+    }
+}
+
 /*================================
 Terms Styles 
 ==================================*/
-
 .mentions-section {
     position: relative;
     width: 100%;
