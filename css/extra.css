@@ -1,0 +1,147 @@
+
+/*================================
+Terms Styles 
+==================================*/
+
+
+/* 2. Main Wrapper */
+.mentions {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* 3. The Artistic Background (Header) */
+.mention-img {
+    width: 100%;
+    height: 480px; 
+    overflow: hidden;
+}
+
+.mention-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mentions-content {
+    position: relative;
+    margin-top: -220px; /* Pulls the box up over the image */
+    z-index: 5;
+}
+
+/* 5. The White Box (Left Column) */
+.mentions .col-md-9 {
+    background-color: #ffffff;
+    /* Extra padding to match the 'Terms' positioning in the screenshot */
+    padding: 100px 5% 100px 10%; 
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* 6. Typography */
+.relative-container h2 {
+    font-size: 3.2rem;
+    color: #001d4a; /* Specific Navy Blue */
+    font-weight: 500;
+    margin-bottom: 45px;
+    letter-spacing: -0.5px;
+}
+
+/* Paragraph styling based on the image text */
+.relative-container p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #2c3e50;
+    max-width: 540px; /* Forces text to wrap exactly like the image */
+    margin-bottom: 1.5rem;
+}
+
+/* The bold link with the thick underline */
+.relative-container a {
+    color: #001d4a;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid #001d4a;
+    padding-bottom: 1px;
+    transition: opacity 0.2s;
+}
+
+.relative-container a:hover {
+    opacity: 0.8;
+}
+
+
+.mention-left{
+    background-color: #917e7e;
+    display: block;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 767px) {
+    .mentions-content {
+        margin-top: -120px;
+    }
+    .mentions .col-md-9 {
+        padding: 60px 30px;
+        min-height: auto;
+    }
+    .relative-container h2 {
+        font-size: 2.2rem;
+    }
+}
+
+
+.mentions-section {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+}
+.mentions-img img {
+    width: 100%;
+    height: 480px; 
+    overflow: hidden;
+}
+
+.mentions-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.mentions-section {
+    overflow-x: hidden;
+}
+.mentions-content {
+    display: flex;
+    align-items: stretch;
+}
+
+
+.mentions-left {
+    padding: 100px;
+    margin-top: -300px; 
+    background-color: #ffffff !important;
+    position: relative;
+    z-index: 10;
+    height: 100%; 
+}
+
+.mentions-right {
+    padding: 100px;
+    background-color: #cfc7c7;
+    height: 100%;
+    width: 100%;
+}
+
+.col-md-4 {
+    position: relative;
+}
+
+.mentions-right {
+    margin-right: -100vw;
+    padding-right: 100vw;
+}
