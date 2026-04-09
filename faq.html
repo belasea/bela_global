@@ -92,86 +92,129 @@
         </div>
         <!--=== Others Section ====-->
 
-        
-        
-        <div class="container py-5">
-            <h4 class="text-center fw-bold mb-4">Questions ?</h4>
-            <hr>
-            <div class="row">
-            
-                <div class="col-md-4">
-                    <ul class="sidebar-nav">
-                        <li class="active">General information</li>
-                        <li>Our products</li>
-                    </ul>
-                </div>
-
-                <div class="col-md-8">
-                    <h2 class="accordion-title">General information</h2>
+        <section class="faq-wrapper bg-white py-5">
+            <div class="container">
+                <div class="row justify-content-center align-items-start">
                     
-                    <div class="accordion" id="faqAccordion">
+                    <div class="col-lg-3 mt-lg-5">
+                        <ul class="faq-nav">
+                            <li>
+                                <a href="javascript:void(0)" class="faq-nav-item active" onclick="switchFaq(event, 'general')">General information</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" class="faq-nav-item" onclick="switchFaq(event, 'products')">Our products</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-7 offset-lg-1">
                         
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
-                                    I can't find my product anywhere. What should I do?
-                                </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    You can use our store locator on the website or contact our customer service team to find the nearest authorized retailer in your area.
+                        <div id="general" class="faq-content-section active">
+                            <div class="accordion accordion-flush" id="accGeneral">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#gen1">
+                                            I would like to be an influencer for the brand. How should I go about this?
+                                        </button>
+                                    </h2>
+                                    <div id="gen1" class="accordion-collapse collapse show" data-bs-parent="#accGeneral">
+                                        <div class="accordion-body">
+                                            Contact our PR team via the dedicated collaboration form.
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Item 2-->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#gen2">
+                                            How can I apply for an internship?
+                                        </button>
+                                    </h2>
+                                    <div id="gen2" class="accordion-collapse collapse" data-bs-parent="#accGeneral">
+                                        <div class="accordion-body">
+                                            Check our LinkedIn page or send a direct inquiry to HR.
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Item3-->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#gen3">
+                                            How can I apply for an internship?
+                                        </button>
+                                    </h2>
+                                    <div id="gen3" class="accordion-collapse collapse" data-bs-parent="#accGeneral">
+                                        <div class="accordion-body">
+                                            Check our LinkedIn page or send a direct inquiry to HR.
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Item3-->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#gen4">
+                                            How can I apply for an internship?
+                                        </button>
+                                    </h2>
+                                    <div id="gen4" class="accordion-collapse collapse" data-bs-parent="#accGeneral">
+                                        <div class="accordion-body">
+                                            Check our LinkedIn page or send a direct inquiry to HR.
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
-                                    I tried contacting your company but I'm still waiting for a response.
-                                </button>
-                            </h2>
-                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    We aim to respond to all inquiries within 48 business hours. Please check your spam folder or feel free to reach out again if you haven't heard back.
+                        <div id="products" class="faq-content-section">
+                            <div class="accordion accordion-flush" id="accProducts">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#prod1">
+                                            Are Isispharma's products vegan?
+                                        </button>
+                                    </h2>
+                                    <div id="prod1" class="accordion-collapse collapse" data-bs-parent="#accProducts">
+                                        <div class="accordion-body">Most of our formulas are vegan, but please check the specific product label.</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
-                                    I would like to be an influencer for the brand or set up a collaboration with Isispharma. How should I go about this?
-                                </button>
-                            </h2>
-                            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    Please send your media kit and social media links to our marketing department via our contact form under the "Collaboration" subject line.
+                                <!-- products2 -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#prod2">
+                                            Are products tested on animals?
+                                        </button>
+                                    </h2>
+                                    <div id="prod2" class="accordion-collapse collapse" data-bs-parent="#accProducts">
+                                        <div class="accordion-body">
+                                            No, we strictly adhere to European regulations banning animal testing.
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
-                                    How can I apply for an internship at Isispharma?
-                                </button>
-                            </h2>
-                            <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    All our current openings and internship opportunities are listed on our Careers page. You can submit your CV directly through the portal.
+                                <!-- products3 -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#prod3">
+                                            Are products tested on animals?
+                                        </button>
+                                    </h2>
+                                    <div id="prod3" class="accordion-collapse collapse" data-bs-parent="#accProducts">
+                                        <div class="accordion-body">
+                                            No, we strictly adhere to European regulations banning animal testing.
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive">
-                                    I would like to become a distributor for Isispharma's products. What steps do I need to take?
-                                </button>
-                            </h2>
-                            <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    We are always looking for professional partners. Please fill out our B2B inquiry form with your company details, and our sales team will contact you.
+                                <!-- products4 -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#prod4">
+                                            Are products tested on animals?
+                                        </button>
+                                    </h2>
+                                    <div id="prod4" class="accordion-collapse collapse" data-bs-parent="#accProducts">
+                                        <div class="accordion-body">
+                                            No, we strictly adhere to European regulations banning animal testing.
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -179,7 +222,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+        
       
     </section>
 
@@ -206,8 +250,8 @@
 
             <div class="row align-items-center gy-4">
                 <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-start gap-4">
-                    <a href="#" class="text-white text-decoration-none fw-bold small">Contact</a>
-                    <a href="#" class="text-white text-decoration-none fw-bold small">FAQ</a>
+                    <a href="contact.html" class="text-white text-decoration-none fw-bold small">Contact</a>
+                    <a href="faq.html" class="text-white text-decoration-none fw-bold small">FAQ</a>
                 </div>
                 
                 <div class="col-12 col-md-4 text-center">

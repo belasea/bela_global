@@ -239,3 +239,24 @@ if (scrollContainer) {
     });
   });
 }
+
+/*===========================================================
+  FAQ Section
+===========================================================*/
+function switchFaq(event, sectionId) {
+  // 1. Remove active class from all nav items
+  document.querySelectorAll('.faq-nav-item').forEach(item => {
+      item.classList.remove('active');
+  });
+
+  // 2. Add active class to clicked item
+  event.currentTarget.classList.add('active');
+
+  // 3. Hide all content sections
+  document.querySelectorAll('.faq-content-section').forEach(section => {
+      section.classList.remove('active');
+  });
+
+  // 4. Show the target section
+  document.getElementById(sectionId).classList.add('active');
+}
