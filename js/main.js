@@ -40,12 +40,17 @@ document.addEventListener("DOMContentLoaded", function () {
    */
   const dropdown = document.querySelector(".dropdown-parent");
   if (dropdown) {
-    dropdown.addEventListener("click", function (e) {
-      if (window.innerWidth < 992) {
-        e.preventDefault(); // Prevents top-level link navigation on mobile
-        this.classList.toggle("active");
-      }
-    });
+    // Only the top-level nav-link should toggle the dropdown
+    const dropdownToggle = dropdown.querySelector(":scope > .nav-link");
+    if (dropdownToggle) {
+      dropdownToggle.addEventListener("click", function (e) {
+        if (window.innerWidth < 992) {
+          e.preventDefault(); // Prevents top-level link navigation on mobile
+          e.stopPropagation(); // Don't bubble to parent
+          dropdown.classList.toggle("active");
+        }
+      });
+    }
   }
 
   /**
@@ -233,4 +238,25 @@ if (scrollContainer) {
       }
     });
   });
+}
+
+/*===========================================================
+  FAQ Section
+===========================================================*/
+function switchFaq(event, sectionId) {
+  // 1. Remove active class from all nav items
+  document.querySelectorAll('.faq-nav-item').forEach(item => {
+      item.classList.remove('active');
+  });
+
+  // 2. Add active class to clicked item
+  event.currentTarget.classList.add('active');
+
+  // 3. Hide all content sections
+  document.querySelectorAll('.faq-content-section').forEach(section => {
+      section.classList.remove('active');
+  });
+
+  // 4. Show the target section
+  document.getElementById(sectionId).classList.add('active');
 }

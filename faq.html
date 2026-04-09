@@ -92,36 +92,137 @@
         </div>
         <!--=== Others Section ====-->
 
-        <div class="mentions-section">
-            <div class="mentions-img">
-                <img src="img/mentions/mentions.jpg" alt="Header Image">
-            </div>
-            <div class="mentions-content">
-                <div class="row g-0"> <div class="col-md-8">
-                        <div class="mentions-left">
-                            <h4 class="text-center fw-bold mb-4">Terms</h4>
-                            <hr>
-                            <p>
-                                We would like to welcome you, the users, to the website of Laboratoire ISISPHARMA. The website is accessible at this address http://www.isispharma.fr/  and has been developed for the company ISISPHARMA FRANCE.
-                            </p>
-                            <p>
-                                These terms and conditions (hereinafter referred to as ‘Terms’) govern the relationship between all website users (hereinafter referred to as the “User”) and the website “Isispharma.fr”, hereinafter referred to as the “Website” or “Isispharma.fr”, used by the company ISISPHARMA FRANCE.
-                            </p>
-                            <p>
-                                We would like to welcome you, the users, to the website of Laboratoire ISISPHARMA. The website is accessible at this address http://www.isispharma.fr/  and has been developed for the company ISISPHARMA FRANCE.
-                            </p>
-                            <p>
-                                These terms and conditions (hereinafter referred to as ‘Terms’) govern the relationship between all website users (hereinafter referred to as the “User”) and the website “Isispharma.fr”, hereinafter referred to as the “Website” or “Isispharma.fr”, used by the company ISISPHARMA FRANCE.
-                            </p>
-                        </div>
+        <section class="faq-wrapper bg-white py-5">
+            <div class="container">
+                <div class="row justify-content-center align-items-start">
+                    
+                    <div class="col-lg-3 mt-lg-5">
+                        <ul class="faq-nav">
+                            <li>
+                                <a href="javascript:void(0)" class="faq-nav-item active" onclick="switchFaq(event, 'general')">General information</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" class="faq-nav-item" onclick="switchFaq(event, 'products')">Our products</a>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="col-md-4">
-                        <div class="mentions-right">
+
+                    <div class="col-lg-7 offset-lg-1">
+                        
+                        <div id="general" class="faq-content-section active">
+                            <div class="accordion accordion-flush" id="accGeneral">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#gen1">
+                                            I would like to be an influencer for the brand. How should I go about this?
+                                        </button>
+                                    </h2>
+                                    <div id="gen1" class="accordion-collapse collapse show" data-bs-parent="#accGeneral">
+                                        <div class="accordion-body">
+                                            Contact our PR team via the dedicated collaboration form.
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Item 2-->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#gen2">
+                                            How can I apply for an internship?
+                                        </button>
+                                    </h2>
+                                    <div id="gen2" class="accordion-collapse collapse" data-bs-parent="#accGeneral">
+                                        <div class="accordion-body">
+                                            Check our LinkedIn page or send a direct inquiry to HR.
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Item3-->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#gen3">
+                                            How can I apply for an internship?
+                                        </button>
+                                    </h2>
+                                    <div id="gen3" class="accordion-collapse collapse" data-bs-parent="#accGeneral">
+                                        <div class="accordion-body">
+                                            Check our LinkedIn page or send a direct inquiry to HR.
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Item3-->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#gen4">
+                                            How can I apply for an internship?
+                                        </button>
+                                    </h2>
+                                    <div id="gen4" class="accordion-collapse collapse" data-bs-parent="#accGeneral">
+                                        <div class="accordion-body">
+                                            Check our LinkedIn page or send a direct inquiry to HR.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+                        <div id="products" class="faq-content-section">
+                            <div class="accordion accordion-flush" id="accProducts">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#prod1">
+                                            Are Isispharma's products vegan?
+                                        </button>
+                                    </h2>
+                                    <div id="prod1" class="accordion-collapse collapse" data-bs-parent="#accProducts">
+                                        <div class="accordion-body">Most of our formulas are vegan, but please check the specific product label.</div>
+                                    </div>
+                                </div>
+                                <!-- products2 -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#prod2">
+                                            Are products tested on animals?
+                                        </button>
+                                    </h2>
+                                    <div id="prod2" class="accordion-collapse collapse" data-bs-parent="#accProducts">
+                                        <div class="accordion-body">
+                                            No, we strictly adhere to European regulations banning animal testing.
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- products3 -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#prod3">
+                                            Are products tested on animals?
+                                        </button>
+                                    </h2>
+                                    <div id="prod3" class="accordion-collapse collapse" data-bs-parent="#accProducts">
+                                        <div class="accordion-body">
+                                            No, we strictly adhere to European regulations banning animal testing.
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- products4 -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#prod4">
+                                            Are products tested on animals?
+                                        </button>
+                                    </h2>
+                                    <div id="prod4" class="accordion-collapse collapse" data-bs-parent="#accProducts">
+                                        <div class="accordion-body">
+                                            No, we strictly adhere to European regulations banning animal testing.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
         
       
     </section>
@@ -134,13 +235,11 @@
                      <p class="text-uppercase small tracking-wider mb-3 mb-md-4 px-2">
                         Made in France
                     </p>
-                    <h2 class="fw-light mb-4 px-2">
+                    <h2 class="display-6 fw-light mb-4 px-2">
                         Isispharma is a French laboratory that formulates dermatological skincare products 
                         that are accessible and provide real results to preserve and restore your skin’s natural balance.
                     </h2>
-                    <a href="#" class="text-white text-decoration-underline small opacity-75">
-                         laboratory
-                    </a>
+                    <a href="#" class="text-white text-decoration-underline small opacity-75">The laboratory</a>
                 </div>
                 <div class="col offset-lg-2 py-4 py-md-5">
                    

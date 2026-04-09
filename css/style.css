@@ -5,6 +5,11 @@
     --text-gray: #6c757d;
 }
 
+a{
+    text-decoration: none;
+    color: #000;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: var(--brand-dark);
@@ -900,6 +905,66 @@ Responsive Wrapper
     }
 }
 
+/*==============================
+Accordion Customization 
+===================================*/
+.faq-wrapper {
+    min-height: 80vh; /* Helps with vertical centering */
+    display: flex;
+    align-items: center; /* Vertical Center */
+}
+
+.faq-nav {
+    list-style: none;
+    padding-left: 0;
+}
+
+.faq-nav-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    color: rgba(0, 18, 46, 0.4);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.faq-nav-item::before {
+    content: "—";
+    margin-right: 15px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Active & Hover States */
+.faq-nav-item:hover, .faq-nav-item.active {
+    color: #00122e;
+}
+
+.faq-nav-item.active::before {
+    opacity: 1;
+}
+
+/* Hide sections by default */
+.faq-content-section {
+    display: none;
+}
+
+.faq-content-section.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Accordion Refinement */
+.accordion-item { border: none; border-bottom: 1px solid #e9ecef !important; }
+.accordion-button { padding: 25px 0; background: none !important; box-shadow: none !important; color: #00122e !important; }
+    
 /*================================
 Terms Styles 
 ==================================*/
@@ -1084,5 +1149,94 @@ Terms Styles
     box-shadow: 0 6px 20px rgba(0, 18, 41, 0.4);
 }
 
+/*==================================
+    SUB CATEGORY
+===================================*/
+.sub-category {
+    background: linear-gradient(to right, #ffffff 50%, #fdfaf7 50%);
+    min-height: 100vh;
+    display: flex;
+}
+
+.sub-category-left {
+    background: #ffffff;
+}
+
+.sub-category-content{
+    padding: 100px;
+    margin-top: 100px;
+}
+
+/* --- Header Section --- */
+.sub-category-header {
+    color: #b33d45;
+    font-size: 3.5rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 3px;
+}
+
+.sub-category-subheading {
+    color: #b33d45;
+    margin-bottom: 40px;
+}
+
+.description-text p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    max-width: 480px;
+}
+
+/* Container spacing */
+.sub-category-right {
+    /* padding: 80px 0;  */
+    margin-top: 130px;
+}
+
+/* Base image styling */
+.img-left img, 
+.img-right img {
+    width: 100%; 
+    max-width: 300px; 
+    height: auto; 
+    aspect-ratio: 3 / 4; 
+    object-fit: cover; 
+    display: block;
+    background-color: #f4e0e1; 
+    border-radius: 4px;
+}
+
+/* Desktop specific alignment (Staggered Effect) */
+@media (min-width: 768px) {
+    .img-left img {
+        margin-left: -50px;
+    }
+
+    .img-right {
+        margin-top: 150px;
+    }
+
+    .img-right img {
+        margin-left: -50px;
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+    .sub-category-right {
+        padding: 50px 0;
+    }
+    
+    .img-right {
+        margin-top: 0; /* Remove the gap on mobile so they flow naturally */
+    }
+    
+    .img-left img, 
+    .img-right img {
+        margin-left: 0;
+        margin: 0 auto 20px auto; /* Center images and add bottom spacing */
+    }
+}
 
 
