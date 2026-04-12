@@ -1156,10 +1156,12 @@ Terms Styles
     background: linear-gradient(to right, #ffffff 50%, #fdfaf7 50%);
     min-height: 100vh;
     display: flex;
+    
 }
 
 .sub-category-left {
     background: #ffffff;
+    margin-bottom: 100px;
 }
 
 .sub-category-content{
@@ -1192,6 +1194,7 @@ Terms Styles
 .sub-category-right {
     /* padding: 80px 0;  */
     margin-top: 130px;
+    margin-bottom: 100px;
 }
 
 /* Base image styling */
@@ -1205,6 +1208,7 @@ Terms Styles
     display: block;
     background-color: #f4e0e1; 
     border-radius: 4px;
+    
 }
 
 /* Desktop specific alignment (Staggered Effect) */
@@ -1240,3 +1244,418 @@ Terms Styles
 }
 
 
+
+/* Container Background & Padding */
+.product-details-section {
+    background-color: #e6f2f4;
+    padding: 100px 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Header Typography */
+.product-details-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.details-title-large {
+    color: #006b76;
+    font-size: 4.5rem;
+    letter-spacing: 15px;
+    font-weight: 300;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.details-subtitle {
+    color: #002d4b;
+    font-size: 2.8rem;
+    font-weight: 500;
+    margin-top: -15px;
+}
+
+/* Product Image Styling */
+.product-main-img {
+    max-width: 300px;
+    height: auto;
+    /* Soft shadow to match the airy feel */
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.08));
+}
+
+/* Content Box Styling */
+.product-info-box {
+    padding-left: 30px;
+}
+
+.badge-new {
+    display: inline-block;
+    border: 1.5px solid #006b76;
+    color: #006b76;
+    padding: 4px 22px;
+    font-size: 0.85rem;
+    text-transform: capitalize;
+    margin-bottom: 25px;
+    border-radius: 2px;
+}
+
+.product-main-title {
+    color: #006b76;
+    font-size: 1.85rem;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 12px;
+}
+
+.product-category-title {
+    color: #002d4b;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.product-action-text {
+    color: #8fa5ac;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 35px;
+}
+
+
+/* Icon Circles */
+.usage-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.icon-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1.5px solid #006b76;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.icon-circle i {
+    font-size: 20px;
+}
+
+/* Hover effect for a little extra polish */
+.icon-circle:hover {
+    background-color: #006b76;
+    color: white;
+}
+
+.add-to-cart {
+    background-color: #006b76;
+    color: #ffffff;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px rgba(0, 107, 118, 0.15);
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Hover State - The "Pro" Secret */
+.add-to-cart:hover {
+    background-color: #00565e;
+    color: #ffffff;
+    transform: translateY(-2px); 
+    box-shadow: 0 7px 14px rgba(0, 107, 118, 0.25);
+}
+
+.add-to-cart:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 107, 118, 0.2);
+}
+
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .details-title-large {
+        font-size: 2.5rem;
+        letter-spacing: 5px;
+    }
+    .details-subtitle {
+        font-size: 1.8rem;
+    }
+    .product-info-box {
+        padding-left: 0;
+        text-align: center;
+        margin-top: 40px;
+    }
+    .usage-icons {
+        justify-content: center ;
+    }
+}
+/* ==========================================
+   PRODUCT INFO CARD (White/Light Grey Card)
+   ========================================== */
+.product-info-card {
+    margin-top: 50px;
+    background-color: #f4f1f1 !important; /* Soft grey background */
+    padding: 45px;
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+    
+}
+
+.size-tag {
+    background-color: #ebf1f5;
+    color: #a4b4bc;
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 25px;
+}
+
+.main-desc {
+    color: #002d4b;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    margin-bottom: 35px;
+    font-weight: 500;
+}
+
+.info-accordion {
+    border-top: 1px solid #edf2f5;
+}
+
+.acc-item {
+    border-bottom: 1px solid #edf2f5;
+}
+
+.acc-header {
+    padding: 22px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #002d4b;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    cursor: pointer;
+}
+
+.acc-body {
+    padding-bottom: 25px;
+}
+
+.ingredients-list {
+    color: #8fa5ac;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 15px;
+}
+
+.chevron {
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #a4b4bc;
+    border-bottom: 2px solid #a4b4bc;
+    display: inline-block;
+}
+
+.chevron.down { transform: rotate(45deg); }
+.chevron.up { transform: rotate(-135deg); border-color: #002d4b; }
+
+/* ==========================================
+   MAIN ASSETS SECTION (Scientific Section)
+   ========================================== */
+.main-assets-section {
+    background-color: #f6f6f6;
+    padding: 100px 0;
+    overflow: hidden;
+    overflow: hidden;
+}
+
+.assets-title {
+    color: #002d4b;
+    font-size: 3rem;
+    font-weight: 500;
+    margin-bottom: 60px;
+}
+
+.asset-name {
+    color: #002d4b;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.asset-label {
+    color: #006b76;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.asset-description {
+    color: #002d4b;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 500px;
+}
+
+.assets-image-wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.assets-main-img {
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05));
+}
+
+/* ==========================================
+   RESPONSIVE FIXES
+   ========================================== */
+@media (max-width: 768px) {
+    .product-info-card {
+        padding: 25px;
+    }
+    .main-assets-section {
+        padding: 60px 0;
+        text-align: center;
+    }
+    .assets-image-wrapper {
+        justify-content: center;
+        margin-top: 40px;
+    }
+    .asset-name {
+        flex-direction: column;
+    }
+}
+
+.experience-section {
+    background-color: #ffffff;
+    min-height: 600px;
+    display: flex;
+    overflow: hidden;
+}
+
+/* --- Left Side Decorations --- */
+.decorative-container {
+    height: 600px;
+}
+
+.bg-blue-block {
+    background-color: #94a3b8; /* Steel Blue/Grey */
+    width: 75%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.floating-teal-box {
+    background-color: #d1e2e4; /* Light Teal */
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    right: 15%; /* Overlaps the blue block */
+    top: -150px;
+    z-index: 2;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.wavy-line {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+}
+
+/* --- Right Side Content --- */
+.experience-content {
+    padding: 0 10%;
+}
+
+.sub-title {
+    display: block;
+    color: #002d4b;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.main-brand-title {
+    color: #006b76;
+    font-size: 3.5rem;
+    font-weight: 400;
+    letter-spacing: 8px;
+    margin: 0;
+}
+
+.brand-name {
+    color: #002d4b;
+    font-size: 2.2rem;
+    font-weight: 500;
+    margin-top: -10px;
+    margin-bottom: 40px;
+}
+
+/* Review Links */
+.review-status p {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: #002d4b;
+}
+
+.no-reviews {
+    font-size: 0.85rem !important;
+    margin-bottom: 20px !important;
+}
+
+.experience-content a {
+    color: #8fa5ac;
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+.experience-content a:hover {
+    color: #006b76;
+}
+
+/* --- Mobile Adjustments --- */
+@media (max-width: 768px) {
+    .decorative-container {
+        height: 300px;
+    }
+    .bg-blue-block {
+        width: 100%;
+    }
+    .floating-teal-box {
+        width: 150px;
+        height: 150px;
+        right: 10%;
+    }
+    .experience-content {
+        padding: 50px 20px;
+        text-align: center;
+    }
+    .main-brand-title {
+        font-size: 2.5rem;
+        letter-spacing: 4px;
+    }
+}
