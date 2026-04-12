@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Jayed Hossain Jibon">
+    <meta name='designer' content='Jayed Hossain Jibon'>
+    <title>Checkout - BellaGlobal</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    
+</head>
+<body>
+
+    <!--===== Main Content ====-->
+    <section class="main-content">
+        
+        <!--===== Navbar ====-->
+        <div class="navbar-section">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg">
+                    <div class="container-fluid px-4">
+
+                        <!-- Logo -->
+                        <a class="navbar-brand p-0" href="index.html">
+                            <div class="logo-container">
+                                <div class="logo-main">Thebella</div>
+                                <div class="logo-sub">DERMATOLOGIE</div>
+                                <div class="logo-year">Since 2026</div>
+                            </div>
+                        </a>
+
+                        <!-- Toggle -->
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <!-- Menu -->
+                        <div class="collapse navbar-collapse" id="mainNav">
+                            <div class="ms-auto d-flex flex-column align-items-end">
+
+                                <!-- Utility -->
+                                <div class="utility-box d-none d-lg-block">
+                                    <a href="#" class="lang-link active">EN</a>
+                                    <!-- Search Icon -->
+                                    <a href="javascript:void(0)" class="lang-link ms-2" id="openSearch">
+                                        <i class="bi bi-search"></i>
+                                    </a>
+                                     <!--===== Search Overlay ====-->
+                                    <div class="search-overlay" id="searchOverlay">
+                                        <div class="search-box container">
+                                            <input type="text" placeholder="Search for products, skin concerns...">
+                                            <button class="close-search" id="closeSearch">&times;</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Nav Links -->
+                                <ul class="navbar-nav">
+                                    <li class="nav-item dropdown-parent">
+                                        <a class="nav-link" href="#">Your skin</a>
+                                        <!-- Dropdown -->
+                                        <div class="dropdown-menu-custom">
+                                            <ul>
+                                                <li><a href="#">Irritated and damaged skin</a></li>
+                                                <li><a href="#">Scaly skin and hyperkeratosis</a></li>
+                                                <li><a href="#">Sun protection</a></li>
+                                                <li><a href="#">Dry skin</a></li>
+                                                <li><a href="#">Skin ageing</a></li>
+                                                <li><a href="#">Oily and acne-prone skin</a></li>
+                                                <li><a href="#">Pigmentation disorders</a></li>
+                                                <li><a href="#">Scaly scalp</a></li>
+                                                <li><a href="#">Sensitive skin with redness</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" href="#">Our solutions</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#">The laboratory</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="checkout-section py-5">
+            <div class="container mb-5">
+                <h2 class="checkout-title">Checkout</h2>
+                <hr>
+                <form action="#">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <!-- Contact Information -->
+                            <div class="contact-info mb-4">
+                                <h5 class="section-label">Contact Information</h5>
+                                <input type="email" class="form-control custom-input" placeholder="Email Address">
+                            </div>
+                            <!-- Billing Address -->
+                            <div class="billing-address mb-4">
+                                <h5 class="section-label">Shipping Address</h5>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control custom-input" placeholder="First Name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control custom-input" placeholder="Last Name">
+                                    </div>
+                                    <div class="col-12">
+                                        <input type="text" class="form-control custom-input" placeholder="Address">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control custom-input" placeholder="City">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select class="form-select custom-input">
+                                            <option selected>Country</option>
+                                            <option>United Kingdom</option>
+                                            <option>France</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- payment section -->
+                            <div class="payment-section mb-4">
+                                <h3 class="checkout-subtitle">Payment</h3>
+                                <p class="text-muted small mb-3">
+                                    All transactions are secure and encrypted.
+                                </p>
+                                <div class="payment-container border rounded bg-white">
+                                    <div class="payment-option border-bottom p-3 bg-light">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="payment" id="cc" checked>
+                                                <label class="form-check-label fw-bold ms-2" for="cc">Credit card</label>
+                                            </div>
+                                            <div class="payment-icons">
+                                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" height="12" class="me-2">
+                                                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" height="18" class="me-2">
+                                                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" height="15">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="card-details-fields mt-4 px-2">
+                                            <div class="mb-3 position-relative">
+                                                <input type="text" class="form-control custom-input" placeholder="Card number">
+                                                <i class="fa-solid fa-lock position-absolute top-50 end-0 translate-middle-y me-3 text-muted"></i>
+                                            </div>
+                                            <div class="row g-2">
+                                                <div class="col-md-6 mb-3">
+                                                    <input type="text" class="form-control custom-input" placeholder="Expiration date (MM / YY)">
+                                                </div>
+                                                <div class="col-md-6 mb-3 position-relative">
+                                                    <input type="text" class="form-control custom-input" placeholder="Security code">
+                                                    <i class="fa-solid fa-circle-question position-absolute top-50 end-0 translate-middle-y me-3 text-muted"></i>
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control custom-input mb-3" placeholder="Name on card">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="billSame" checked>
+                                                <label class="form-check-label small" for="billSame">
+                                                    Use shipping address as billing address
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="policy-text mt-4 small text-muted">
+                                    By clicking "Pay now", you agree to the 
+                                    <a href="#" class="text-dark">
+                                        Terms of Use
+                                    </a>.
+                                </div>
+                                <a href="checkout_success.html" class="btn btn-pay-now-black w-100 py-3 mt-3">
+                                    Pay now
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="order-summary-box shadow-sm">
+                                <h5 class="section-label border-bottom pb-3">
+                                    Order Summary
+                                </h5>
+                                <div class="discount-box d-flex gap-2 mt-4 mb-4">
+                                    <input type="text" class="form-control custom-input" placeholder="Discount code">
+                                    <button class="btn btn-secondary px-4">Apply</button>
+                                </div>
+
+                                <div class="summary-totals">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-muted">Subtotal</span>
+                                        <span class="fw-bold">$24.00</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-muted">Shipping</span>
+                                        <span class="text-success small">Free</span>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="h5 mb-0 fw-bold">Total</span>
+                                        <span class="h4 mb-0 fw-bold">$24.00</span>
+                                    </div>
+                                </div>
+                                <p class="security-note text-center mt-4 text-muted small">
+                                    <i class="fa-solid fa-shield-halved me-1"></i> 
+                                    Secure 256-bit SSL Encrypted Payment
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </section>
+
+    <!--============ Footer Section ===========-->
+    <footer class="bg-navy text-white pt-5 pb-4">
+        <div class="container">
+            <div class="row">
+                <div class="col py-4 py-md-5">
+                     <p class="text-uppercase small tracking-wider mb-3 mb-md-4 px-2">
+                        Made in France
+                    </p>
+                    <h2 class="display-6 fw-light mb-4 px-2">
+                        Isispharma is a French laboratory that formulates dermatological skincare products 
+                        that are accessible and provide real results to preserve and restore your skin’s natural balance.
+                    </h2>
+                    <a href="#" class="text-white text-decoration-underline small opacity-75">The laboratory</a>
+                </div>
+                <div class="col offset-lg-2 py-4 py-md-5">
+                   
+                </div>
+            </div>
+
+            <hr class="border-secondary my-4 my-md-5">
+
+            <div class="row align-items-center gy-4">
+                <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-start gap-4">
+                    <a href="#" class="text-white text-decoration-none fw-bold small">Contact</a>
+                    <a href="#" class="text-white text-decoration-none fw-bold small">FAQ</a>
+                </div>
+                
+                <div class="col-12 col-md-4 text-center">
+                    <div class="d-flex justify-content-center gap-4 fs-5">
+                        <a href="#" class="text-white opacity-50 social-icon">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="#" class="text-white opacity-50 social-icon">
+                            <i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white opacity-50 social-icon">
+                            <i class="bi bi-twitter-x"></i>
+                        </a>
+                        <a href="#" class="text-white opacity-50 social-icon">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4 text-center text-md-end">
+                    <span class="fst-italic opacity-50 small">#togetherformyskin</span>
+                </div>
+            </div>
+
+            <div class="row mt-5 pt-4 border-top-refined small gy-3 text-center text-md-start footer-link-container">
+                <div class="col-12 col-md-9 d-flex flex-wrap justify-content-center justify-content-md-start gap-3 gap-md-4">
+                    <span class="copyright-text w-100 w-md-auto mb-2 mb-md-0">
+                        © THEBELLA 2026
+                    </span>
+                    <a href="#" class="footer-link">Legal Notice</a>
+                    <a href="#" class="footer-link">Terms</a>
+                    <a href="#" class="footer-link">Personal Data Policy</a>
+                    <a href="#" class="footer-link">Cookie Policy</a>
+                </div>
+
+                <div class="col-12 col-md-3 text-center text-md-end">
+                    <a href="#" class="footer-link">
+                        International <i class="bi bi-globe ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- Jump to Top Button -->
+    <button id="jumpToTop" class="jump-to-top-btn" aria-label="Jump to top">
+        <i class="bi bi-chevron-up"></i>
+    </button>
+   
+</body>
+</html>
