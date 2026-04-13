@@ -6,15 +6,12 @@
     <meta name="author" content="Jayed Hossain Jibon">
     <meta name='designer' content='Jayed Hossain Jibon'>
     <title>Home - BellaGlobal</title>
-    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/responsive.css">
     
 </head>
@@ -81,8 +78,20 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    <li class="nav-item"><a class="nav-link" href="#">Our solutions</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#">The laboratory</a></li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Our solutions</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">The laboratory</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Blog</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="cart.html">
+                                            <i class="fa-solid fa-cart-shopping me-2"></i>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -94,21 +103,23 @@
         <!--===== Slider ====-->
         <div class="slider-section">
             <div id="isisSlider" class="carousel slide hero-slider" data-bs-ride="carousel" data-bs-interval="5000">
-                
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#isisSlider" data-bs-slide-to="0" class="active"></button>
                     <button type="button" data-bs-target="#isisSlider" data-bs-slide-to="1"></button>
                     <button type="button" data-bs-target="#isisSlider" data-bs-slide-to="2"></button>
                 </div>
-
                 <div class="carousel-inner">
                     <div class="carousel-item active slide-light-gray">
                         <div class="container-fluid">
                             <div class="slider-container">
                                 <div class="slider-text-side">
                                     <div class="slider-label">New</div>
-                                    <h1 class="slider-title">Repairing has never been this easy.</h1>
-                                    <p class="slider-subtitle">Your daily SOS reflex, precisely formulated for fast, safe and pleasant skin recovery.</p>
+                                    <h1 class="slider-title">
+                                        Repairing has never been this easy.
+                                    </h1>
+                                    <p class="slider-subtitle">
+                                        Your daily SOS reflex, precisely formulated for fast, safe and pleasant skin recovery.
+                                    </p>
                                     <a href="#" class="btn btn-learn-more">LEARN MORE</a>
                                 </div>
                                 <div class="slider-image-side">
@@ -117,14 +128,17 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="carousel-item slide-light-gray">
                         <div class="container-fluid">
                             <div class="slider-container reverse">
                                 <div class="slider-text-side">
                                     <div class="slider-label">New</div>
-                                    <h1 class="slider-title">Cicapro Cream: precisely formulated to repair and soothe.</h1>
-                                    <p class="slider-subtitle">Expert care for everyday skin irritations.</p>
+                                    <h1 class="slider-title">
+                                        Cicapro Cream: precisely formulated to repair and soothe.
+                                    </h1>
+                                    <p class="slider-subtitle">
+                                        Expert care for everyday skin irritations.
+                                    </p>
                                     <a href="#" class="btn btn-learn-more">LEARN MORE</a>
                                 </div>
                                 <div class="slider-image-side">
@@ -140,8 +154,12 @@
                                 <div class="slider-text-side">
                                     <div class="slider-label">Essentials</div>
                                     <h1 class="slider-title">Complete protection for your skin.</h1>
-                                    <p class="slider-subtitle">Advanced dermatological solutions for your daily routine.</p>
-                                    <a href="#" class="btn btn-learn-more">LEARN MORE</a>
+                                    <p class="slider-subtitle">
+                                        Advanced dermatological solutions for your daily routine.
+                                    </p>
+                                    <a href="#" class="btn btn-learn-more">
+                                        LEARN MORE
+                                    </a>
                                 </div>
                                 <div class="slider-image-side">
                                     <img src="img/cosrx.png" alt="Product Image">
@@ -150,7 +168,6 @@
                         </div>
                     </div>
                 </div>
-
                 <button class="carousel-control-prev" type="button" data-bs-target="#isisSlider" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" style="filter: invert(1);"></span>
                 </button>
@@ -164,24 +181,26 @@
         <div class="sidebar-nav-item">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3 d-md-flex align-items-md-center justify-content-md-center">
-                        <ul class="nav flex-column sidebar-nav w-100" id="sidebarMenu">
-                            <li class="nav-item">
-                                <a class="sidebar-link nav-link active" href="#" data-target="group-new">
-                                    <span class="line"></span> New
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="sidebar-link nav-link" href="#" data-target="group-essentials">
-                                    <span class="line"></span> Essentials
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="sidebar-link nav-link" href="#" data-target="group-star">
-                                    <span class="line"></span> Star products
-                                </a>
-                            </li>
-                        </ul>
+                    <div class="col-md-3">
+                        <div class="sidebarNavbarMenu">
+                            <ul class="nav flex-column sidebar-nav w-100" id="sidebarMenu">
+                                <li class="nav-item">
+                                    <a class="sidebar-link nav-link active" href="#" data-target="group-new">
+                                        <span class="line"></span> New
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="sidebar-link nav-link" href="#" data-target="group-essentials">
+                                        <span class="line"></span> Essentials
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="sidebar-link nav-link" href="#" data-target="group-star">
+                                        <span class="line"></span> Star products
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="col-md-9">
                         <div class="product-scroll-area" id="scrollContainer">
@@ -189,45 +208,45 @@
                                 <div class="product-group d-flex" id="group-new">
                                     <div class="product-item">
                                         <div class="product-card bg-pink">
-                                            <a href="category.html">
-                                                <img src="img/salicylic.png" alt="Product">
-                                            </a>
+                                            <img src="img/salicylic.png" class="img-fluid" alt="Product">
                                             <div class="product-info">
-                                                <h5 class="brand-name text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
+                                                <a href="category.html">
+                                                    <h5 class="text-danger">RUBORIL</h5>
+                                                    <p class="description">New Arrival Item 1</p>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-item">
                                         <div class="product-card bg-pink">
-                                            <a href="category.html">
-                                                <img src="img/cosrx.png" alt="Product">
-                                            </a>
+                                            <img src="img/cosrx.png" class="img-fluid" alt="Product">
                                             <div class="product-info">
-                                                <h5 class="brand-name text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
+                                                <a href="category.html">
+                                                    <h5 class="text-danger">RUBORIL</h5>
+                                                    <p class="description">New Arrival Item 1</p>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-item">
                                         <div class="product-card bg-pink">
-                                            <a href="category.html">
-                                                <img src="img/low.png" alt="Product">
-                                            </a>
+                                            <img src="img/low.png" class="img-fluid" alt="Product">
                                             <div class="product-info">
-                                                <h5 class="brand-name text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
+                                                <a href="category.html">
+                                                    <h5 class="text-danger">RUBORIL</h5>
+                                                    <p class="description">New Arrival Item 1</p>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-item">
                                         <div class="product-card bg-pink">
-                                            <a href="category.html">
-                                                <img src="img/aqua.webp" alt="Product">
-                                            </a>
+                                            <img src="img/aqua.webp" class="img-fluid" alt="Product">
                                             <div class="product-info">
-                                                <h5 class="brand-name text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
+                                                <a href="category.html">
+                                                    <h5 class="text-danger">RUBORIL</h5>
+                                                    <p class="description">New Arrival Item 1</p>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -235,93 +254,90 @@
                                 <div class="product-group d-flex" id="group-essentials">
                                     <div class="product-item">
                                         <div class="product-card bg-mint">
-                                            <a href="category.html">
-                                                <img src="img/salicylic.png" alt="Product">
-                                            </a>
+                                            <img src="img/salicylic.png" class="img-fluid" alt="Product">
                                             <div class="product-info">
-                                                <h5 class="brand-name text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
+                                                <a href="category.html">
+                                                    <h5 class="text-danger">RUBORIL</h5>
+                                                    <p class="description">New Arrival Item 1</p>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-item">
                                         <div class="product-card bg-mint">
-                                            <img src="img/cosrx.png" alt="Product">
-                                            <a href="category.html">
-                                                <img src="img/salicylic.png" alt="Product">
-                                            </a>
+                                            <img src="img/cosrx.png" class="img-fluid" alt="Product">
                                             <div class="product-info">
-                                                <h5 class="brand-name text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
+                                                <a href="category.html">
+                                                    <h5 class="text-danger">RUBORIL</h5>
+                                                    <p class="description">New Arrival Item 1</p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-item">
+                                        <div class="product-card bg-mint">
+                                            <img src="img/low.png" class="img-fluid" alt="Product">
+                                            <div class="product-info">
+                                                <a href="category.html">
+                                                    <h5 class="text-danger">RUBORIL</h5>
+                                                    <p class="description">New Arrival Item 1</p>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-item">
                                         <div class="product-card bg-mint">
                                             <a href="category.html">
-                                                <img src="img/low.png" alt="Product">
+                                                <img src="img/aqua.webp" class="img-fluid" alt="Product">
                                             </a>
                                             <div class="product-info">
-                                                <h5 class="brand-name text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-item">
-                                        <div class="product-card bg-mint">
-                                            <a href="category.html">
-                                                <img src="img/aqua.webp" alt="Product">
-                                            </a>
-                                            <div class="product-info">
-                                                <h5 class="brand-name text-danger">RUBORIL</h5>
+                                                <h5 class="text-danger">RUBORIL</h5>
                                                 <p class="description">New Arrival Item 1</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
+                                <!-- Start -->
                                 <div class="product-group d-flex" id="group-star">
                                     <div class="product-item">
                                         <div class="product-card bg-yellow">
-                                            <a href="category.html">
-                                                <img src="img/salicylic.png" alt="Product">
-                                            </a>
+                                            <img src="img/salicylic.png" class="img-fluid" alt="Product">
                                             <div class="product-info">
-                                                <h5 class="brand-name text-danger">RUBORIL</h5>
+                                                <h5 class="text-danger">RUBORIL</h5>
                                                 <p class="description">New Arrival Item 1</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-item">
                                         <div class="product-card bg-yellow">
-                                            <a href="category.html">
-                                                <img src="img/cosrx.png" alt="Product">
-                                            </a>
+                                            <img src="img/cosrx.png" class="img-fluid" alt="Product">
                                             <div class="product-info">
-                                                <h5 class="brand-name text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
+                                                <a href="category.html">
+                                                    <h5 class="text-danger">RUBORIL</h5>
+                                                    <p class="description">New Arrival Item 1</p>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-item">
                                         <div class="product-card bg-yellow">
-                                            <a href="category.html">
-                                                <img src="img/low.png" alt="Product">
-                                            </a>
+                                            <img src="img/low.png" class="img-fluid" alt="Product">
                                             <div class="product-info">
-                                                <h5 class="brand-name text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
+                                                <a href="category.html">
+                                                    <h5 class="text-danger">RUBORIL</h5>
+                                                    <p class="description">New Arrival Item 1</p>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-item">
                                         <div class="product-card bg-yellow">
-                                            <a href="category.html">
-                                                <img src="img/aqua.webp" alt="Product">
-                                            </a>
+                                            <img src="img/aqua.webp" class="img-fluid" alt="Product">
                                             <div class="product-info">
-                                                <h5 class="brand-name text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
+                                                <a href="category.html">
+                                                    <h5 class="text-danger">RUBORIL</h5>
+                                                    <p class="description">New Arrival Item 1</p>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -345,14 +361,12 @@
             <div class="container">
                 <div class="row align-items-center g-5">
                     <div class="col-md-4">
-                        <div class="stack-container">
-                            <a href="category.html">
+                        <a href="category.html">
+                            <div class="stack-container">
                                 <img src="img/skin/skin1.png" class="pro-img content-a" alt="Skin Care 1">
-                            </a>
-                            <a href="category.html">
                                 <img src="img/skin/pro.png" class="pro-img content-b" alt="Skin Care 2">
-                            </a>
-                        </div>
+                            </div>
+                        </a>
                     </div>
                     <div class="col-md-4 text-center">
                         <div class="circle-icon">
@@ -391,21 +405,24 @@
             <div class="container">
                 <div class="row align-items-center bg-light-soft rounded-4 overflow-hidden p-4 p-md-5">
                     <div class="col-md-6 mb-4 mb-md-0 text-center">
-                        <div class="image-wrapper">
-                            <img src="img/skin/oil.png" class="img-fluid hero-product-img" alt="Skin Oil Product">
+                        <div class="related-skin-img-wrap">
+                            <img src="img/skin/oil.png" class="img-fluid related-skin-img" alt="Skin Oil Product">
                         </div>
                     </div>
-                    
                     <div class="col-md-6 ps-md-5">
                         <div class="review-badge mb-3">
                             <span class="stars">★★★★★</span>
                         </div>
-                        <h2 class="skin-headline mb-4">
+                        <h2 class="related-skin-headline mb-4">
                             « Improves the complexion and protects against the sun »
                         </h2>
                         <div class="reviewer-meta">
-                            <p class="mb-0 small text-muted">Reviewed on <span class="fw-bold"></span></p>
-                            <a href="#" class="product-link small text-decoration-underline">Neotone Radiance SPF 50+</a>
+                            <p class="mb-0 small text-muted">
+                                Reviewed on <span class="fw-bold"></span>
+                            </p>
+                            <a href="#" class="related-skin-product-link small text-decoration-underline">
+                                Neotone Radiance SPF 50+
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -422,26 +439,22 @@
                         Made in France
                     </p>
                     <h2 class="fw-light mb-4 px-2">
-                        Isispharma is a French laboratory that formulates dermatological skincare products 
-                        that are accessible and provide real results to preserve and restore your skin’s natural balance.
+                        Bella Gloabl is a French laboratory that formulates dermatological skincare products 
+                        that are accessible and provide real results to preserve and restore your skin's natural balance.
                     </h2>
-                    <a href="#" class="text-white text-decoration-underline small opacity-75">
-                         laboratory
-                    </a>
-                </div>
-                <div class="col offset-lg-2 py-4 py-md-5">
-                   
                 </div>
             </div>
-
             <hr class="border-secondary my-4 my-md-5">
-
             <div class="row align-items-center gy-4">
                 <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-start gap-4">
-                    <a href="contact.html" class="text-white text-decoration-none fw-bold small">Contact</a>
-                    <a href="faq.html" class="text-white text-decoration-none fw-bold small">FAQ</a>
+                    <a href="contact.html" class="text-white text-decoration-none fw-bold small">
+                        Contact
+                    </a>
+                    <a href="faq.html" class="text-white text-decoration-none fw-bold small">
+                        FAQ
+                    </a>
                 </div>
-                
+                <!-- Social media Link -->
                 <div class="col-12 col-md-4 text-center">
                     <div class="d-flex justify-content-center gap-4 fs-5">
                         <a href="#" class="text-white opacity-50 social-icon">
@@ -457,7 +470,6 @@
                         </a>
                     </div>
                 </div>
-
                 <div class="col-12 col-md-4 text-center text-md-end">
                     <span class="fst-italic opacity-50 small">#togetherformyskin</span>
                 </div>
@@ -473,7 +485,6 @@
                     <a href="personal_data.html" class="footer-link">Personal Data Policy</a>
                     <a href="policy.html" class="footer-link">Cookie Policy</a>
                 </div>
-
                 <div class="col-12 col-md-3 text-center text-md-end">
                     <a href="international.html" class="footer-link">
                         International <i class="bi bi-globe ms-1"></i>
