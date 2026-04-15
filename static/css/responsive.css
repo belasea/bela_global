@@ -1,0 +1,234 @@
+/* ===============================
+Responsive Navbar
+=============================== */
+
+/* Tablet & Mobile */
+@media (max-width: 991px) {
+
+    .main-content {
+        margin-left: 0;
+        margin-top: 0;
+        box-shadow: none;
+    }
+
+    .navbar {
+        padding: 10px 0;
+    }
+
+    .navbar-collapse {
+        background: #fff;
+        padding: 15px;
+        border-top: 1px solid #eee;
+    }
+
+    .navbar-nav {
+        width: 100%;
+        align-items: flex-start !important;
+    }
+
+    .nav-link {
+        padding: 10px 0 !important;
+        font-size: 14px;
+    }
+
+    /* Dropdown becomes full width */
+    .dropdown-menu-custom {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        padding: 10px 0;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        display: none;
+        background: #f9f9f9;
+    }
+
+    /* Show when active */
+    .dropdown-parent.active .dropdown-menu-custom {
+        display: block;
+    }
+
+    .dropdown-menu-custom li {
+        padding-left: 10px;
+    }
+
+    /* Utility section */
+    .utility-box {
+        width: 100%;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+
+/* --- DESKTOP RESPONSIVE (992px and up) --- */
+@media (min-width: 992px) {
+    .slider-container {
+        flex-direction: row; /* Desktop: side by side */
+        height: 600px;
+        text-align: left;
+        padding: 0 8%;
+    }
+
+    .slider-container.reverse {
+        flex-direction: row-reverse;
+    }
+
+    .slider-text-side, .slider-image-side {
+        flex: 1;
+    }
+
+    .slider-image-side {
+        max-width: none;
+        height: 100%;
+        display: flex;
+        align-items: flex-end; /* Sits at bottom */
+        margin-bottom: 0;
+    }
+
+    .slider-image-side img {
+        max-height: 90%;
+        width: auto;
+    }
+
+    .slider-label { font-size: 3rem; }
+    .slider-title { font-size: 3rem; max-width: 500px; }
+    .slider-subtitle { font-size: 1.1rem; max-width: 450px; }
+}
+
+
+
+/* ===============================
+   sidebar RESPONSIVE DESIGN
+=============================== */
+
+/* ---LARGE (1200px ↓) --- */
+@media (max-width: 1200px) {
+    .product-item {
+        flex: 0 0 300px;
+    }
+
+    .product-card {
+        width: 280px;
+        height: 460px;
+    }
+}
+
+
+/* ---------- TABLET (992px ↓) ---------- */
+@media (max-width: 992px) {
+
+    /* Stack layout */
+    .sidebar-nav-item .row {
+        flex-direction: column;
+    }
+
+    /* Sidebar menu horizontal */
+    .sidebar-nav {
+        flex-direction: row !important;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .sidebar-link {
+        margin-right: 20px;
+        font-size: 0.95rem;
+    }
+
+    /* Center menu box */
+    .sidebarNavbarMenu {
+        margin-left: 0;
+        width: 100%;
+        height: 200px;
+    }
+
+    /* Cards */
+    .product-item {
+        flex: 0 0 260px;
+    }
+
+    .product-card {
+        width: 240px;
+        height: 420px;
+    }
+}
+
+
+/* ---------- MOBILE (768px ↓) ---------- */
+@media (max-width: 768px) {
+
+    /* Sidebar nav scrollable */
+    .sidebar-nav {
+        /* overflow-x: auto; */
+        white-space: nowrap;
+        flex-wrap: nowrap !important;
+        /* padding-bottom: 10px; */
+    }
+
+    .sidebar-link {
+        display: inline-flex;
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    /* Products scroll smoother */
+    .product-scroll-area {
+        padding: 20px 0;
+        cursor: grab;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Cards smaller */
+    .product-item {
+        flex: 0 0 220px;
+    }
+
+    .product-card {
+        width: 200px;
+        height: 360px;
+    }
+
+    .product-card img {
+        max-height: 150px;
+    }
+
+    /* Text smaller */
+    .brand-name {
+        font-size: 1rem;
+        letter-spacing: 2px;
+    }
+
+    .description {
+        font-size: 0.8rem;
+    }
+}
+
+
+/* ---------- SMALL MOBILE (480px ↓) ---------- */
+@media (max-width: 480px) {
+
+    .product-item {
+        flex: 0 0 180px;
+    }
+
+    .product-card {
+        width: 160px;
+        height: 320px;
+    }
+
+    .product-card img {
+        max-height: 120px;
+        margin-bottom: 20px;
+    }
+
+    .sidebar-link {
+        font-size: 0.8rem;
+    }
+
+    .section-label-bottom {
+        font-size: 0.65rem;
+    }
+}
+
