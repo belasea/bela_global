@@ -1,0 +1,123 @@
+{% load static %} 
+
+<header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="{% url 'home' %}" class="logo d-flex align-items-center">
+        <span class="d-none d-lg-block">SeaBright</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i> 
+      <div class="d-block d-lg-none">
+        <a href="{% url 'home' %}">
+          <span class="fw-bold h4">SeaBright - Dashboard</span>
+        </a>
+      </div>
+    </div>
+    <div class="search-bar mt-3">
+      <form class="search-form d-flex align-items-center" method="get">
+          <div class="input-group menu-search mb-3">
+              <input type="text" class="form-control" placeholder="Search">
+          </div>
+      </form>
+    </div>
+    {% if request.user.is_authenticated %}
+      <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+          {% if unread_notifications %}
+            <li class="nav-item dropdown">
+              <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                <i class="bi bi-bell"></i>
+                <span class="badge bg-primary badge-number">
+                  {{ unread_notifications }} +
+                </span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                <li class="dropdown-header">
+                  You have new {{ unread_notifications }} notifications
+                  <a href="{% url 'notification' %}">
+                    <span class="badge rounded-pill bg-primary p-2 ms-2">View all</span>
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                {% for notification in four_unread_notifications %}
+                    <li class="notification-item">
+                        <i class="bi bi-exclamation-circle text-warning"></i>
+                        <div class="mx-2">
+                            <div>
+                                <small>{{ notification.message }}</small>
+                            </div>
+                            <div>
+                                <small>{{ notification.user.email }}</small>
+                            </div>
+                            <div>
+                                <small>{{ notification.created_at }}</small>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                {% endfor %} 
+                <li class="dropdown-footer">
+                  <a href="{% url 'notification' %}">Show all notifications</a>
+                </li>
+              </ul>
+            </li>
+          {% endif %}
+          
+          <li class="nav-item dropdown pe-3">
+            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+              {% if request.user.profile %}
+                <img src="{{ request.user.profile.url }}" alt="Profile" class="rounded-circle">
+              {% else %}
+                <img src="{% static 'img/no-photo.png' %}" alt="Profile" class="rounded-circle">
+              {% endif %}
+              <span class="d-none d-md-block dropdown-toggle ps-2">
+                {{ request.user.first_name }}
+              </span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+              <li class="dropdown-header">
+                <h6 class="text-capitalize">
+                  {{ request.user.first_name }}
+                  {{ request.user.last_name }}
+                </h6>
+                <span>{{ request.user.email }}</span>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <a class="dropdown-item d-flex align-items-center" href="{% url 'user_profile' request.user.id %}">
+                  <i class="bi bi-person"></i>
+                  <span>My Profile</span>
+                </a>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <a class="dropdown-item d-flex align-items-center" href="{% url 'password_change' %}">
+                  <i class="bi bi-gear"></i>
+                  <span>Change Password</span>
+                </a>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <a class="dropdown-item d-flex align-items-center" href="{% url 'logout' %}">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Sign Out</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    {% endif %}
+</header>

@@ -1,0 +1,83 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+{% block title %} SeaBright Education - {{block.super}} {% endblock %}
+
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 my-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-light p-3 rounded">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'home' %}" class="text-decoration-none text-primary fw-semibold">
+                            <i class="bi bi-globe me-1"></i> Website
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active text-dark fw-bold" aria-current="page">
+                            <a href="{% url 'dashboard' %}">
+                                Dashboard
+                            </a>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Contact Message -->
+            <div class="col-md-3 mb-3">
+                <a href="{% url 'contact-list' %}" class="text-decoration-none">
+                    <div class="card text-center shadow-sm border-0 h-100 hover-card border-primary">
+                        <div class="card-body">
+                            <i class="bi bi-envelope-paper fs-1 text-primary mb-3"></i>
+                            <h5 class="card-title fw-bold">Contact Messages</h5>
+                            <p class="card-text text-muted">View and manage user inquiries.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- notification -->
+            <div class="col-md-3 mb-3">
+                <a href="{% url 'notification' %}" class="text-decoration-none">
+                    <div class="card text-center shadow-sm border-0 h-100 hover-card border-warning">
+                        <div class="card-body">
+                            <i class="bi bi-bell-fill fs-1 text-warning mb-3"></i>
+                            <h5 class="card-title fw-bold">Notifications</h5>
+                            <p class="card-text text-muted">Stay updated with the latest system alerts.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- User List -->
+            <div class="col-md-3 mb-3">
+                <a href="{% url 'user_list' %}" class="text-decoration-none">
+                    <div class="card text-center shadow-sm border-0 h-100 hover-card border-info">
+                        <div class="card-body">
+                            <i class="bi bi-people-fill fs-1 text-info mb-3"></i>
+                            <h5 class="card-title fw-bold">User Management</h5>
+                            <p class="card-text text-muted">Manage system users and permissions.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- Setting -->
+            <div class="col-md-3 mb-3">
+                <a href="{% url 'subscribe' %}" class="text-decoration-none">
+                    <div class="card text-center shadow-sm border-0 h-100 hover-card border-secondary">
+                        <div class="card-body">
+                            <i class="bi bi-envelope-paper-heart fs-1 text-primary mb-3"></i>
+                            <h5 class="card-title fw-bold">Subscribe</h5>
+                            <p class="card-text text-muted">
+                                Get the latest news, updates, and offers delivered straight to your inbox.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div style="margin-bottom:20%"></div>
+
+{% endblock %} 

@@ -1,0 +1,69 @@
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+    <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item">
+            <a class="nav-link dashboard-link" href="{% url 'dashboard' %}">
+            <i class="fas fa-tachometer-alt me-2"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'admin:index' %}">
+                <i class="fas fa-user-shield"></i>
+                <span>Admin</span>
+            </a>
+        </li>
+        <!--User List-->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'user_list' %}">
+                <i class="fas fa-user text-dark"></i>
+                <span>User List</span>
+            </a>
+        </li>
+        <!--Contact List-->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'contact-list' %}">
+                <i class="fas fa-book text-dark"></i>
+                <span>Contact List</span>
+            </a>
+        </li>
+        <!--Notification-->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'notification' %}">
+                <i class="fas fa-bell text-dark"></i>
+                <span>Notification</span>
+            </a>
+        </li>
+        <!-- Account -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'user_profile' request.user.id %}">
+                <i class="fas fa-user-cog text-dark"></i>
+                <span>Account</span>
+            </a>
+        </li>
+        <!-- More -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#setup-rule-nav" 
+            data-bs-toggle="collapse" href="#">
+                <i class="fas fa-comment-alt"></i>
+                <span> Mores </span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="setup-rule-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{% url 'contact-list' %}">
+                        <i class="fas fa-envelope" style="font-size: 13px;"></i>
+                        <span>Contact Us</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'user_list' %}">
+                        <i class="fas fa-users" style="font-size: 13px;"></i>
+                        <span>User List</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <!-- Custom Button at Bottom -->
+</aside>

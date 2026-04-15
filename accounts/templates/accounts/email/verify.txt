@@ -1,0 +1,13 @@
+Dear {{ name }},
+
+Please activate your account for {{ email }} by clicking the link below:
+
+{{ path }}
+
+Once you activate, you can login!
+
+For further information regarding activation of your account and support, please contact with Mr, Jayed Hossain, email: jayed.swe@gmail.com.
+
+For any complain, please contact with Mr. Jayed Hossain, email: jayed.swe@gmail.com
+
+Thank you for being with us and stay connected.

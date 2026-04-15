@@ -12,7 +12,7 @@ a{
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: var(--brand-dark);
+    background-color: #001229;
     margin: 0;
     overflow-x: hidden;
 }
@@ -124,7 +124,7 @@ Dropdown Menu
 
 .logo-main {
     letter-spacing: 3px;
-    color: var(--brand-dark);
+    color: #001229;
     font-weight: 800;
     font-size: 1.3rem;
 }

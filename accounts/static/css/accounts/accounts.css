@@ -1,0 +1,482 @@
+/*--------------------------------------------------------------
+Author  : Jayed Hossain Jibon
+Github  : github.com/jibon969/
+Website : https://jayedswe.netlify.app/
+Time    : 6:25Am at 21/02/2026 
+# 1. General
+  2. Body Section
+  3. Header Section
+  4. Dashboard Section
+  5. Menu-search / cache
+  6. update Profile Page
+  7. Override some default Bootstrap stylings
+  8. Custom Modal Body 
+  9. Custom Style Card
+ 10. notification badge
+ 11. List styling
+ 12. Contact
+ 13. Error 404
+ 14. Privacy Policy & Security
+ 15. Campaign 
+--------------------------------------------------------------*/
+
+:root {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #ffffff;
+  /* background-color: #001229; */
+  color: #000000;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: "Nunito", sans-serif;
+}
+
+a {
+  color: #22c18b;
+  text-decoration: none;
+}
+a:hover {
+  color: #717ff5;
+  text-decoration: none;
+}
+
+hr {
+  border: none;
+  height: 3px;
+  background: linear-gradient(to right, #0d6efd, #6c757d);
+  border-radius: 2px;
+  margin-bottom: 2rem;
+}
+
+
+.logo {
+  text-decoration: none;
+  perspective: 600px;
+}
+
+.logo-text {
+  color: #22c18b !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.logo-text:hover {
+  color: #ff4500 !important;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.profile-avatar {
+  width: 37px !important;
+  height: 60px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid gray;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+.profile-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.update-profile-content .profile-header {
+  background: linear-gradient(135deg, #dedee1 0%, #c850c0 100%);
+  height: 150px;
+  border-radius: 15px;
+}
+
+.update-profile-content .profile-pic {
+  width: 120px;
+  height: 120px;
+  border: 4px solid #fff;
+  margin-top: -60px;
+  background-color: #fff;
+}
+
+/*================================================= 
+  5. menu-search / cache
+================================================= */
+
+.cache-clear {
+  background-color: #fbfbfb;
+  color: #188753 !important;
+  /* font-size: 14px; */
+  font-style: normal;
+  font-weight: 500;
+  padding: 10px;
+  margin-left: 20px;
+}
+
+.cache-clear button {
+  color: #188753 !important;
+}
+
+.menu-search {
+  color: #a5a9ad;
+  background-color: #ffffff;
+  border: 1px solid #22c18b;
+  border-radius: 5px;
+}
+
+/*--------------------------------------------------------------
+# 6. update Profile Page
+--------------------------------------------------------------*/
+.update-profile-content {
+  text-align: center;
+}
+
+/* Profile Image */
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #0d6efd;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Optional: hover effect */
+.profile-pic:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Camera button over profile image */
+.profile-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Camera icon button */
+.profile-container .camera-btn {
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 50%;
+  padding: 8px 10px;
+  font-size: 14px;
+  background-color: #0d6efd;
+  color: #fff;
+  border: 2px solid #fff;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+/* Hover effect for camera button */
+.profile-container .camera-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.1);
+}
+
+/* Hidden file input */
+.profile-container input[type="file"] {
+  display: none;
+}
+
+/* User name */
+.profile-container h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+  text-transform: capitalize;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #212529;
+  text-align: center;
+}
+
+/* User email */
+.profile-container p {
+  margin-bottom: 1rem;
+  color: #6c757d;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+/* Buttons container */
+.profile-container .profile-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Buttons icons spacing */
+.profile-container .profile-buttons .btn i {
+  margin-right: 0.5rem;
+}
+
+/* Optional: Button hover effect */
+.profile-container .profile-buttons .btn:hover {
+  transform: translateY(-2px);
+  transition: all 0.2s ease;
+}
+
+/*=======================================================
+  Main Section
+=======================================================*/
+#main {
+  margin-top: 60px;
+  padding: 1px;
+  transition: all 0.3s;
+  flex: 1 0 auto;
+  margin-bottom: 70px;
+}
+
+@media (max-width: 1199px) {
+  #main {
+    padding: 1px;
+    /* display: none; */
+  }
+}
+
+/*--------------------------------------------------------------
+# Back to top button
+--------------------------------------------------------------*/
+.back-to-top {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  right: 15px;
+  bottom: 15px;
+  z-index: 99999;
+  background: #198754;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  transition: all 0.4s;
+}
+
+.back-to-top i {
+  font-size: 24px;
+  color: #fff;
+  line-height: 0;
+}
+
+.back-to-top:hover {
+  background: #198754;
+  color: #fff;
+}
+
+.back-to-top.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+
+/*=======================================================
+     8. Custom Modal Body 
+=======================================================*/
+.btn-delete {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.btn-delete i {
+  font-size: 1rem;
+}
+
+.btn-delete:hover {
+  transform: scale(1.05);
+}
+
+.modal-body .modal-icon {
+  font-size: 80px;
+  color: #ffc107;
+  margin-bottom: 1rem;
+}
+
+.modal-body h4 {
+  font-weight: 700;
+}
+
+.modal-body p {
+  font-size: 0.95rem;
+  color: #495057;
+}
+
+/* footer */
+.modal-footer {
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.modal-footer .btn i {
+  margin-right: 0.5rem;
+}
+
+/* Confirm Delete button */
+.modal-footer .btn-confirm {
+  background-color: #dc3545; /* Bootstrap danger */
+  color: #fff;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.modal-footer .btn-confirm:hover {
+  background-color: #b02a37;
+}
+
+/* Cancel button */
+.modal-footer .btn-cancel {
+  background-color: #6c757d; /* Bootstrap secondary */
+  color: #fff;
+  border: none;
+}
+
+.modal-footer .btn-cancel:hover {
+  background-color: #5a6268;
+}
+
+/*=======================================================
+      custom_breadcrumb
+=======================================================*/
+
+.custom_breadcrumb {
+  background: linear-gradient(90deg, #dbeafe, #e0e7ff, #ace0f9) !important;
+  padding: 8px !important;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Remove default breadcrumb spacing */
+.custom_breadcrumb .breadcrumb {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+/* Contact list text size */
+.custom_breadcrumb .breadcrumb-item {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.custom-submit-btn {
+  background: linear-gradient(90deg, #198754, #a97856);
+  color: #fff;
+  padding: 9px 18px;
+  min-width: 120px;
+  border-radius: 8px;
+  border: 1px solid #78c7cc;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  gap: 6px;
+}
+
+/* Hover effect */
+.custom-submit-btn:hover {
+  background: linear-gradient(135deg, #a6a7a8, #141515);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  border: 1px solid #a6a7a8;
+}
+
+/*=======================================================
+    Custom Style Card
+=======================================================*/
+/*================================================= 
+  Card Design
+================================================= */
+.card {
+  margin-bottom: 30px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+}
+
+.card-header,
+.card-footer {
+  border-color: #ebeef4;
+  background-color: #fff;
+  color: #798eb3;
+  padding: 15px;
+}
+
+.card-title {
+  padding: 20px 0 15px 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #012970;
+  font-family: "Poppins", sans-serif;
+}
+
+.card-title span {
+  color: #899bbd;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.card-body {
+  padding: 0 20px 20px 20px;
+}
+
+.card-img-overlay {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.hover-card {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  border-radius: 1rem !important;
+  border: 1px solid #dee2e6 !important;
+}
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  background-color: #e0e5e0;
+}
+
+.submit-btn {
+  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+  border: 1px solid #bf0000;
+  background-color: #bf0000;
+  color: #ffffff;
+  padding: 6px;
+  min-width: 100px;
+  border-radius: 5px;
+}
+
+/* Center the loader in the page */
+.loader {
+  border: 5px solid #4154f1;
+  border-top: 5px solid #22c18b;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 2s linear infinite;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+/* Loader spin animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,162 @@
+{% extends 'accounts/base_account.html' %}
+{% block title %} Registration - {{block.super}} {% endblock %}
+{% load static %}
+
+{% block content %}
+
+
+    <section class="register-form">
+        <section class="d-flex align-items-center" style="min-height: 100vh;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-12 col-md-5 col-lg-5 col-xl-5 mx-auto">
+                        <div class="card pb-0 mb-3">
+                            <div class="card-header pb-1 text-center">
+                                <h2>
+                                    <a href="{% url 'home' %}" class="text-decoration-none fw-bold">
+                                        Bella Global
+                                    </a>
+                                </h2>
+                                <p>
+                                    Registration Form
+                                </p>
+                            </div>
+                            <div class="card-body">
+                                <div class="registration-form">
+                                    <!--=== Error Message ==-->
+                                    <div class="error-message">
+                                        {% if form.errors %}
+                                            <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                                                <strong>There were some errors:</strong>
+                                                <ul class="mb-0">
+                                                    {% for field, errors in form.errors.items %}
+                                                        {% for error in errors %}
+                                                            <li>{{ error }}</li>
+                                                        {% endfor %}
+                                                    {% endfor %}
+                                                </ul>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="form-group col-md-6 mb-3 mt-3">
+                                                <input type="text" class="form-control" placeholder="First name *" name="first_name">
+                                                <span class="text-danger">{{ form.first_name.errors }}</span>
+                                            </div>
+                                            <div class="form-group col-md-6 mb-3 mt-3">
+                                                <input type="text" class="form-control" placeholder="Last name *" name="last_name">
+                                                <span class="text-danger">{{ form.last_name.errors }}</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Email -->
+                                        <div class="form-group mb-3">
+                                            <input type="email" class="form-control" placeholder="E-mail address *" name="email">
+                                            <span class="text-danger">{{ form.email.errors }}</span>
+                                        </div>
+
+                                        <!-- Contact Number -->
+                                        <div class="form-group mb-3">
+                                            <input type="tel" class="form-control" placeholder="Phone number *" name="contact_number">
+                                            <span class="text-danger">{{ form.contact_number.errors }}</span>
+                                        </div>
+
+                                        <div class="row">
+                                            <!-- Gender -->
+                                            <div class="form-group col-md-6 mb-3">
+                                                <select class="form-control" name="gender">
+                                                    <option value="M" selected>Male</option>
+                                                    <option value="F">Female</option>
+                                                </select>
+                                                <span class="text-danger">{{ form.gender.errors }}</span>
+                                            </div>
+
+                                            <!-- Date of Birth -->
+                                            <div class="form-group col-md-6 mb-3">
+                                                <input type="date" class="form-control" placeholder="Date of birth" name="date_of_birth">
+                                                <span class="text-danger">{{ form.date_of_birth.errors }}</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Password -->
+                                        <div class="form-group mb-3">
+                                            <div class="input-group">
+                                                <input type="password" class="form-control password-input" placeholder="Create password *" name="password">
+                                                <span class="input-group-text toggle-password" style="cursor:pointer;">
+                                                    <i class="bi bi-eye-fill"></i>
+                                                </span>
+                                            </div>
+                                            <span class="text-danger">{{ form.password.errors }}</span>
+                                        </div>
+
+                                        <!-- Confirm Password -->
+                                        <div class="form-group mb-3">
+                                            <div class="input-group">
+                                                <input type="password" class="form-control password-input" placeholder="Confirm password *" name="password2">
+                                                <span class="input-group-text toggle-password" style="cursor:pointer;">
+                                                    <i class="bi bi-eye-fill"></i>
+                                                </span>
+                                            </div>
+                                            <span class="text-danger">{{ form.password2.errors }}</span>
+                                        </div>
+
+                                        <!-- Terms & Conditions -->
+                                        <div class="form-group mb-3">
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" required="required" class="mr-2">
+                                                I agree to the 
+                                                <a href="#">Terms & Conditions</a> and
+                                                <a href="#">Privacy Policy</a>
+                                            </label>
+                                        </div>
+
+                                        <div class="d-grid gap-2 mb-1">
+                                            <button type="submit" class="custom-submit-btn">
+                                                <i class="fas fa-user-plus"></i> Register
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">Already registered ?
+                            <a href="{% url 'login' %}" class="ml-3">
+                                <strong class="font-weight-bold" style="font-size: 17px">Log in here</strong>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePasswordIcons = document.querySelectorAll('.toggle-password');
+
+            togglePasswordIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    // Find the input in the same input group
+                    const passwordInput = this.parentElement.querySelector('.password-input');
+                    const type = passwordInput.getAttribute('type');
+
+                    if (type === 'password') {
+                        passwordInput.setAttribute('type', 'text');
+                        this.querySelector('i').classList.remove('bi-eye-fill');
+                        this.querySelector('i').classList.add('bi-eye-slash-fill');
+                    } else {
+                        passwordInput.setAttribute('type', 'password');
+                        this.querySelector('i').classList.remove('bi-eye-slash-fill');
+                        this.querySelector('i').classList.add('bi-eye-fill');
+                    }
+                });
+            });
+        });
+    </script>
+
+
+   
+{% endblock content %}
