@@ -1,0 +1,72 @@
+### Pycharm ###
+.idea/
+.idea/workspace.xml
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Sphinx documentation
+docs/_build/
+
+### Django ###
+*.log
+*.pot
+*.pyc
+__pycache__/
+migrations/
+
+*.so
+.fleet
+.vscode
+.bash_history
+.PyCharm2018.
+.PyCharm
+
+env/
+venv/
+data/
+media/
+mediafile/
+staticfiles/
+
+# DB
+db.sqlite3
+db.sqlite3-journal
+
+# dotenv
+*.env
+prod.env
+
+### Mac ###
+.DS_Store
+.DS_Store/
+mediafile/
+dump.rdb/
+dump.rdb
