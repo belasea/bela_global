@@ -1543,7 +1543,7 @@ Responsive Wrapper
 
 .btn-checkout:hover {
     background-color: #004f57;
-    transform: translateY(-2px);
+    /* transform: translateY(-2px); */
     box-shadow: 0 6px 14px rgba(0, 107, 118, 0.25);
 }
 
@@ -2165,4 +2165,348 @@ contact-section
 .jump-to-top-btn:hover {
     background-color: #003580;
     box-shadow: 0 6px 20px rgba(0, 18, 41, 0.4);
+}
+
+
+
+/* Background */
+.login {
+    background: linear-gradient(135deg, #1e3c72, #001229);
+}
+
+/* Card Styling */
+.main-form .card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Header */
+.main-form .card-header {
+    background: transparent;
+    border-bottom: none;
+}
+
+.main-form h2 a {
+    color: #2a5298;
+    font-size: 24px;
+}
+
+/* Inputs */
+.input-group-text {
+    background: #f1f3f6;
+    border: none;
+}
+
+.form-control {
+    border: none;
+    background: #f9fafc;
+    padding: 12px;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    background: #fff;
+    border: 1px solid #2a5298;
+}
+
+/* Button */
+.login-btn {
+    background: linear-gradient(135deg, #006b76, #feb47b);
+    border: none;
+    padding: 12px;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+.login-btn:hover {
+    background: linear-gradient(135deg, #006b76, #fda763);
+    transform: translateY(-2px);
+}
+
+/* Links */
+.main-form a {
+    transition: 0.3s;
+}
+
+.main-form a:hover {
+    text-decoration: underline;
+}
+
+/* Footer text */
+.main-form p {
+    font-size: 14px;
+}
+
+/* Forgot password button */
+.btn-outline-light {
+    border-radius: 20px;
+    padding: 5px 15px;
+}
+
+/* Responsive spacing */
+@media (max-width: 576px) {
+    .main-form .card {
+        margin: 10px;
+    }
+}
+
+/* ======================== 
+Blog Section 
+===========================*/
+.blog-section {
+    /* background: #f8f9fc; */
+    overflow: hidden;
+}
+
+/* Header */
+.section-header h2 {
+    font-weight: 700;
+    font-size: 32px;
+}
+
+.section-header p {
+    color: #777;
+}
+
+/* Card */
+.blog-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.blog-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Image */
+.blog-img {
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-img img {
+    width: 100%;
+    transition: 0.4s;
+}
+
+.blog-card:hover .blog-img img {
+    transform: scale(1.1);
+}
+
+/* Category Badge */
+.blog-category {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #ff7e5f;
+    color: #fff;
+    padding: 5px 12px;
+    font-size: 12px;
+    border-radius: 20px;
+}
+
+/* Content */
+.blog-content {
+    padding: 20px;
+}
+
+.blog-date {
+    font-size: 13px;
+    color: #999;
+}
+
+.blog-title {
+    margin: 10px 0;
+}
+
+.blog-title a {
+    color: #222;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.blog-title a:hover {
+    color: #ff7e5f;
+}
+
+/* Description */
+.blog-desc {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Read More */
+.read-more {
+    display: inline-block;
+    margin-top: 10px;
+    color: #ff7e5f;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.read-more:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .section-header h2 {
+        font-size: 26px;
+    }
+}
+
+/* ================================== 
+ Details 
+===================================== */
+.blog-details {
+    background: #f8f9fc;
+    
+}
+
+/* Card */
+.blog-details-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+}
+
+/* Image */
+.blog-details-img img {
+    width: 100%;
+    border-bottom: 1px solid #eee;
+}
+
+/* Content */
+.blog-details-content {
+    padding: 25px;
+}
+
+/* Meta */
+.blog-meta {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.blog-meta span {
+    margin-right: 8px;
+}
+
+/* Title */
+.blog-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+/* Paragraph */
+.blog-details-content p {
+    color: #555;
+    line-height: 1.7;
+}
+
+/* Blockquote */
+blockquote {
+    background: #f1f3f6;
+    padding: 15px 20px;
+    border-left: 4px solid #ff7e5f;
+    margin: 20px 0;
+    font-style: italic;
+}
+
+/* Tags */
+.blog-tags {
+    margin-top: 20px;
+}
+
+.blog-tags a {
+    display: inline-block;
+    background: #eee;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 20px;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.blog-tags a:hover {
+    background: #ff7e5f;
+    color: #fff;
+}
+
+/* Sidebar */
+.sidebar-box {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.sidebar-box h5 {
+    margin-bottom: 15px;
+}
+
+/* Category */
+.sidebar-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-box ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar-box ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.sidebar-box ul li a:hover {
+    color: #ff7e5f;
+}
+
+/* Recent Posts */
+.recent-posts li {
+    margin-bottom: 12px;
+}
+
+.recent-posts span {
+    display: block;
+    font-size: 12px;
+    color: #999;
+}
+
+/* Comments */
+.comments-section {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.btn-submit {
+    background: #ff7e5f;
+    border: none;
+    padding: 10px 20px;
+    color: #fff;
+    border-radius: 6px;
+}
+
+.btn-submit:hover {
+    background: #ff6a4a;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .blog-title {
+        font-size: 22px;
+    }
 }

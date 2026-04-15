@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Jayed Hossain Jibon">
+    <meta name='designer' content='Jayed Hossain Jibon'>
+    <title>Signup - BellaGlobal</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+</head>
+<body>
+
+    <!--===== Main Content ====-->
+    <section class="login">
+        <section class="d-flex align-items-center" style="min-height: 100vh;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-12 col-md-5 col-lg-5 col-xl-5 mx-auto">
+                        <div class="main-form">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                     <h2 class="text-center">
+                                        <a href="index.html" class="text-decoration-none fw-bold">
+                                        Signup - TheBella
+                                        </a>
+                                    </h2>
+                                    <div class="registration-form">
+                                        <!--=== Error Message 
+                                        <div class="error-message">
+                                            {% if form.errors %}
+                                                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                                                    <strong>There were some errors:</strong>
+                                                    <ul class="mb-0">
+                                                        {% for field, errors in form.errors.items %}
+                                                            {% for error in errors %}
+                                                                <li>{{ error }}</li>
+                                                            {% endfor %}
+                                                        {% endfor %}
+                                                    </ul>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        ==-->
+                                        <form method="POST">
+                                            <div class="row">
+                                                <div class="form-group col-md-6 mb-3 mt-3">
+                                                    <input type="text" class="form-control" placeholder="First name *" name="first_name">
+                                                </div>
+                                                <div class="form-group col-md-6 mb-3 mt-3">
+                                                    <input type="text" class="form-control" placeholder="Last name *" name="last_name">
+                                                    
+                                                </div>
+                                            </div>
+
+                                            <!-- Email -->
+                                            <div class="form-group mb-3">
+                                                <input type="email" class="form-control" placeholder="E-mail address *" name="email">
+                                            </div>
+
+                                            <!-- Contact Number -->
+                                            <div class="form-group mb-3">
+                                                <input type="tel" class="form-control" placeholder="Phone number *" name="contact_number">
+                                            </div>
+
+                                            <div class="row">
+                                                <!-- Gender -->
+                                                <div class="form-group col-md-6 mb-3">
+                                                    <select class="form-control" name="gender">
+                                                        <option value="M" selected>Male</option>
+                                                        <option value="F">Female</option>
+                                                    </select>
+                                                </div>
+
+                                                <!-- Date of Birth -->
+                                                <div class="form-group col-md-6 mb-3">
+                                                    <input type="date" class="form-control" placeholder="Date of birth" name="date_of_birth">
+                                                </div>
+                                            </div>
+
+                                            <!-- Password -->
+                                            <div class="form-group mb-3">
+                                                <div class="input-group">
+                                                    <input type="password" class="form-control password-input" placeholder="Create password *" name="password">
+                                                    <span class="input-group-text toggle-password" style="cursor:pointer;">
+                                                        <i class="bi bi-eye-fill"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Confirm Password -->
+                                            <div class="form-group mb-3">
+                                                <div class="input-group">
+                                                    <input type="password" class="form-control password-input" placeholder="Confirm password *" name="password2">
+                                                    <span class="input-group-text toggle-password" style="cursor:pointer;">
+                                                        <i class="bi bi-eye-fill"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Terms & Conditions -->
+                                            <div class="form-group mb-3">
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" required="required" class="mr-2">
+                                                    I agree to the 
+                                                    <a href="#">Terms & Conditions</a> and
+                                                    <a href="#">Privacy Policy</a>
+                                                </label>
+                                            </div>
+
+                                            <div class="d-grid gap-2 mb-1">
+                                                <button type="submit" class="login-btn">
+                                                    <i class="fas fa-user-plus"></i> Register
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="text-center mb-3">Already registered ?
+                                    <a href="login.html" class="ml-3">
+                                        <strong class="font-weight-bold" style="font-size: 17px">Log in here</strong>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePasswordIcons = document.querySelectorAll('.toggle-password');
+
+            togglePasswordIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    // Find the input in the same input group
+                    const passwordInput = this.parentElement.querySelector('.password-input');
+                    const type = passwordInput.getAttribute('type');
+
+                    if (type === 'password') {
+                        passwordInput.setAttribute('type', 'text');
+                        this.querySelector('i').classList.remove('bi-eye-fill');
+                        this.querySelector('i').classList.add('bi-eye-slash-fill');
+                    } else {
+                        passwordInput.setAttribute('type', 'password');
+                        this.querySelector('i').classList.remove('bi-eye-slash-fill');
+                        this.querySelector('i').classList.add('bi-eye-fill');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const toggleIcon = document.getElementById('toggleIcon');
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = "password";
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+    </script>  
+
+   
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- Jump to Top Button -->
+    <button id="jumpToTop" class="jump-to-top-btn" aria-label="Jump to top">
+        <i class="bi bi-chevron-up"></i>
+    </button>
+   
+</body>
+</html>
