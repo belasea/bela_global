@@ -234,6 +234,71 @@ Search Overlay
     cursor: pointer;
 }
 
+
+/* Base nav link */
+.cart-badge {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+/* Cart icon */
+.cart-badge i {
+    font-size: 18px;
+}
+
+/* Badge */
+.cart-count {
+    position: absolute;
+    top: -6px;
+    right: 0px;
+    background: linear-gradient(135deg, #ff3b3b, #ff6a00);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: 0.3s ease;
+}
+
+/* Hover effect */
+.cart-badge:hover .cart-count {
+    transform: scale(1.1);
+}
+
+/* Optional pulse animation (premium feel) */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.cart-count:not(:empty) {
+    animation: pulse 1.5s infinite;
+}
+
+/* Hide badge if 0 */
+.cart-count:empty,
+.cart-count:contains("0") {
+    display: none;
+}
+
+
 /* ---===============================
     Slider Section 
 ==================================--- */
@@ -2510,3 +2575,5 @@ blockquote {
         font-size: 22px;
     }
 }
+
+
