@@ -1,3 +1,8 @@
 asgiref==3.11.1
 Django==6.0.4
 sqlparse==0.5.5
+crispy-bootstrap5==2026.3
+django-crispy-forms==2.5
+django-import-export==4.4.0
+django-summernote==0.8.20.0
+pillow==11.3.0

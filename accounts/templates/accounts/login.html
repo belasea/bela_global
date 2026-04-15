@@ -1,0 +1,96 @@
+{% extends 'accounts/base_account.html' %}
+{% load static %}
+{% block title %} Login - {{block.super}} {% endblock %}
+
+{% block content %}
+
+    <section class="login">
+         <section class="d-flex align-items-center" style="min-height: 100vh;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <!-- Message -->
+                        <div class="text-center">
+                            {% if messages %}
+                                {% for message in messages %}
+                                <div class="alert {{ message.tags }} alert-dismissible fade show text-center" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="main-form">
+                            <div class="card mb-2">
+                                <div class="card-header pb-1 text-center">
+                                    <h2>
+                                        <a href="{% url 'home' %}" class="text-decoration-none fw-bold">
+                                           Bella Global
+                                        </a>
+                                    </h2>
+                                </div>
+                                <div class="card-body">
+                                    <form action="" method="POST">
+                                        {% csrf_token %}
+                                        <br>
+                                        <!-- Email Address -->
+                                        <div class="form-group mb-4">
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                                <input type="email" name="email" class="form-control" placeholder="Enter your email address">
+                                            </div>
+                                        </div>
+                                        <!-- Password -->
+                                        <div class="form-group mb-4">
+                                            <div class="input-group">
+                                                <span class="input-group-text">
+                                                    <i class="fa fa-key"></i>  
+                                                </span>
+                                                <input type="password" name="password" id="passwordInput" class="form-control" placeholder="Password">
+                                                <span class="input-group-text" style="cursor: pointer;" onclick="togglePassword()">
+                                                    <i class="fa fa-eye" id="toggleIcon"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="d-grid gap-2 mb-2">
+                                            <button type="submit" class="custom-submit-btn">
+                                                 <i class="fas fa-sign-in-alt"></i> Login
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <p class="text-center">
+                                Don’t have an account yet ?
+                                <a href="{% url 'register' %}" class="mx-2"> Register </a>
+                            </p>
+                            <div class="text-center">
+                                <a href="{% url 'password_reset' %}" class="btn btn-outline-dark btn-sm">
+                                    Forgot your password?
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const toggleIcon = document.getElementById('toggleIcon');
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = "password";
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+    </script>
+
+
+{% endblock content %}

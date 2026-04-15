@@ -19,15 +19,29 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Application definition
 
 INSTALLED_APPS = [
-    'home.apps.HomeConfig',
-    # Default Apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # My Own Apps Configuration
+    'home.apps.HomeConfig',
+    'accounts.apps.AccountsConfig',
+    'notification.apps.NotificationConfig',
+    # Library and dependency
+    'django_summernote',
+    'import_export',
+    'crispy_forms',  
+    'crispy_bootstrap5'
 ]
+
+# Custom User Model
+AUTH_USER_MODEL = 'accounts.User'
+LOGIN_URL = '/login/'
+LOGIN_URL_REDIRECT = '/'
+LOGOUT_URL = '/logout/'
+LOGOUT_REDIRECT_URL = '/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

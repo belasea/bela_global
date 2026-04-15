@@ -1,0 +1,89 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+{% block title %} Profile - {{block.super}} {% endblock %}
+
+{% block content %}
+
+
+    <section class="update-profile mt-5">
+        <br>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="update-profile-content">
+                                <div class="position-relative d-inline-block">
+                                    {% if request.user.profile %}
+                                        <img src="{{ request.user.profile.url }}" alt="Profile" class="profile-pic">
+                                    {% else %}
+                                        <img src="{% static 'img/no-photo.png' %}" alt="Profile" class="profile-pic">
+                                    {% endif %}
+                                    <div class="profile-container">
+                                        <!-- Camera Button triggers file input -->
+                                        <label for="id_img" class="camera-btn">
+                                            <i class="fas fa-camera"></i>
+                                        </label>
+                                        <!-- Hidden file input -->
+                                        <input id="id_img" type="file" name="profile" accept="image/*">
+                                    </div>
+                                </div>
+                                <h3>
+                                    {{ request.user.first_name }} {{ request.user.last_name }}
+                                </h3>
+                                <p class="text-center">{{ request.user.email }}</p>
+                                <div class="profile-buttons">
+                                    <a href="{% url 'contact-us' %}" class="btn btn-outline-secondary">
+                                        <i class="fas fa-envelope"></i> Message
+                                    </a>
+                                    <a class="btn btn-secondary">
+                                        <i class="fas fa-user-plus"></i> Connect
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <label class="form-label">First Name</label>
+                                        <input type="text" name="first_name" class="form-control" value="{{ obj.first_name }}">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Last Name</label>
+                                        <input type="text" name="last_name" class="form-control" value="{{ obj.last_name }}">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Contact Number</label>
+                                        <input type="text" name="contact_number" class="form-control" value="{{ obj.contact_number }}">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" name="contact_number" class="form-control" value="{{ obj.email }}" disabled>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Date of Birth</label>
+                                        <input type="date" name="date_of_birth" class="form-control" value="{{ obj.date_of_birth|date:'Y-m-d' }}">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Gender</label>
+                                        <select name="gender" class="form-select">
+                                            <option value="">Select Gender</option>
+                                            <option value="M" {% if obj.gender == "M" %}selected{% endif %}>Male</option>
+                                            <option value="F" {% if obj.gender == "F" %}selected{% endif %}>Female</option>
+                                            <option value="O" {% if obj.gender == "O" %}selected{% endif %}>Other</option>
+                                        </select>                                
+                                    </div>
+                                    <button type="submit" class="custom-submit-btn">
+                                        <i class="fas fa-user-edit"></i> Update Profile
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock content %}
