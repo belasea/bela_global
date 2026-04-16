@@ -25,8 +25,9 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('', include('dashboard.urls')),
     path('', include('contacts.urls')),
-    # path('', include('about.urls')),
+    path('', include('about.urls')),
     path('', include('notification.urls')),
+    path('summernote/', include('django_summernote.urls')),
 ]
 
 if settings.DEBUG:

@@ -171,7 +171,7 @@
                     <a href="{% url 'contact-us' %}" class="text-white text-decoration-none fw-bold small">
                         Contact
                     </a>
-                    <a href="faq.html" class="text-white text-decoration-none fw-bold small">
+                    <a href="{% url 'faq' %}" class="text-white text-decoration-none fw-bold small">
                         FAQ
                     </a>
                 </div>
@@ -201,13 +201,21 @@
                     <span class="copyright-text w-100 w-md-auto mb-2 mb-md-0">
                         © THEBELLA 2026
                     </span>
-                    <a href="legal_notice.html" class="footer-link">Legal Notice</a>
-                    <a href="terms.html" class="footer-link">Terms</a>
-                    <a href="personal_data.html" class="footer-link">Personal Data Policy</a>
-                    <a href="policy.html" class="footer-link">Cookie Policy</a>
+                    <a href="{% url 'legal-notice' %}" class="footer-link">
+                        Legal Notice
+                    </a>
+                    <a href="{% url 'terms' %}" class="footer-link">
+                        Terms
+                    </a>
+                    <a href="{% url 'personal-data-policy' %}" class="footer-link">
+                        Personal Data Policy
+                    </a>
+                    <a href="{% url 'cookie-policy' %}" class="footer-link">
+                         Policy
+                    </a>
                 </div>
                 <div class="col-12 col-md-3 text-center text-md-end">
-                    <a href="international.html" class="footer-link">
+                    <a href="{% url 'international' %}" class="footer-link">
                         International <i class="bi bi-globe ms-1"></i>
                     </a>
                 </div>

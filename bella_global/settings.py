@@ -25,12 +25,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     # My Own Apps Configuration
     'home.apps.HomeConfig',
     'accounts.apps.AccountsConfig',
     'notification.apps.NotificationConfig',
     'dashboard.apps.DashboardConfig',
     'contacts.apps.ContactsConfig',
+    'about.apps.AboutConfig',
+    
     # Library and dependency
     'django_summernote',
     'import_export',
