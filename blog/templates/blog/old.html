@@ -1,0 +1,233 @@
+<section class="blog-details-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <article class="blog-post">
+                        <h3 class="fw-bold mb-3">{{ blog.title }}</h1>
+                        <div class="entry-meta d-flex align-items-center gap-3 mb-4 text-muted small">
+                            <span><i class="far fa-calendar-alt me-1"></i>{{ blog.timestamp }}</span>
+                            <span><i class="far fa-user me-1"></i> By Admin</span>
+                            <span><i class="far fa-comment me-1"></i> {{ comments.count }} Comments</span>
+                        </div>
+
+                        <div class="featured-image-wrapper mb-4 overflow-hidden rounded-4">
+                            {% if blog.image %}
+                                <img src="{{ blog.image.url }}" class="img-fluid w-100 object-fit-cover shadow-sm" alt="Global Futures" style="max-height: 450px;">
+                            {% else %}
+                                <img src="{% static 'img/no-image.png' %}" class="img-fluid w-100 object-fit-cover shadow-sm" alt="Global Futures" style="max-height: 450px;">
+                            {% endif %}
+                        </div>
+
+                        <div class="article-body lh-lg text-secondary">
+                            <p class="lead text-dark fw-normal mb-4">
+                                {{ blog.description|safe }}
+                            </p>
+                        </div>
+
+                        <div class="d-flex flex-wrap justify-content-between align-items-center border-top border-bottom py-3 my-5">
+                            <div class="tags">
+                                <span class="fw-bold me-2">Tags:</span>
+                                <a href="#" class="badge bg-light text-dark text-decoration-none border me-1">{{ blog.category.title }}</a>
+                            </div>
+                            <div class="share">
+                                <span class="fw-bold me-2">Share:</span>
+                                <!-- Facebook -->
+                                {% if blog.facebook_url %}
+                                    <a href="{{ blog.facebook_url }}" class="text-muted me-2">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                {% else %}
+                                    <span class="text-muted me-2">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </span>
+                                {% endif %}
+                                <!-- instagram_url-->
+                                {% if blog.instagram_url %}
+                                    <a href="{{ blog.instagram_url }}" class="text-muted me-2">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                {% else %}
+                                    <span class="text-muted me-2">
+                                        <i class="fab fa-instagram"></i>
+                                    </span>
+                                {% endif %}
+                                <!-- linkedin-->
+                                {% if blog.linkedin_url %}
+                                    <a href="{{ blog.linkedin_url }}" class="text-muted me-2">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                {% else %}
+                                    <span class="text-muted me-2">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="sidebar-wrapper sticky-top mt-4">
+                        <div class="sidebar-widget mb-5 shadow-sm rounded-4 bg-white overflow-hidden border">
+                            <div class="widget-header px-3 py-3 border-bottom bg-light d-flex align-items-center justify-content-between">
+                                <h3 class="h6 text-uppercase fw-bold mb-0 text-dark" style="letter-spacing: 0.5px;">
+                                    <i class="fa-solid fa-fire- flame me-2 text-teal-accent"></i>
+                                    Related Blog
+                                </h3>
+                            </div>
+
+                            <div class="widget-body p-3">
+                                {% if related_blogs %}
+                                    {% for related in related_blogs %}
+                                        <div class="related-post-item d-flex gap-3 {% if not forloop.last %}mb-3 pb-3 border-bottom{% endif %}">
+                                            <div class="related-img-wrapper flex-shrink-0">
+                                                {% if related.image %}
+                                                    <img src="{{ related.image.url }}" class="rounded-3 shadow-sm" alt="{{ related.title }}">
+                                                {% else %}
+                                                    <img src="{% static 'img/no-photo.png' %}" class="rounded-3 shadow-sm" alt="Default">
+                                                {% endif %}
+                                            </div>
+                                            <div class="related-content">
+                                                <h6 class="mb-1 line-clamp-2">
+                                                    <a href="{% url 'blog-details' related.slug %}" class="text-decoration-none text-dark fw-bold small-title">
+                                                        {{ related.title }}
+                                                    </a>
+                                                </h6>
+                                                <div class="d-flex align-items-center text-muted mt-1" style="font-size: 0.7rem;">
+                                                    <i class="fa-regular fa-calendar-days me-1"></i>
+                                                    <span>{{ related.timestamp|date:"M d, Y" }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="text-muted">No related blog found.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="ads-banner">
+                            {% if advertisement %}
+                                <div class="custom-ad-card">
+                                    <div class="ad-image">
+                                        {% if advertisement.image %}
+                                            <div class="d-flex gap-3">
+                                                <img src="{{ advertisement.image.url }}" alt="Ads img" class="img-fluid rounded-3 shadow">
+                                            </div>
+                                        {% else %}
+                                            <img src="{% static 'img/no-image.png' %}" alt="Ads img" class="img-fluid">
+                                        {% endif %}
+                                    </div>
+                                    <div class="ad-content">
+                                        <h5 class="ad-title">{{ advertisement.title }}</h5>
+                                        <p class="ad-text">{{ advertisement.text }}</p>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="my-5 text-center">
+                                    <h2 class="text-muted">Advertisement Unavailable</h2>
+                                    <hr class="w-25 mx-auto">
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="comments-area mt-5">
+                    <h4 class="fw-bold mb-4">{{ comments.count }} Comments</h4>
+                    {% for comment in comments %}
+                        <div class="comment-item mb-4">
+                            <div class="d-flex gap-3">
+                                <img src="https://ui-avatars.com/api/?name={{ comment.name }}&background=random" class="rounded-circle shadow-sm" width="50" height="50">
+                                <div class="comment-content flex-grow-1">
+                                    <div class="d-flex align-items-center gap-2 mb-1">
+                                        <h6 class="fw-bold mb-0">{{ comment.name }}</h6>
+                                        <span class="text-muted small">| {{ comment.created_on|timesince }} ago</span>
+                                    </div>
+                                    <p class="text-secondary small mb-2">{{ comment.body }}</p>
+                                    
+                                    {% if request.user.is_superuser %}
+                                        <button type="button" class="btn btn-sm btn-light text-primary fw-bold py-0" 
+                                                data-bs-toggle="modal" data-bs-target="#replyModal" 
+                                                onclick="setupReply('{{ comment.id }}', '{{ comment.name }}')">
+                                            Reply
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            {% for reply in comment.replies.all %}
+                            <div class="reply-list ms-5 mt-4 ps-3 border-start border-2">
+                                <div class="d-flex gap-3">
+                                    <img src="https://ui-avatars.com/api/?name=Admin&background=0D6EFD&color=fff" class="rounded-circle shadow-sm" width="40" height="40">
+                                    <div class="comment-content">
+                                        <div class="d-flex align-items-center gap-2 mb-1">
+                                            <h6 class="fw-bold mb-0">{{ reply.name }} <span class="badge bg-primary ms-1" style="font-size: 10px;">Author</span></h6>
+                                            <span class="text-muted small">| {{ reply.created_on|timesince }} ago</span>
+                                        </div>
+                                        <p class="text-secondary small mb-2">{{ reply.body }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+
+                    <div id="commentForm" class="comment-form-wrapper p-4 rounded-4 mt-5 border">
+                        <h4 class="fw-bold mb-3">Leave a Comment</h4>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input type="text" name="name" class="form-control" placeholder="Full Name*" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="email" name="email" class="form-control" placeholder="Email Address*" required>
+                                </div>
+                                <div class="col-12">
+                                    <textarea name="body" class="form-control" placeholder="Comment*" style="height: 120px" required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-read-more px-4 py-2 fw-bold shadow-sm rounded-pill">Post Comment</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="replyModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content border-0 shadow-lg rounded-4">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="modal-header border-0 pb-0">
+                                    <h5 class="fw-bold">Reply to
+                                        <span id="replyToName" class="text-primary"></span>
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" name="parent_comment_id" id="parent_comment_id">
+                                    <textarea name="reply_body" class="form-control bg-light border-0" placeholder="Write your official reply..." style="height: 150px" required></textarea>
+                                </div>
+                                <div class="modal-footer border-0">
+                                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-dark rounded-pill px-4">
+                                        Post Reply
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function setupReply(commentId, name) {
+                        document.getElementById('parent_comment_id').value = commentId;
+                        document.getElementById('replyToName').innerText = name;
+                    }
+                </script>
+            </div>
+        </div>
+    </section>

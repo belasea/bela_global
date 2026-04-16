@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'dashboard.apps.DashboardConfig',
     'contacts.apps.ContactsConfig',
     'about.apps.AboutConfig',
+    'blog.apps.BlogConfig',
     
     # Library and dependency
     'django_summernote',
