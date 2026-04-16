@@ -110,12 +110,19 @@
                                             <span class="cart-count">10</span>
                                         </a>
                                     </li>
-
+                                    <!--Authentication-->
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{% url 'login' %}">
-                                            <i class="fa-solid fa-right-to-bracket"></i>
-                                            <span>Login</span>
-                                        </a>
+                                        {% if request.user.is_authentication %}
+                                            <a class="nav-link" href="{% url 'login' %}">
+                                                <i class="fa-solid fa-right-to-bracket"></i>
+                                                <span>Login</span>
+                                            </a>
+                                        {% else %}
+                                            <a class="nav-link" href="{% url 'logout' %}">
+                                                <i class="fa-solid fa-right-from-bracket"></i>
+                                                <span>logout</span>
+                                            </a>
+                                        {% endif %}
                                     </li>
                                 </ul>
                             </div>
@@ -161,7 +168,7 @@
             <hr class="border-secondary my-4 my-md-5">
             <div class="row align-items-center gy-4">
                 <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-start gap-4">
-                    <a href="contact.html" class="text-white text-decoration-none fw-bold small">
+                    <a href="{% url 'contact-us' %}" class="text-white text-decoration-none fw-bold small">
                         Contact
                     </a>
                     <a href="faq.html" class="text-white text-decoration-none fw-bold small">

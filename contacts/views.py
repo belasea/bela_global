@@ -11,11 +11,11 @@ from django.core.mail import send_mail
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from datetime import datetime
-from sea_bright_education.local_settings import BASE_URL
+from bella_global.local_settings import BASE_URL
 
 
 # Contact Page ====================================================
-def contact(request):
+def contact_us(request):
     """
     Renders the contact form and handles form submission.
     

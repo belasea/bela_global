@@ -29,12 +29,17 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'accounts.apps.AccountsConfig',
     'notification.apps.NotificationConfig',
+    'dashboard.apps.DashboardConfig',
+    'contacts.apps.ContactsConfig',
     # Library and dependency
     'django_summernote',
     'import_export',
     'crispy_forms',  
     'crispy_bootstrap5'
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # Custom User Model
 AUTH_USER_MODEL = 'accounts.User'
@@ -105,7 +110,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Connect Bootstrap alerts to Django message tags
+# Alerts to Django message tags ========================
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-secondary',
     messages.INFO: 'alert-info',
@@ -113,6 +118,17 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+# Gmail Setting =======================================
+try:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = 'developerbelasea@gmail.com'
+    EMAIL_HOST_PASSWORD = 'bopeqjiwmwntxekl'  
+except:
+    pass
 
 
 try:
