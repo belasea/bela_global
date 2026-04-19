@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Blog Details {{block.super}} {% endblock %}
+
+{% block content %}
+
+    <!-- Blog Details Section -->
+    <section class="blog-details py-5">
+        <div class="container mb-5">
+            <div class="row">
+
+                <!-- Main Content -->
+                <div class="col-lg-8">
+                    <div class="blog-details-card">
+                        <!-- Image -->
+                        <div class="blog-details-img">
+                            {% if blog.image %}
+                                <img src="{{ blog.image.url }}" class="img-fluid w-100 object-fit-cover shadow-sm" alt="Global Futures">
+                            {% else %}
+                                <img src="{% static 'img/no-photo.png' %}" class="img-fluid w-100 object-fit-cover shadow-sm" alt="Global Futures">
+                            {% endif %}
+                        </div>
+
+                        <!-- Content -->
+                        <div class="blog-details-content">
+
+                            <div class="blog-meta">
+                                <span>{{ blog.timestamp }}</span>
+                                <span>•</span>
+                                <span>By Admin</span>
+                                <span>•</span>
+                                <span>{{ comments.count }} Comments</span>
+                            </div>
+
+                            <h2 class="blog-title">
+                                {{ blog.title }}
+                            </h2>
+                            <p>{{ blog.description|safe }}</p>
+                            {% if blog.quote %}
+                                <blockquote>
+                                    “{{ blog.quote }}”
+                                </blockquote>
+                            {% endif %}
+                            <!-- Tags -->
+                            <div class="blog-tags mb-3">
+                                <span>Tags:</span>
+                                <a href="{% url 'blog-category' blog.category.slug %}">
+                                    {{ blog.category.title }}
+                                </a>
+                            </div>
+                            <div class="share">
+                                <span class="fw-bold me-2">Share:</span>
+                                <!-- Facebook -->
+                                {% if blog.facebook_url %}
+                                    <a href="{{ blog.facebook_url }}" class="text-muted me-2">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                {% else %}
+                                    <span class="text-muted me-2">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </span>
+                                {% endif %}
+                                <!-- instagram_url-->
+                                {% if blog.instagram_url %}
+                                    <a href="{{ blog.instagram_url }}" class="text-muted me-2">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                {% else %}
+                                    <span class="text-muted me-2">
+                                        <i class="fab fa-instagram"></i>
+                                    </span>
+                                {% endif %}
+                                <!-- linkedin-->
+                                {% if blog.linkedin_url %}
+                                    <a href="{{ blog.linkedin_url }}" class="text-muted me-2">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                {% else %}
+                                    <span class="text-muted me-2">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </span>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Comment Section -->
+                    <div class="comments-section mt-5">
+                        <h4>Leave a Comment</h4>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                                    {% if form.name.errors %}
+                                        <span class="text-danger small">
+                                            {{ form.name.errors.0 }}
+                                        </span>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                                    <span class="text-danger">
+                                        {{ form.email.errors }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" name="body" rows="5" placeholder="Your Comment" required></textarea>
+                                <span class="text-danger">
+                                    {{ form.body.errors }}
+                                </span>
+                            </div>
+                            <button class="jayed-btn">Post Comment</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <div class="sidebar">
+
+                        <!-- Search -->
+                        <div class="sidebar-box">
+                            <h5>Search</h5>
+                            <form action="{% url 'blog' %}" method="GET">
+                                <input type="text" name="q" class="form-control" placeholder="Search blog..." value="{{ request.GET.q }}">
+                            </form>
+                        </div>
+
+                        <!-- Categories -->
+                        <div class="sidebar-box">
+                            <h5>Categories</h5>
+                            <ul>
+                                {% for c in cat %}
+                                    <li>
+                                        <a href="{% url 'blog-category' c.slug %}">
+                                            {{ c.title }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <!-- Recent Posts -->
+                        <div class="sidebar-box mb-3">
+                            <h5>Recent Posts</h5>
+                            <ul class="recent-posts">
+                                {% if related_blogs %}
+                                    {% for related in related_blogs %}
+                                        <li>
+                                            <a href="{% url 'blog-details' related.slug %}">
+                                                {{ related.title }}
+                                            </a>
+                                            <span>{{ related.timestamp|date:"M d, Y" }}</span>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li>
+                                        <p class="text-muted">No recent posts found.</p>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="sidebar-box">
+                            {% if advertisement %}
+                                <h5 class="ad-title">
+                                    {{ advertisement.title }}
+                                </h5>
+                                <div class="custom-ad-card">
+                                    <div class="ad-image">
+                                        {% if advertisement.image %}
+                                            <div class="d-flex gap-3">
+                                                <img src="{{ advertisement.image.url }}" alt="Ads img" class="img-fluid rounded-3 shadow">
+                                            </div>
+                                        {% else %}
+                                            <img src="{% static 'img/no-image.png' %}" alt="Ads img" class="img-fluid">
+                                        {% endif %}
+                                    </div>
+                                    <div class="ad-content mt-3">
+                                        <p class="ad-text">{{ advertisement.text }}</p>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="my-5 text-center">
+                                    <h2 class="text-muted">Advertisement Unavailable</h2>
+                                    <hr class="w-25 mx-auto">
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="comments-area mt-4">
+                    <h4 class="fw-bold mb-4">{{ comments.count }} Comments</h4>
+                    {% for comment in comments %}
+                        <div class="comment-item mb-4">
+                            <div class="d-flex gap-3">
+                                <img src="https://ui-avatars.com/api/?name={{ comment.name }}" class="rounded-circle shadow-sm" width="50" height="50">
+                                <div class="comment-content flex-grow-1">
+                                    <div class="d-flex align-items-center gap-2 mb-1">
+                                        <h6 class="fw-bold mb-0">{{ comment.name }}</h6>
+                                        <span class="text-muted small">| {{ comment.created_on|timesince }}</span>
+                                    </div>
+                                    <p class="text-secondary small mb-2">
+                                        {{ comment.body }}
+                                    </p>
+                                    
+                                    {% if request.user.is_superuser %}
+                                        <button type="button" class="btn btn-sm btn-light text-primary fw-bold py-0" 
+                                                data-bs-toggle="modal" data-bs-target="#replyModal" 
+                                                onclick="setupReply('{{ comment.id }}', '{{ comment.name }}')">
+                                            Reply
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            {% for reply in comment.replies.all %}
+                                <div class="reply-list ms-5 mt-4 ps-3 border-start border-2">
+                                    <div class="d-flex gap-3">
+                                        <img src="https://ui-avatars.com/api/?name=Admin&background=0D6EFD&color=fff" class="rounded-circle shadow-sm" width="40" height="40">
+                                        <div class="comment-content">
+                                            <div class="d-flex align-items-center gap-2 mb-1">
+                                                <h6 class="fw-bold mb-0">{{ reply.name }}<span class="badge bg-primary ms-1" style="font-size: 10px;">
+                                                    Author</span>
+                                                </h6>
+                                                <span class="text-muted small">| {{ reply.created_on|timesince }}</span>
+                                            </div>
+                                            <p class="text-secondary small mb-2">
+                                                {{ reply.body }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="modal fade" id="replyModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content border-0 shadow-lg rounded-4">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="modal-header border-0 pb-0">
+                                    <h5 class="fw-bold">
+                                        <span id="replyToName" class="text-primary"></span>
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" name="parent_comment_id" id="parent_comment_id">
+                                    <textarea name="reply_body" class="form-control bg-light border-0" placeholder="Write your official reply..." style="height: 150px" required></textarea>
+                                </div>
+                                <div class="modal-footer border-0">
+                                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="jayed-btn rounded-pill px-4">
+                                        Post Reply
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function setupReply(commentId, name) {
+                        document.getElementById('parent_comment_id').value = commentId;
+                        document.getElementById('replyToName').innerText = name;
+                    }
+                </script>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,20 +1,57 @@
 from django.shortcuts import render
 from .models import (
-    OurBackground, 
-    OurGoal, 
-    Facility,
+    FAQCategory,
+    CookiePolicy,
+    PersonalDataPolicy,
+    Terms,
+    LegalNotice,
+    International
 )
 
 
-def about_us(request):
-    # Fetch the first (and likely only) entry
-    background_data = OurBackground.objects.first()
-    our_goal = OurGoal.objects.filter(is_active=True).order_by('order')[:3]
-    facility = Facility.objects.filter(is_active=True)[:6]
-    
+def faq_view(request):
+    categories = FAQCategory.objects.prefetch_related('faqs').all()
     context = {
-        'background_data': background_data,
-        'our_goal': our_goal,
-        'facility': facility
+        'categories':categories,
     }
-    return render(request, "about/about_us.html", context)
+    return render(request, "about/faq.html", context)
+
+
+def cookie_policy(request):
+    cookie_data = CookiePolicy.objects.first()
+    context = {
+        "cookie_data": cookie_data
+    }
+    return render(request, "about/cookie_policy.html", context)
+
+
+def personal_data_policy(request):
+    personal_data = PersonalDataPolicy.objects.first()
+    context = {
+        "personal_data": personal_data
+    }
+    return render(request, "about/personal_data_policy.html", context)
+
+
+def terms(request):
+    terms_data = Terms.objects.first()
+    context = {
+        "terms_data": terms_data
+    }
+    return render(request, "about/terms.html", context)
+
+
+def legal_notice(request):
+    legal_notice_data = LegalNotice.objects.first()
+    context = {
+        "legal_notice_data": legal_notice_data
+    }
+    return render(request, "about/legal_notice.html", context)
+
+
+def international(request):
+    international_data = International.objects.first()
+    context = {
+        "international_data": international_data
+    }
+    return render(request, "about/international.html", context)

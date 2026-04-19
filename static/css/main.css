@@ -17,6 +17,23 @@ body {
     overflow-x: hidden;
 }
 
+.jayed-btn {
+    margin-top: 20px;
+    background-color: #006b76;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.jayed-btn:hover {
+    background-color: #004f57;
+    box-shadow: 0 6px 14px rgba(0, 107, 118, 0.25);
+}
+
 /* ===============================
 Main Content
 =============================== */
@@ -2359,7 +2376,13 @@ Blog Section
 
 .blog-img img {
     width: 100%;
+    height: 250px;
     transition: 0.4s;
+}
+
+.blog-details-img img{
+    width: 900px;
+    height: 400px;
 }
 
 .blog-card:hover .blog-img img {

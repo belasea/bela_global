@@ -11,11 +11,11 @@ from django.core.mail import send_mail
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from datetime import datetime
-from sea_bright_education.local_settings import BASE_URL
+from bella_global.local_settings import BASE_URL
 
 
 # Contact Page ====================================================
-def contact(request):
+def contact_us(request):
     """
     Renders the contact form and handles form submission.
     
@@ -28,11 +28,11 @@ def contact(request):
     
     if request.method == 'POST':
         if form.is_valid():
-            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
             form.save()
             messages.add_message(request, messages.SUCCESS, "Success! Thank you for your message.")
             # Create a notification for the user
-            notification_message = f'Created : {subject}'
+            notification_message = f'{message}'
             try:
                 # Set the appropriate link if needed
                 link = BASE_URL + "/contact-list"
@@ -40,8 +40,8 @@ def contact(request):
                 link = None
             notification = Notification(user=request.user, message=notification_message, link=link)
             notification.save()
-            return redirect('home')
-            # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            # return redirect('home')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
             errors = form.errors
 

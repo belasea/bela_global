@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} FAQ {{block.super}} {% endblock %}
+
+{% block content %}
+
+    <!--=== Faq-wrapper ====-->
+    <section class="faq-wrapper bg-white py-5">
+        <div class="container">
+            {% if categories %}
+                <div class="row justify-content-center align-items-start">
+                    <div class="col-lg-3 mt-lg-5">
+                        <ul class="faq-nav">
+                            {% for category in categories %}
+                                <li>
+                                    <a href="javascript:void(0)"
+                                    class="faq-nav-item {% if forloop.first %}active{% endif %}"
+                                    onclick="switchFaq(event, '{{ category.slug }}')">
+                                        {{ category.name }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-lg-7 offset-lg-1">
+                        {% for category in categories %}
+                            <div id="{{ category.slug }}"
+                                class="faq-content-section {% if forloop.first %}active{% endif %}">
+
+                                <div class="accordion accordion-flush" id="acc{{ category.slug }}">
+
+                                    {% for faq in category.faqs.all %}
+                                    <div class="accordion-item">
+
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#faq{{ faq.id }}">
+                                                {{ faq.question }}
+                                            </button>
+                                        </h2>
+
+                                        <div id="faq{{ faq.id }}"
+                                            class="accordion-collapse collapse"
+                                            data-bs-parent="#acc{{ category.slug }}">
+
+                                            <div class="accordion-body">
+                                                {{ faq.answer|safe }}
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="row justify-content-center align-items-start">
+                    <div class="col my-5 text-center">
+                        <h2 class="text-muted">FAQ Unavailable</h2>
+                        <p class="lead">
+                            The requested FAQ document is currently being updated or is not available at this time.
+                        </p>
+                        <hr class="w-25 mx-auto">
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+       
+{% endblock %}

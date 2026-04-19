@@ -103,10 +103,12 @@
                                                 <td>
                                                     {% if notification.link %}
                                                         <a href="{% url 'read-notification' notification.id %}" target="_blank">
-                                                            {{ notification.message }}
+                                                            {{ notification.message|truncatechars:40 }}
                                                         </a>
                                                     {% else %}
-                                                        <a href="#">{{ notification.message }}</a>
+                                                        <a href="#" class="text-muted">
+                                                            {{ notification.message|truncatechars:40 }}
+                                                        </a>
                                                     {% endif %}
                                                 </td>
                                                 <td>{{ notification.created_at }}</td>

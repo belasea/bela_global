@@ -6,6 +6,7 @@ class Contact(models.Model):
     first_name = models.CharField(max_length=250, blank=True, null=True)
     last_name = models.CharField(max_length=250, blank=True, null=True)
     email = models.EmailField()
+    phone = models.CharField(max_length=15, blank=True, null=True)
     message = models.TextField()
     is_message_send = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True, db_index=True)

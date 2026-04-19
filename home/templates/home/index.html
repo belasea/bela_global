@@ -7,71 +7,87 @@
     <!--===== Slider ====-->
     <div class="slider-section">
         <div id="isisSlider" class="carousel slide hero-slider" data-bs-ride="carousel" data-bs-interval="5000">
+            
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#isisSlider" data-bs-slide-to="0" class="active"></button>
-                <button type="button" data-bs-target="#isisSlider" data-bs-slide-to="1"></button>
-                <button type="button" data-bs-target="#isisSlider" data-bs-slide-to="2"></button>
+                {% if sliders %}
+                    {% for slider in sliders %}
+                        <button type="button" data-bs-target="#isisSlider" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></button>
+                    {% endfor %}
+                {% else %}
+                    <button type="button" data-bs-target="#isisSlider" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#isisSlider" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#isisSlider" data-bs-slide-to="2"></button>
+                {% endif %}
             </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active slide-light-gray">
-                    <div class="container-fluid">
-                        <div class="slider-container">
-                            <div class="slider-text-side">
-                                <div class="slider-label">New</div>
-                                <h1 class="slider-title">
-                                    Repairing has never been this easy.
-                                </h1>
-                                <p class="slider-subtitle">
-                                    Your daily SOS reflex, precisely formulated for fast, safe and pleasant skin recovery.
-                                </p>
-                                <a href="#" class="btn btn-learn-more">LEARN MORE</a>
-                            </div>
-                            <div class="slider-image-side">
-                                <img src="{% static 'img/banner.png' %}" alt="Product Image">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item slide-light-gray">
-                    <div class="container-fluid">
-                        <div class="slider-container reverse">
-                            <div class="slider-text-side">
-                                <div class="slider-label">New</div>
-                                <h1 class="slider-title">
-                                    Cicapro Cream: precisely formulated to repair and soothe.
-                                </h1>
-                                <p class="slider-subtitle">
-                                    Expert care for everyday skin irritations.
-                                </p>
-                                <a href="#" class="btn btn-learn-more">LEARN MORE</a>
-                            </div>
-                            <div class="slider-image-side">
-                                <img src="{% static 'img/salicylic.png' %}" alt="Product Image">
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="carousel-item slide-light-gray">
-                    <div class="container-fluid">
-                        <div class="slider-container">
-                            <div class="slider-text-side">
-                                <div class="slider-label">Essentials</div>
-                                <h1 class="slider-title">Complete protection for your skin.</h1>
-                                <p class="slider-subtitle">
-                                    Advanced dermatological solutions for your daily routine.
-                                </p>
-                                <a href="#" class="btn btn-learn-more">
-                                    LEARN MORE
-                                </a>
-                            </div>
-                            <div class="slider-image-side">
-                                <img src="{% static 'img/cosrx.png' %}" alt="Product Image">
+            <div class="carousel-inner">
+                {% for slider in sliders %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %} slide-light-gray">
+                        <div class="container-fluid">
+                            <div class="slider-container {% if forloop.counter|divisibleby:2 %}reverse{% endif %}">
+                                <div class="slider-text-side">
+                                    <div class="slider-label">{{ slider.label }}</div>
+                                    <h1 class="slider-title">{{ slider.title }}</h1>
+                                    <p class="slider-subtitle">{{ slider.subtitle }}</p>
+                                    <a href="{{ slider.link_url }}" class="btn btn-learn-more">LEARN MORE</a>
+                                </div>
+                                <div class="slider-image-side">
+                                    <img src="{{ slider.image.url }}" alt="{{ slider.title }}">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                {% empty %}
+                    <div class="carousel-item active slide-light-gray">
+                        <div class="container-fluid">
+                            <div class="slider-container">
+                                <div class="slider-text-side">
+                                    <div class="slider-label">New</div>
+                                    <h1 class="slider-title">Repairing has never been this easy.</h1>
+                                    <p class="slider-subtitle">Your daily SOS reflex, precisely formulated for fast, safe and pleasant skin recovery.</p>
+                                    <a href="#" class="btn btn-learn-more">LEARN MORE</a>
+                                </div>
+                                <div class="slider-image-side">
+                                    <img src="{% static 'img/banner.png' %}" alt="Default Banner">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item slide-light-gray">
+                        <div class="container-fluid">
+                            <div class="slider-container reverse">
+                                <div class="slider-text-side">
+                                    <div class="slider-label">New</div>
+                                    <h1 class="slider-title">Cicapro Cream: precisely formulated.</h1>
+                                    <p class="slider-subtitle">Expert care for everyday skin irritations.</p>
+                                    <a href="#" class="btn btn-learn-more">LEARN MORE</a>
+                                </div>
+                                <div class="slider-image-side">
+                                    <img src="{% static 'img/salicylic.png' %}" alt="Default Salicylic">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item slide-light-gray">
+                        <div class="container-fluid">
+                            <div class="slider-container">
+                                <div class="slider-text-side">
+                                    <div class="slider-label">Essentials</div>
+                                    <h1 class="slider-title">Complete protection for your skin.</h1>
+                                    <p class="slider-subtitle">Advanced dermatological solutions for your daily routine.</p>
+                                    <a href="#" class="btn btn-learn-more">LEARN MORE</a>
+                                </div>
+                                <div class="slider-image-side">
+                                    <img src="{% static 'img/cosrx.png' %}" alt="Default Cosrx">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
+
             <button class="carousel-control-prev" type="button" data-bs-target="#isisSlider" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" style="filter: invert(1);"></span>
             </button>
@@ -81,179 +97,63 @@
         </div>
     </div>
 
-    <!--====== sidebar ========-->
+    <!--===== sidebar Nav ====-->
     <div class="sidebar-nav-item">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3">
                     <div class="sidebarNavbarMenu">
                         <ul class="nav flex-column sidebar-nav w-100" id="sidebarMenu">
-                            <li class="nav-item">
-                                <a class="sidebar-link nav-link active" href="#" data-target="group-new">
-                                    <span class="line"></span> New
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="sidebar-link nav-link" href="#" data-target="group-essentials">
-                                    <span class="line"></span> Essentials
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="sidebar-link nav-link" href="#" data-target="group-star">
-                                    <span class="line"></span> Star products
-                                </a>
-                            </li>
+                            {% for group in home_category %}
+                                <li class="nav-item">
+                                    <a class="sidebar-link nav-link {% if forloop.first %}active{% endif %}" 
+                                    href="#" 
+                                    data-target="group-{{ group.slug }}">
+                                        <span class="line"></span> {{ group.name }}
+                                    </a>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
+
                 <div class="col-md-9">
                     <div class="product-scroll-area" id="scrollContainer">
                         <div class="product-row">
-                            <div class="product-group d-flex" id="group-new">
-                                <div class="product-item">
-                                    <div class="product-card bg-pink">
-                                        <img src="{% static "img/salicylic.png" %}" class="img-fluid" alt="Product">
-                                        <div class="product-info">
-                                            <a href="category.html">
-                                                <h5 class="text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
-                                            </a>
+                            {% for group in home_category %}
+                                <div class="product-group d-flex" id="group-{{ group.slug }}">
+                                    {% for item in group.items.all %}
+                                        <div class="product-item">
+                                            <div class="product-card {{ item.card_color }}">
+                                                {% if item.image %}
+                                                    <img src="{{ item.image.url }}" class="img-fluid" alt="{{ item.title }}">
+                                                {% endif %}
+                                                <div class="product-info">
+                                                    {# Adjust this link based on your URL naming convention #}
+                                                    <a href="#">
+                                                        <h5 class="text-danger">{{ item.title|upper }}</h5>
+                                                        <p class="description">{{ item.short_description }}</p>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    {% endfor %}
                                 </div>
-                                <div class="product-item">
-                                    <div class="product-card bg-pink">
-                                        <img src="{% static 'img/cosrx.png' %}" class="img-fluid" alt="Product">
-                                        <div class="product-info">
-                                            <a href="category.html">
-                                                <h5 class="text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-item">
-                                    <div class="product-card bg-pink">
-                                        <img src="{% static 'img/low.png' %}" class="img-fluid" alt="Product">
-                                        <div class="product-info">
-                                            <a href="category.html">
-                                                <h5 class="text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-item">
-                                    <div class="product-card bg-pink">
-                                        <img src="{% static 'img/aqua.webp' %}" class="img-fluid" alt="Product">
-                                        <div class="product-info">
-                                            <a href="category.html">
-                                                <h5 class="text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-group d-flex" id="group-essentials">
-                                <div class="product-item">
-                                    <div class="product-card bg-mint">
-                                        <img src="{% static 'img/salicylic.png' %}" class="img-fluid" alt="Product">
-                                        <div class="product-info">
-                                            <a href="category.html">
-                                                <h5 class="text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-item">
-                                    <div class="product-card bg-mint">
-                                        <img src="{% static 'img/cosrx.png' %}" class="img-fluid" alt="Product">
-                                        <div class="product-info">
-                                            <a href="category.html">
-                                                <h5 class="text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-item">
-                                    <div class="product-card bg-mint">
-                                        <img src="{% static 'img/low.png' %}" class="img-fluid" alt="Product">
-                                        <div class="product-info">
-                                            <a href="category.html">
-                                                <h5 class="text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-item">
-                                    <div class="product-card bg-mint">
-                                        <a href="category.html">
-                                            <img src="{% static 'img/aqua.webp' %}" class="img-fluid" alt="Product">
-                                        </a>
-                                        <div class="product-info">
-                                            <h5 class="text-danger">RUBORIL</h5>
-                                            <p class="description">New Arrival Item 1</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Start -->
-                            <div class="product-group d-flex" id="group-star">
-                                <div class="product-item">
-                                    <div class="product-card bg-yellow">
-                                        <img src="{% static 'img/salicylic.png' %}" class="img-fluid" alt="Product">
-                                        <div class="product-info">
-                                            <h5 class="text-danger">RUBORIL</h5>
-                                            <p class="description">New Arrival Item 1</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-item">
-                                    <div class="product-card bg-yellow">
-                                        <img src="{% static 'img/cosrx.png' %}" class="img-fluid" alt="Product">
-                                        <div class="product-info">
-                                            <a href="category.html">
-                                                <h5 class="text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-item">
-                                    <div class="product-card bg-yellow">
-                                        <img src="{% static 'img/low.png' %}" class="img-fluid" alt="Product">
-                                        <div class="product-info">
-                                            <a href="category.html">
-                                                <h5 class="text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-item">
-                                    <div class="product-card bg-yellow">
-                                        <img src="{% static 'img/aqua.webp' %}" class="img-fluid" alt="Product">
-                                        <div class="product-info">
-                                            <a href="category.html">
-                                                <h5 class="text-danger">RUBORIL</h5>
-                                                <p class="description">New Arrival Item 1</p>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
-                    <!-- Scroll Progress & Label -->
+
                     <div class="scroll-progress-container">
                         <div class="progress-line-bg">
                             <div class="progress-line-fill" id="scrollProgress" style="width: 0%;"></div>
                         </div>
-                        <div class="section-label-bottom" id="currentLabel">NEW</div>
+                        <div class="section-label-bottom" id="currentLabel">
+                            {% if home_category %}
+                                {{ home_category.0.name|upper }}
+                            {% else %}
+                                NEW
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -261,56 +161,104 @@
     </div>
 
     <!--============== Skincare Layout ===========-->
-    <div class="skincare-layout" id="skincare-section">
-        <div class="container">
-            <div class="row align-items-center g-5">
-                <div class="col-md-4">
-                    <a href="category.html">
-                        <div class="stack-container">
-                            <img src="{% static 'img/skin/skin1.png' %}" class="pro-img content-a" alt="Skin Care 1">
-                            <img src="{% static 'img/skin/pro.png' %}" class="pro-img content-b" alt="Skin Care 2">
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4 text-center">
-                    <div class="circle-icon">
-                        <svg class="progress-ring" width="60" height="60">
-                            <circle stroke="#f0f2f5" stroke-width="1.5" fill="transparent" r="26" cx="30" cy="30"/>
-                            <circle id="spinner-path" stroke="#7d8ea3" stroke-width="1.5" fill="transparent" r="26" cx="30" cy="30"/>
-                        </svg>
+    {% if skincare %}
+        <div class="skincare-layout" id="skincare-section">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    
+                    <div class="col-md-4">
+                        <a href="category.html">
+                            <div class="stack-container">
+                                <img with="320" height="392" src="{{ skincare.left_img_a.url }}" class="pro-img content-a" alt="Skin Care A">
+                                <img with="320" height="392" src="{{ skincare.left_img_b.url }}" class="pro-img content-b" alt="Skin Care B">
+                            </div>
+                        </a>
                     </div>
-                    <div class="label-wrapper mb-3">
-                        <p class="text-uppercase tracking-widest small mb-0">Efficiency</p>
-                    </div>
-                    <div class="stack-container">
-                        <h2 class="brand-title content-a">proved and sustainable</h2>
-                        <h2 class="brand-title content-b">organic and clinical</h2>
-                    </div>
-                </div>
 
-                <div class="col-md-4">
-                    <div class="right-images-overlap-container">
-                        <div class="stack-container img-overlap-top">
-                            <img src="{% static 'img/skin/skin2.png' %}" class="pro-img content-a" alt="image">
-                            <img src="{% static 'img/skin/pro2.png' %}" class="pro-img content-b" alt="image">
+                    <div class="col-md-4 text-center">
+                        <div class="circle-icon">
+                            <svg class="progress-ring" width="60" height="60">
+                                <circle stroke="#f0f2f5" stroke-width="1.5" fill="transparent" r="26" cx="30" cy="30"/>
+                                <circle id="spinner-path" stroke="#7d8ea3" stroke-width="1.5" fill="transparent" r="26" cx="30" cy="30"/>
+                            </svg>
                         </div>
-                        <div class="stack-container img-overlap-bottom">
-                            <img src="{% static 'img/skin/skin3.png' %}" class="pro-img content-a" alt="image">
-                            <img src="{% static 'img/skin/pro3.png' %}" class="pro-img content-b" alt="image">
+                        <div class="label-wrapper mb-3">
+                            <p class="text-uppercase tracking-widest small mb-0">{{ skincare.center_label }}</p>
+                        </div>
+                        <div class="stack-container">
+                            <h2 class="brand-title content-a">{{ skincare.center_title_a }}</h2>
+                            <h2 class="brand-title content-b">{{ skincare.center_title_b }}</h2>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="right-images-overlap-container">
+                            <div class="stack-container img-overlap-top">
+                                <img with="250" height="245" src="{{ skincare.right_top_img_a.url }}" class="pro-img content-a" alt="image">
+                                <img with="250" height="245" src="{{ skincare.right_top_img_b.url }}" class="pro-img content-b" alt="image">
+                            </div>
+                            <div class="stack-container img-overlap-bottom">
+                                <img with="250" height="245" src="{{ skincare.right_bottom_img_a.url }}" class="pro-img content-a" alt="image">
+                                <img with="250" height="245" src="{{ skincare.right_bottom_img_b.url }}" class="pro-img content-b" alt="image">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% else %}
+        <div class="skincare-layout" id="skincare-section">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-md-4">
+                        <a href="category.html">
+                            <div class="stack-container">
+                                <img src="{% static 'img/skin/skin1.png' %}" class="pro-img content-a" alt="Skin Care 1">
+                                <img src="{% static 'img/skin/pro.png' %}" class="pro-img content-b" alt="Skin Care 2">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="circle-icon">
+                            <svg class="progress-ring" width="60" height="60">
+                                <circle stroke="#f0f2f5" stroke-width="1.5" fill="transparent" r="26" cx="30" cy="30"/>
+                                <circle id="spinner-path" stroke="#7d8ea3" stroke-width="1.5" fill="transparent" r="26" cx="30" cy="30"/>
+                            </svg>
+                        </div>
+                        <div class="label-wrapper mb-3">
+                            <p class="text-uppercase tracking-widest small mb-0">Efficiency</p>
+                        </div>
+                        <div class="stack-container">
+                            <h2 class="brand-title content-a">proved and sustainable</h2>
+                            <h2 class="brand-title content-b">organic and clinical</h2>
+                        </div>
+                    </div>
 
+                    <div class="col-md-4">
+                        <div class="right-images-overlap-container">
+                            <div class="stack-container img-overlap-top">
+                                <img src="{% static 'img/skin/skin2.png' %}" class="pro-img content-a" alt="image">
+                                <img src="{% static 'img/skin/pro2.png' %}" class="pro-img content-b" alt="image">
+                            </div>
+                            <div class="stack-container img-overlap-bottom">
+                                <img src="{% static 'img/skin/skin3.png' %}" class="pro-img content-a" alt="image">
+                                <img src="{% static 'img/skin/pro3.png' %}" class="pro-img content-b" alt="image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    
     <!--====== related ========-->
     <div class="related-skin mb-5">
         <div class="container">
             <div class="row align-items-center bg-light-soft rounded-4 overflow-hidden p-4 p-md-5">
                 <div class="col-md-6 mb-4 mb-md-0 text-center">
                     <div class="related-skin-img-wrap">
-                        <img src="{% static 'img/skin/oil.png' %}" class="img-fluid related-skin-img" alt="Skin Oil Product">
+                        <img width="250" height="245" src="{% static 'img/skin/oil.png' %}" class="img-fluid related-skin-img" alt="Skin Oil Product">
                     </div>
                 </div>
                 <div class="col-md-6 ps-md-5">

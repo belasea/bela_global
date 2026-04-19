@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ category.title }} {{ block.super }} {% endblock %}
+
+{% block content %}
+
+    <!-- Blog Section -->
+    <section class="blog-section py-5">
+        <div class="container">
+            <!-- Section Title -->
+            <div class="section-header text-center mb-5">
+                <h2>Latest Blog</h2>
+                <p>Insights, tips, and updates from our team</p>
+            </div>
+            <!-- Blog -->
+            {% if object_list %}
+                <div class="row g-4">
+                    <!-- Blog Item -->
+                    {% for blog in object_list %}
+                        <div class="col-md-4">
+                            <div class="blog-card">
+                                <div class="blog-img">
+                                    <a href="{% url 'blog-details' blog.slug %}">
+                                        {% if blog.image %}
+                                            <img src="{{ b.image.url }}" class="img-fluid" alt="img is missing">
+                                        {% else %}
+                                            <img src="{% static 'img/no-photo.png' %}" alt="img is missing">
+                                        {% endif %}
+                                    </a>
+                                    <a href="{% url 'blog-category' blog.category.slug %}">
+                                        <span class="blog-category">{{ blog.category }}</span>
+                                    </a>
+                                </div>
+                                <div class="blog-content">
+                                    <p class="blog-date">{{ blog.timestamp }}</p>
+                                    <h5 class="blog-title">
+                                        <a href="{% url 'blog-details' blog.slug %}">
+                                            {{ blog.title|truncatechars:30 }}
+                                        </a>
+                                    </h5>
+                                    <p class="blog-desc">
+                                        {{ blog.description|striptags|truncatewords:20 }}
+                                    </p>
+                                    <a href="{% url 'blog-details' blog.slug %}" class="read-more">
+                                        Read More →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="row">
+                    <div class="my-5 text-center">
+                        <h2 class="text-muted">Blog Unavailable</h2>
+                        <p class="lead">
+                            The requested Blog document is currently being updated or is not available at this time.
+                        </p>
+                        <hr class="w-25 mx-auto">
+                    </div>
+                </div>
+            {% endif %}
+            <!-- Pagination -->
+            <div class="row">
+                <div class="col">
+                    <div class="pagination d-flex justify-content-center">
+                        {% include "pagination.html" with object_list=object_list %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+
+{% endblock %}

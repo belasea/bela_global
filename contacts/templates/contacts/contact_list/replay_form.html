@@ -24,35 +24,39 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-5">
-                    <div class="replay-form">
-                        <form method="POST">
-                            {% csrf_token %}
-                            <h4 class="text-dark fw-bold mt-3">
-                                <span class="font-weight-bold">Message :</span> {{ contact.message }}
-                            </h4>
-                            <hr>
-                            <div class="form-row mb-3">
-                                <div class="col">
-                                    <label for="replay_contact">Email</label>
-                                    <input type="text" name="replay" 
-                                        value={{contact.email}} 
-                                        class="form-control" 
-                                        id="replay_contact" 
-                                        disabled
-                                    >
-                                </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="replay-form">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <h4 class="text-dark fw-bold mt-3">
+                                        <span class="font-weight-bold">Message :</span> {{ contact.message }}
+                                    </h4>
+                                    <hr>
+                                    <div class="form-row mb-3">
+                                        <div class="col">
+                                            <label for="replay_contact">Email</label>
+                                            <input type="text" name="replay" 
+                                                value={{contact.email}} 
+                                                class="form-control" 
+                                                id="replay_contact" 
+                                                disabled
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="form-row mb-4">
+                                        <div class="col">
+                                            {{ form.message|as_crispy_field }}
+                                        </div>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="custom-submit-btn px-4">
+                                            <i class="fas fa-paper-plane"></i> Send Message
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="form-row mb-4">
-                                <div class="col">
-                                    {{ form.message|as_crispy_field }}
-                                </div>
-                            </div>
-                            <div class="d-grid gap-2">
-                                <button type="submit" class="custom-submit-btn px-4">
-                                    <i class="fas fa-paper-plane"></i> Send Message
-                                </button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
