@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} {{ category.title }} - {{ block.super }} {% endblock %}
+{% block title %} {{ category.title }} {{ block.super }} {% endblock %}
 
 {% block content %}
 
@@ -16,32 +16,32 @@
             {% if object_list %}
                 <div class="row g-4">
                     <!-- Blog Item -->
-                    {% for b in object_list %}
+                    {% for blog in object_list %}
                         <div class="col-md-4">
                             <div class="blog-card">
                                 <div class="blog-img">
-                                    <a href="{% url 'blog-details' b.slug %}">
-                                        {% if blog.img %}
+                                    <a href="{% url 'blog-details' blog.slug %}">
+                                        {% if blog.image %}
                                             <img src="{{ b.image.url }}" class="img-fluid" alt="img is missing">
                                         {% else %}
                                             <img src="{% static 'img/no-photo.png' %}" alt="img is missing">
                                         {% endif %}
                                     </a>
-                                    <a href="{% url 'blog-category' b.category.slug %}">
-                                        <span class="blog-category">{{ b.category }}</span>
+                                    <a href="{% url 'blog-category' blog.category.slug %}">
+                                        <span class="blog-category">{{ blog.category }}</span>
                                     </a>
                                 </div>
                                 <div class="blog-content">
-                                    <p class="blog-date">{{ b.timestamp }}</p>
+                                    <p class="blog-date">{{ blog.timestamp }}</p>
                                     <h5 class="blog-title">
-                                        <a href="{% url 'blog-details' b.slug %}">
-                                            {{ b.title|truncatechars:30 }}
+                                        <a href="{% url 'blog-details' blog.slug %}">
+                                            {{ blog.title|truncatechars:30 }}
                                         </a>
                                     </h5>
                                     <p class="blog-desc">
-                                        {{ b.description|striptags|truncatewords:20 }}
+                                        {{ blog.description|striptags|truncatewords:20 }}
                                     </p>
-                                    <a href="{% url 'blog-details' b.slug %}" class="read-more">
+                                    <a href="{% url 'blog-details' blog.slug %}" class="read-more">
                                         Read More →
                                     </a>
                                 </div>
@@ -71,126 +71,6 @@
         </div>
     </section>
     
-    <section class="new-category">
-        <div class="container my-5">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="content">
-                        {% if object_list %}
-                            <div class="row">
-                                {% for b in object_list %}
-                                    <div class="col-12 mb-4">
-                                        <div class="custom-card card border-0 shadow-sm rounded-4 overflow-hidden h-100 blog-horizontal-card">
-                                            <div class="row g-0">
-                                                <div class="col-md-4">
-                                                    <div class="zoom-box h-100">
-                                                        {% if b.image %}
-                                                            <img src="{{ b.image.url }}" alt="{{ b.title }}" class="img-fluid h-100 w-100 object-fit-cover">
-                                                        {% else %}
-                                                            <img src="{% static 'img/no-image.png' %}" class="img-fluid h-100 w-100 object-fit-cover">
-                                                        {% endif %}
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="card-body p-4 d-flex flex-column h-100">
-                                                        <div class="mb-2">
-                                                            <span class="badge bg-soft-teal text-teal-accent text-uppercase small">{{ b.category.title }}</span>
-                                                            <span class="text-muted small ms-2"><i class="fa-regular fa-calendar me-1"></i>{{ b.timestamp|date:"M d, Y" }}</span>
-                                                        </div>
-                                                        <h3 class="fw-bold">
-                                                            <a href="{% url 'blog-details' b.slug %}" class="text-dark text-decoration-none stretched-link hover-teal">
-                                                                {{ b.title|truncatechars:30 }}
-                                                            </a>
-                                                        </h3>
-                                                        <p class="text-secondary flex-grow-1">
-                                                            {{ b.description|striptags|truncatechars:100 }}
-                                                        </p>
-                                                        <div class="mt-auto">
-                                                            <a href="" class="btn btn-read-more rounded-pill shadow-sm">
-                                                                <span class="fw-bold small">
-                                                                    Read More <i class="fa-solid fa-arrow-right ms-1"></i>
-                                                                </span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% empty %}
-                                    <div class="col-12 text-center py-5">
-                                        <div class="py-5 bg-white rounded-4 shadow-sm border">
-                                            <i class="fa-regular fa-face-frown fa-3x text-muted mb-3"></i>
-                                            <h4 class="text-muted">No posts found in this category yet.</h4>
-                                            <a href="{% url 'blog' %}" class="btn btn-teal-accent rounded-pill mt-3 px-4">
-                                                Browse All Blog
-                                            </a>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="my-5 text-center">
-                                        <h2 class="text-muted">Blog Unavailable</h2>
-                                        <p class="lead">
-                                            The requested Blog document is currently being updated or is not available at this time.
-                                        </p>
-                                        <hr class="w-25 mx-auto">
-                                    </div>
-                                </div>
-                            </div>
-                        {% endif %}
-                    </div>
-                    <div class="pagination">
-                        {% include "pagination.html" with object_list=object_list %}
-                    </div>
-                </div>
 
-                <div class="col-lg-4 mt-4 mt-lg-0">
-                    <div class="sticky-top" style="top: 100px;">
-                        <div class="sidebar-widget mb-4 shadow-sm rounded-4 bg-white overflow-hidden border">
-                            <div class="widget-header px-3 py-3 border-bottom bg-light">
-                                <h3 class="h6 text-uppercase fw-bold mb-0 text-dark">
-                                    <i class="fa-solid fa-layer-group me-2 text-teal-accent"></i>Categories
-                                </h3>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                {% for c in cat %}
-                                <li class="list-group-item p-0 border-0">
-                                    <a href="{% url 'blog-category' c.slug %}" 
-                                    class="category-link d-flex justify-content-between align-items-center px-3 py-3 text-decoration-none {% if c.slug == category.slug %}active-category{% endif %}">
-                                        <span>{{ c.title }}</span>
-                                        <span class="badge rounded-pill {% if c.slug == category.slug %}bg-teal-accent text-white{% else %}bg-soft-teal text-teal-accent{% endif %}">
-                                            {{ c.blog_set.count }}
-                                        </span>
-                                    </a>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-
-                        <div class="card border-0 rounded-4 bg-dark text-white p-4 shadow-sm">
-                            <h5 class="fw-bold">Stay Updated</h5>
-                            <p class="small opacity-75">
-                                Subscribe to get the latest blog on global education directly to your inbox.
-                            </p>
-                            <form method="POST">
-                                {% csrf_token %}
-                                <input type="email" name="email" class="form-control form-control-sm mb-3 rounded-pill border-0" placeholder="Your Email">
-                                <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-read-more rounded-pill shadow-sm">
-                                        Subscribe
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
 
 {% endblock %}

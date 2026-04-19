@@ -27,6 +27,7 @@ pre_save.connect(category_pre_save_receiver, sender=Category)
 
 class Blog(models.Model):
     title = models.CharField(max_length=120)
+    quote = models.CharField(max_length=120, blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.FileField(upload_to="blog/", blank=True, null=True)
     facebook_url = models.URLField(blank=True, null=True, max_length=50)

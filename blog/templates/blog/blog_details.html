@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} Blog Details - {{block.super}} {% endblock %}
+{% block title %} Blog Details {{block.super}} {% endblock %}
 
 {% block content %}
 
@@ -36,10 +36,11 @@
                                 {{ blog.title }}
                             </h2>
                             <p>{{ blog.description|safe }}</p>
-                            <blockquote>
-                                “Success usually comes to those who are too busy to be looking for it.”
-                            </blockquote>
-
+                            {% if blog.quote %}
+                                <blockquote>
+                                    “{{ blog.quote }}”
+                                </blockquote>
+                            {% endif %}
                             <!-- Tags -->
                             <div class="blog-tags mb-3">
                                 <span>Tags:</span>
@@ -86,24 +87,32 @@
 
                     <!-- Comment Section -->
                     <div class="comments-section mt-5">
-                        <h4>Leave a Comment 2</h4>
-
+                        <h4>Leave a Comment</h4>
                         <form method="POST">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <input type="text" name="name" class="form-control" placeholder="Your Name">
+                                    <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                                    {% if form.name.errors %}
+                                        <span class="text-danger small">
+                                            {{ form.name.errors.0 }}
+                                        </span>
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <input type="email" name="email" class="form-control" placeholder="Your Email">
+                                    <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                                    <span class="text-danger">
+                                        {{ form.email.errors }}
+                                    </span>
                                 </div>
                             </div>
-
                             <div class="mb-3">
-                                <textarea class="form-control" name="body" rows="5" placeholder="Your Comment"></textarea>
+                                <textarea class="form-control" name="body" rows="5" placeholder="Your Comment" required></textarea>
+                                <span class="text-danger">
+                                    {{ form.body.errors }}
+                                </span>
                             </div>
-
-                            <button class="btn-submit">Post Comment</button>
+                            <button class="jayed-btn">Post Comment</button>
                         </form>
                     </div>
                 </div>
@@ -115,7 +124,9 @@
                         <!-- Search -->
                         <div class="sidebar-box">
                             <h5>Search</h5>
-                            <input type="text" class="form-control" placeholder="Search blog...">
+                            <form action="{% url 'blog' %}" method="GET">
+                                <input type="text" name="q" class="form-control" placeholder="Search blog..." value="{{ request.GET.q }}">
+                            </form>
                         </div>
 
                         <!-- Categories -->
@@ -247,7 +258,7 @@
                                 </div>
                                 <div class="modal-footer border-0">
                                     <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-dark rounded-pill px-4">
+                                    <button type="submit" class="jayed-btn rounded-pill px-4">
                                         Post Reply
                                     </button>
                                 </div>
