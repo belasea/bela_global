@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'contacts.apps.ContactsConfig',
     'about.apps.AboutConfig',
     'blog.apps.BlogConfig',
+    'products.apps.ProductsConfig',
     
     # Library and dependency
     'django_summernote',
@@ -74,6 +75,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # App name -> file name -> function name
+                'notification.notifications_context_processor.notification_value',
             ],
         },
     },

@@ -28,11 +28,11 @@ def contact_us(request):
     
     if request.method == 'POST':
         if form.is_valid():
-            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
             form.save()
             messages.add_message(request, messages.SUCCESS, "Success! Thank you for your message.")
             # Create a notification for the user
-            notification_message = f'Created : {subject}'
+            notification_message = f'{message}'
             try:
                 # Set the appropriate link if needed
                 link = BASE_URL + "/contact-list"
@@ -40,8 +40,8 @@ def contact_us(request):
                 link = None
             notification = Notification(user=request.user, message=notification_message, link=link)
             notification.save()
-            return redirect('home')
-            # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            # return redirect('home')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
             errors = form.errors
 

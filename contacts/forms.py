@@ -20,7 +20,6 @@ class ContactForm(forms.ModelForm):
             'last_name',
             'email',
             'phone',
-            'subject',
             'message',
         ]
         widgets = {
