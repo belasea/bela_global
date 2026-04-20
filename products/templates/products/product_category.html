@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Product Category {{block.super}} {% endblock %}
+
+{% block content %}
+
+    <!--=== Others Section ====-->
+    <div class="category-container">
+        <div class="category-sidebar">
+            <ul class="side-nav-list">
+                {% for cat in categories %}
+                    <li class="side-nav-item {% if cat == active_category %}active{% endif %}">
+                        <a href="{% url 'product_category' cat.slug %}">
+                            {{ cat.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="category-section">
+            <div class="category-header-box">
+                <h2>3 Ranges</h2>
+                <h4>For the <strong>irritated and damaged skin</strong></h4>
+                <p>Micro-cuts, insect bites, severe dryness, burning and cracks... These small concerns occur daily but still need your attention so you can gently soothe and repair your skin.</p>
+            </div>
+
+            <div class="category-product-grid">
+                <div class="grid-col-1">
+                    <div class="category-card-custom category-bg-pink mb-4">
+                        <div class="title">Cicapro</div>
+                        <div class="desc">Irritated and damaged<br>skin</div>
+                        <div class="count">
+                            <a href="sub_category.html">
+                                4 Product
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="category-card-custom category-bg-blue mb-3">
+                        <div class="title">Suavigel</div>
+                        <div class="desc">Intolerant, irritated,<br>weakened skin</div>
+                        <div class="count">
+                            <a href="sub_category.html">
+                                1 Product
+                            </a>
+                        </div>
+                    </div>
+                    <div class="category-card-custom category-bg-blue">
+                        <div class="title">Suavigel</div>
+                        <div class="desc">Intolerant, irritated,<br>weakened skin</div>
+                        <div class="count">
+                            <a href="sub_category.html">
+                                1 Product
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-col-2 category-offset-down">
+                    <div class="category-card-custom category-bg-teal mb-3">
+                        <div class="title">Xerolan</div>
+                        <div class="desc">Affected skin barrier</div>
+                        <div class="count">
+                            <a href="sub_category.html">
+                                1 Product
+                            </a>
+                        </div>
+                    </div>
+                    <div class="category-card-custom category-bg-teal">
+                        <div class="title">Xerolan</div>
+                        <div class="desc">Affected skin barrier</div>
+                        <div class="count">
+                            <a href="sub_category.html">
+                                1 Product
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+{% endblock %}

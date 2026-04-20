@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Product Details {{block.super}} {% endblock %}
+
+{% block content %}
+
+    <!--=== Product Details Section ====-->
+    <section class="product-details-section">
+        <div class="container-fluid p-0">
+            <div class="product-details-header">
+                <h1 class="details-title-large">XEROLAN</h1>
+                <h2 class="details-subtitle">Xerolan</h2>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="product-details-img">
+                        <img src="{% static 'img/low.png' %}" alt="img missing" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="product-info-box">
+                        <span class="badge-new">New</span>
+                        <h3 class="product-main-title">Soothing repairing emollient spray</h3>
+                        <h4 class="product-category-title">Affected skin barrier</h4>
+                        <h5 class="product-action-text">Corrects</h5>
+                        <div class="usage-icons">
+                            <div class="icon-circle">
+                                <i class="fa-solid fa-baby"></i>
+                            </div>
+                            <div class="icon-circle">
+                                <i class="fa-solid fa-child"></i>
+                            </div>
+                            <div class="icon-circle">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <div class="icon-circle">
+                                <i class="fa-solid fa-person-pregnant"></i>
+                            </div>
+                        </div>
+                        <div class="product-info-card">
+                            <div class="size-tag">150 ml</div>
+                            <p class="main-desc">
+                                Xerolan rehydrates your skin, relieves burning and itching thanks to its unique composition of ultra-pure lanolin.
+                            </p>
+                            
+                            <div class="info-accordion">
+                                <div class="acc-item">
+                                    <div class="acc-header">HOW TO USE IT ? <span class="chevron down"></span></div>
+                                </div>
+                                
+                                <div class="acc-item">
+                                    <div class="acc-header">OUR CLINICAL RESULTS <span class="chevron down"></span></div>
+                                </div>
+
+                                <div class="acc-item active">
+                                    <div class="acc-header">THE COMPOSITION OF OUR PRODUCT <span class="chevron up"></span></div>
+                                    <div class="acc-body">
+                                        <p class="ingredients-list">BUTANE, LANOLIN OIL, ISOBUTANE, PROPANE, TOCOPHERYL ACETATE</p>
+                                        <p class="legal-text">
+                                            The list of ingredients used in our products are regularly updated. 
+                                            We invite you to consult the list on our product packaging to ensure 
+                                            that the ingredients are suitable for your personal use.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="cart.html" class="btn-checkout">
+                                <i class="fa-solid fa-cart-shopping me-2"></i>
+                                    Add to Cart
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="main-assets-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="assets-content">
+                        <h2 class="assets-title">Main Assets</h2>
+                        <h4 class="asset-name">Ultra-pure lanolin*: 
+                            <span class="asset-label">Natural Asset</span>
+                        </h4>
+                        <p class="asset-description">
+                            Long-lasting hydration / biomimetic action...
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="assets-image-wrapper">
+                        <img src="{% static 'img/skin/skin3.png' %}" class="assets-main-img" alt="Assets">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="experience-section">
+        <div class="container-fluid p-0">
+            <div class="row g-0 align-items-center">
+                <div class="col-md-6 position-relative decorative-container">
+                    <div class="bg-blue-block">
+                        <svg class="wavy-line" viewBox="0 0 500 500" preserveAspectRatio="none">
+                            <path d="M0,100 C150,200 350,0 500,100 L500,500 L0,500 Z" fill="none" stroke="white" stroke-width="2" opacity="0.5"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="experience-content">
+                        <span class="sub-title">YOUR EXPERIENCE</span>
+                        <h1 class="main-brand-title">XEROLAN</h1>
+                        <h2 class="brand-name">Xerolan</h2>
+                        
+                        <div class="review-status">
+                            <p class="no-reviews">No reviews available yet</p>
+                            <p class="feedback-link">Something wrong ? <a href="#">Let’s hear it</a></p>
+                            <p class="faq-link">Consult our <a href="#">FAQ</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+    

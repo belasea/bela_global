@@ -61,3 +61,48 @@ def product_pre_save_receiver(sender, instance, *args, **kwargs):
         instance.slug = unique_slug_generator(instance)
 
 pre_save.connect(product_pre_save_receiver, sender=HomeCategoryItem)
+
+
+class Category(models.Model):
+    title = models.CharField(max_length=50)
+    slug = models.SlugField(null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    update = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['title']
+
+
+def category_pre_save_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+
+
+pre_save.connect(category_pre_save_receiver, sender=Category)
+
+
+
+class SubCategory(models.Model):
+    title = models.CharField(max_length=50)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='subcategories', blank=True, null=True)
+    slug = models.SlugField(null=True, blank=True)
+    image = models.ImageField(upload_to='products/subCategory', null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    update = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['title']
+
+
+def subcategory_pre_save_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+
+
+pre_save.connect(subcategory_pre_save_receiver, sender=SubCategory)

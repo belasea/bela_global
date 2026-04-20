@@ -22,7 +22,7 @@
                                 <div class="blog-img">
                                     <a href="{% url 'blog-details' blog.slug %}">
                                         {% if blog.image %}
-                                            <img src="{{ b.image.url }}" class="img-fluid" alt="img is missing">
+                                            <img src="{{ blog.image.url }}" class="img-fluid" alt="img is missing">
                                         {% else %}
                                             <img src="{% static 'img/no-photo.png' %}" alt="img is missing">
                                         {% endif %}

@@ -107,7 +107,7 @@
                             {% for group in home_category %}
                                 <li class="nav-item">
                                     <a class="sidebar-link nav-link {% if forloop.first %}active{% endif %}" 
-                                    href="#" 
+                                    href="{% url 'category_list' %}" 
                                     data-target="group-{{ group.slug }}">
                                         <span class="line"></span> {{ group.name }}
                                     </a>
@@ -129,10 +129,13 @@
                                                     <img src="{{ item.image.url }}" class="img-fluid" alt="{{ item.title }}">
                                                 {% endif %}
                                                 <div class="product-info">
-                                                    {# Adjust this link based on your URL naming convention #}
-                                                    <a href="#">
-                                                        <h5 class="text-danger">{{ item.title|upper }}</h5>
-                                                        <p class="description">{{ item.short_description }}</p>
+                                                    <a href="{% url 'category_list' %}">
+                                                        <h5 class="text-danger">
+                                                            {{ item.title|upper }}
+                                                        </h5>
+                                                        <p class="description">
+                                                            {{ item.short_description }}
+                                                        </p>
                                                     </a>
                                                 </div>
                                             </div>
@@ -167,7 +170,7 @@
                 <div class="row align-items-center g-5">
                     
                     <div class="col-md-4">
-                        <a href="category.html">
+                        <a href="{% url 'category_list' %}">
                             <div class="stack-container">
                                 <img with="320" height="392" src="{{ skincare.left_img_a.url }}" class="pro-img content-a" alt="Skin Care A">
                                 <img with="320" height="392" src="{{ skincare.left_img_b.url }}" class="pro-img content-b" alt="Skin Care B">
@@ -183,11 +186,17 @@
                             </svg>
                         </div>
                         <div class="label-wrapper mb-3">
-                            <p class="text-uppercase tracking-widest small mb-0">{{ skincare.center_label }}</p>
+                            <p class="text-uppercase tracking-widest small mb-0">
+                                {{ skincare.center_label }}
+                            </p>
                         </div>
                         <div class="stack-container">
-                            <h2 class="brand-title content-a">{{ skincare.center_title_a }}</h2>
-                            <h2 class="brand-title content-b">{{ skincare.center_title_b }}</h2>
+                            <h2 class="brand-title content-a">
+                                {{ skincare.center_title_a }}
+                            </h2>
+                            <h2 class="brand-title content-b">
+                                {{ skincare.center_title_b }}
+                            </h2>
                         </div>
                     </div>
 
@@ -211,7 +220,7 @@
             <div class="container">
                 <div class="row align-items-center g-5">
                     <div class="col-md-4">
-                        <a href="category.html">
+                        <a href="{% url 'category_list' %}">
                             <div class="stack-container">
                                 <img src="{% static 'img/skin/skin1.png' %}" class="pro-img content-a" alt="Skin Care 1">
                                 <img src="{% static 'img/skin/pro.png' %}" class="pro-img content-b" alt="Skin Care 2">
@@ -272,7 +281,7 @@
                         <p class="mb-0 small text-muted">
                             Reviewed on <span class="fw-bold"></span>
                         </p>
-                        <a href="#" class="related-skin-product-link small text-decoration-underline">
+                        <a href="{% url 'category_list' %}" class="related-skin-product-link small text-decoration-underline">
                             Neotone Radiance SPF 50+
                         </a>
                     </div>
