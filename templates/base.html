@@ -20,7 +20,7 @@
 
     <!--===== Main Content ====-->
     <section class="main-content">
-        
+    
         <!--===== Navbar ====-->
         <div class="navbar-section">
             <div class="container">
@@ -31,7 +31,7 @@
                         <a class="navbar-brand p-0" href="{% url 'home' %}">
                             <div class="logo-container">
                                 <div class="logo-main">Thebella</div>
-                                <div class="logo-sub">DERMATOLOGIE</div>
+                                <div class="logo-sub">COSMETICS</div>
                                 <div class="logo-year">Since 2026</div>
                             </div>
                         </a>
@@ -110,17 +110,17 @@
                                             <span class="cart-count">10</span>
                                         </a>
                                     </li>
-                                    <!--Authentication-->
+                                    <!--authenticated-->
                                     <li class="nav-item">
-                                        {% if request.user.is_authentication %}
-                                            <a class="nav-link" href="{% url 'login' %}">
+                                        {% if request.user.is_authenticated %}
+                                            <a class="nav-link" href="{% url 'logout' %}">
                                                 <i class="fa-solid fa-right-to-bracket"></i>
-                                                <span>Login</span>
+                                                <span>logout</span>
                                             </a>
                                         {% else %}
-                                            <a class="nav-link" href="{% url 'logout' %}">
+                                            <a class="nav-link" href="{% url 'login' %}">
                                                 <i class="fa-solid fa-right-from-bracket"></i>
-                                                <span>logout</span>
+                                                <span>Login</span>
                                             </a>
                                         {% endif %}
                                     </li>
@@ -131,8 +131,9 @@
                 </nav>
             </div>
         </div>
-        
-        <!-- Django Messages Framework with Bootstrap 5 Alerts -->
+        <!--=============== 
+        Messages Framework
+        =============== -->
         {% if messages %}
             {% for message in messages %}
                 <br>
@@ -147,7 +148,6 @@
         {% block content %}
 
         
-
         {% endblock content %}
         
     </section>

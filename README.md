@@ -71,7 +71,8 @@ pip install -r requirements.txt
 python manage.py runserver
 
 # Step 5 : makemigrations
-python manage.py makemigrations about accounts contacts footer home notification 
+python manage.py makemigrations accounts about blog contacts home notification products
+
 
 python manage.py migrate
 

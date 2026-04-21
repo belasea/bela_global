@@ -1,108 +1,115 @@
 from django.db import models
 from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from .utils import unique_slug_generator
 
+# --- MODELS ---
+
 class HomeCategory(models.Model):
-    """
-    Represents sections like 'New', 'Essentials', 'Star products'
-    """
+    """Sections like 'New', 'Essentials', 'Star products'"""
     name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True, help_text="Used for the data-target (e.g., 'group-new')")
+    slug = models.SlugField(unique=True, blank=True, help_text="Used for the data-target (e.g., 'group-new')")
     display_order = models.PositiveIntegerField(default=0, db_index=True)
     is_active = models.BooleanField(default=True, db_index=True)
 
     class Meta:
         ordering = ['display_order']
+        verbose_name = "Home Category"
+        verbose_name_plural = "Home Categories"
 
     def __str__(self):
         return self.name
-    
-    
-def product_pre_save_receiver(sender, instance, *args, **kwargs):
-    if not instance.slug:
-        instance.slug = unique_slug_generator(instance)
-
-# Connect to both models
-pre_save.connect(product_pre_save_receiver, sender=HomeCategory)
 
 
 class HomeCategoryItem(models.Model):
-    """
-    Specific items (linked to Products) displayed in the HomeSections
-    """
+    """Specific items displayed in the HomeSections"""
     COLOR_CHOICES = [
         ('bg-pink', 'Pink'),
         ('bg-mint', 'Mint'),
         ('bg-yellow', 'Yellow'),
     ]
     title = models.CharField(max_length=150, help_text="Overrides product title for homepage")
-    short_description = models.CharField(max_length=50)
-    section = models.ForeignKey(HomeCategory, on_delete=models.CASCADE, related_name='items')
+    sub_title = models.CharField(max_length=50)
+    home_category = models.ForeignKey(HomeCategory, on_delete=models.CASCADE, related_name='items')
     image = models.ImageField(upload_to='home/items/')
     card_color = models.CharField(max_length=20, choices=COLOR_CHOICES, default='bg-pink')
     display_order = models.PositiveIntegerField(default=0)
     slug = models.SlugField(unique=True, null=True, blank=True, db_index=True)
 
     class Meta:
+        ordering = ['display_order']
         verbose_name = "Home Category Item"
         verbose_name_plural = "Home Category Items"
-        ordering = ['display_order']
-    
         indexes = [
-            models.Index(fields=['section', 'display_order']),
+            models.Index(fields=['home_category', 'display_order']),
         ]
 
     def __str__(self):
-        return f"{self.section.name} - {self.title}"
-
-
-def product_pre_save_receiver(sender, instance, *args, **kwargs):
-    if not instance.slug:
-        instance.slug = unique_slug_generator(instance)
-
-pre_save.connect(product_pre_save_receiver, sender=HomeCategoryItem)
+        return f"{self.home_category.name} - {self.title}"
 
 
 class Category(models.Model):
+    """Main Product Categories (e.g., Skincare, Haircare)"""
     title = models.CharField(max_length=50)
-    slug = models.SlugField(null=True, blank=True)
+    slug = models.SlugField(unique=True, null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['title']
+        verbose_name_plural = "Categories"
 
     def __str__(self):
         return self.title
 
-    class Meta:
-        ordering = ['title']
-
-
-def category_pre_save_receiver(sender, instance, *args, **kwargs):
-    if not instance.slug:
-        instance.slug = unique_slug_generator(instance)
-
-
-pre_save.connect(category_pre_save_receiver, sender=Category)
-
-
 
 class SubCategory(models.Model):
+    """Sub-segments (e.g., Cleansers, Moisturizers)"""
     title = models.CharField(max_length=50)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='subcategories', blank=True, null=True)
-    slug = models.SlugField(null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='subcategories')
+    slug = models.SlugField(unique=True, null=True, blank=True)
     image = models.ImageField(upload_to='products/subCategory', null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['title']
+        verbose_name_plural = "Sub Categories"
+
+    def __str__(self):
+        return f"{self.category.title} > {self.title}"
+
+
+class Product(models.Model):
+    """The actual products"""
+    title = models.CharField(max_length=200, db_index=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, related_name='products')
+    image = models.ImageField(upload_to='products/')
+    price = models.DecimalField(decimal_places=2, max_digits=20) 
+    old_price = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    weight = models.CharField(max_length=20, help_text='e.g., 20ml or 20gm')
+    active = models.BooleanField(default=True, db_index=True)
+    slug = models.SlugField(unique=True, null=True, blank=True, db_index=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    update = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-timestamp']
+
     def __str__(self):
         return self.title
 
-    class Meta:
-        ordering = ['title']
 
-
-def subcategory_pre_save_receiver(sender, instance, *args, **kwargs):
+# --- SIGNALS ---
+@receiver(pre_save, sender=HomeCategory)
+@receiver(pre_save, sender=HomeCategoryItem)
+@receiver(pre_save, sender=Category)
+@receiver(pre_save, sender=SubCategory)
+@receiver(pre_save, sender=Product)
+def slug_pre_save_receiver(sender, instance, *args, **kwargs):
+    """
+    Universal slug generator for all models listed in the decorators above.
+    """
     if not instance.slug:
         instance.slug = unique_slug_generator(instance)
-
-
-pre_save.connect(subcategory_pre_save_receiver, sender=SubCategory)

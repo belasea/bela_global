@@ -97,80 +97,87 @@
         </div>
     </div>
 
-    <!--===== sidebar Nav ====-->
+    <!--=========================
+    sidebar Nav home_category 
+    ===========================-->
     <div class="sidebar-nav-item">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="sidebarNavbarMenu">
-                        <ul class="nav flex-column sidebar-nav w-100" id="sidebarMenu">
-                            {% for group in home_category %}
-                                <li class="nav-item">
-                                    <a class="sidebar-link nav-link {% if forloop.first %}active{% endif %}" 
-                                    href="{% url 'category_list' %}" 
-                                    data-target="group-{{ group.slug }}">
-                                        <span class="line"></span> {{ group.name }}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
+            {% if home_category %}
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="sidebarNavbarMenu">
+                            <ul class="nav flex-column sidebar-nav w-100" id="sidebarMenu">
+                                {% for group in home_category %}
+                                    <li class="nav-item">
+                                        <a class="sidebar-link nav-link {% if forloop.first %}active{% endif %}" 
+                                        href="{% url 'category' %}" 
+                                        data-target="group-{{ group.slug }}">
+                                            <span class="line"></span> {{ group.name }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-md-9">
-                    <div class="product-scroll-area" id="scrollContainer">
-                        <div class="product-row">
-                            {% for group in home_category %}
-                                <div class="product-group d-flex" id="group-{{ group.slug }}">
-                                    {% for item in group.items.all %}
-                                        <div class="product-item">
-                                            <div class="product-card {{ item.card_color }}">
-                                                {% if item.image %}
-                                                    <img src="{{ item.image.url }}" class="img-fluid" alt="{{ item.title }}">
-                                                {% endif %}
-                                                <div class="product-info">
-                                                    <a href="{% url 'category_list' %}">
-                                                        <h5 class="text-danger">
-                                                            {{ item.title|upper }}
-                                                        </h5>
-                                                        <p class="description">
-                                                            {{ item.short_description }}
-                                                        </p>
-                                                    </a>
+                    <div class="col-md-9">
+                        <div class="product-scroll-area" id="scrollContainer">
+                            <div class="product-row">
+                                {% for group in home_category %}
+                                    <div class="product-group d-flex" id="group-{{ group.slug }}">
+                                        {% for item in group.items.all %}
+                                            <div class="product-item">
+                                                <div class="product-card {{ item.card_color }}">
+                                                    {% if item.image %}
+                                                        <img src="{{ item.image.url }}" class="img-fluid" alt="{{ item.title }}">
+                                                    {% endif %}
+                                                    <div class="product-info">
+                                                        <a href="{% url 'category' %}">
+                                                            <h5 class="text-danger">
+                                                                {{ item.title|upper }}
+                                                            </h5>
+                                                            <p class="description">
+                                                                {{ item.sub_title }}
+                                                            </p>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            {% endfor %}
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="scroll-progress-container">
-                        <div class="progress-line-bg">
-                            <div class="progress-line-fill" id="scrollProgress" style="width: 0%;"></div>
-                        </div>
-                        <div class="section-label-bottom" id="currentLabel">
-                            {% if home_category %}
+                        <div class="scroll-progress-container">
+                            <div class="progress-line-bg">
+                                <div class="progress-line-fill" id="scrollProgress" style="width: 0%;"></div>
+                            </div>
+                            <div class="section-label-bottom" id="currentLabel">
                                 {{ home_category.0.name|upper }}
-                            {% else %}
-                                NEW
-                            {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            {% else %}
+                <div class="row justify-content-center align-items-start">
+                    <div class="col my-5 text-center">
+                        <h2 class="text-muted">Home Category Unavailable</h2>
+                        <p class="lead">
+                            The requested Home Category document is currently being updated or is not available at this time.
+                        </p>
+                        <hr class="w-25 mx-auto">
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 
     <!--============== Skincare Layout ===========-->
-    {% if skincare %}
-        <div class="skincare-layout" id="skincare-section">
-            <div class="container">
+    <div class="skincare-layout" id="skincare-section">
+        <div class="container">
+            {% if skincare %}
                 <div class="row align-items-center g-5">
-                    
                     <div class="col-md-4">
-                        <a href="{% url 'category_list' %}">
+                        <a href="{% url 'category' %}">
                             <div class="stack-container">
                                 <img with="320" height="392" src="{{ skincare.left_img_a.url }}" class="pro-img content-a" alt="Skin Care A">
                                 <img with="320" height="392" src="{{ skincare.left_img_b.url }}" class="pro-img content-b" alt="Skin Care B">
@@ -213,53 +220,19 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    {% else %}
-        <div class="skincare-layout" id="skincare-section">
-            <div class="container">
+            {% else %}
                 <div class="row align-items-center g-5">
-                    <div class="col-md-4">
-                        <a href="{% url 'category_list' %}">
-                            <div class="stack-container">
-                                <img src="{% static 'img/skin/skin1.png' %}" class="pro-img content-a" alt="Skin Care 1">
-                                <img src="{% static 'img/skin/pro.png' %}" class="pro-img content-b" alt="Skin Care 2">
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <div class="circle-icon">
-                            <svg class="progress-ring" width="60" height="60">
-                                <circle stroke="#f0f2f5" stroke-width="1.5" fill="transparent" r="26" cx="30" cy="30"/>
-                                <circle id="spinner-path" stroke="#7d8ea3" stroke-width="1.5" fill="transparent" r="26" cx="30" cy="30"/>
-                            </svg>
-                        </div>
-                        <div class="label-wrapper mb-3">
-                            <p class="text-uppercase tracking-widest small mb-0">Efficiency</p>
-                        </div>
-                        <div class="stack-container">
-                            <h2 class="brand-title content-a">proved and sustainable</h2>
-                            <h2 class="brand-title content-b">organic and clinical</h2>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="right-images-overlap-container">
-                            <div class="stack-container img-overlap-top">
-                                <img src="{% static 'img/skin/skin2.png' %}" class="pro-img content-a" alt="image">
-                                <img src="{% static 'img/skin/pro2.png' %}" class="pro-img content-b" alt="image">
-                            </div>
-                            <div class="stack-container img-overlap-bottom">
-                                <img src="{% static 'img/skin/skin3.png' %}" class="pro-img content-a" alt="image">
-                                <img src="{% static 'img/skin/pro3.png' %}" class="pro-img content-b" alt="image">
-                            </div>
-                        </div>
+                    <div class="col my-5 text-center">
+                        <h2 class="text-muted">Skincare Unavailable</h2>
+                        <p class="lead">
+                            The requested Skincare document is currently being updated or is not available at this time.
+                        </p>
+                        <hr class="w-25 mx-auto">
                     </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
-    {% endif %}
-
+    </div>
     
     <!--====== related ========-->
     <div class="related-skin mb-5">
@@ -281,7 +254,7 @@
                         <p class="mb-0 small text-muted">
                             Reviewed on <span class="fw-bold"></span>
                         </p>
-                        <a href="{% url 'category_list' %}" class="related-skin-product-link small text-decoration-underline">
+                        <a href="{% url 'category' %}" class="related-skin-product-link small text-decoration-underline">
                             Neotone Radiance SPF 50+
                         </a>
                     </div>

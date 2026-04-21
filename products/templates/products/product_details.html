@@ -1,17 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} Product Details {{block.super}} {% endblock %}
+{% block title %} {{ product.title }} {{ block.super }} {% endblock %}
 
 {% block content %}
 
     <!--=== Product Details Section ====-->
     <section class="product-details-section">
         <div class="container-fluid p-0">
-            <div class="product-details-header">
-                <h1 class="details-title-large">XEROLAN</h1>
-                <h2 class="details-subtitle">Xerolan</h2>
-            </div>
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="product-details-img">
@@ -20,10 +16,15 @@
                 </div>
                 <div class="col-md-6">
                     <div class="product-info-box">
-                        <span class="badge-new">New</span>
-                        <h3 class="product-main-title">Soothing repairing emollient spray</h3>
-                        <h4 class="product-category-title">Affected skin barrier</h4>
-                        <h5 class="product-action-text">Corrects</h5>
+                        <h3 class="product-main-title">
+                            {{ product.title }}
+                        </h3>
+                        <h4 class="product-category-title">
+                            {{ product.sub_category.title|upper }}
+                        </h4>
+                        <h5 class="product-action-text">
+                             {{ product.category.title|upper }}
+                        </h5>
                         <div class="usage-icons">
                             <div class="icon-circle">
                                 <i class="fa-solid fa-baby"></i>
@@ -39,11 +40,23 @@
                             </div>
                         </div>
                         <div class="product-info-card">
-                            <div class="size-tag">150 ml</div>
+                            <h5 class="product-action-text">
+                                <span class="current-price">$ {{ product.price }}</span>
+
+                                {% if product.old_price %}
+                                    <span class="old-price text-muted ms-2" style="text-decoration: line-through; font-size: 0.9em; opacity: 0.7;">
+                                        $ {{ product.old_price }}
+                                    </span>
+                                {% endif %}
+                            </h5>
+                            <div class="size-tag">
+                                {{ product.weight }}
+                            </div>
                             <p class="main-desc">
-                                Xerolan rehydrates your skin, relieves burning and itching thanks to its unique composition of ultra-pure lanolin.
+                                {{ product.description|safe }}
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, cupiditate?
                             </p>
-                            
+
                             <div class="info-accordion">
                                 <div class="acc-item">
                                     <div class="acc-header">HOW TO USE IT ? <span class="chevron down"></span></div>
@@ -112,9 +125,11 @@
                 <div class="col-md-6">
                     <div class="experience-content">
                         <span class="sub-title">YOUR EXPERIENCE</span>
-                        <h1 class="main-brand-title">XEROLAN</h1>
-                        <h2 class="brand-name">Xerolan</h2>
-                        
+                        <h1 class="main-brand-title">
+                            {{ product.sub_category.title|upper }}
+                        </h1>
+                        <h2 class="brand-name">{{ product.title }}</h2>
+                        <p class="mt-3">Price: ${{ product.price }}</p>
                         <div class="review-status">
                             <p class="no-reviews">No reviews available yet</p>
                             <p class="feedback-link">Something wrong ? <a href="#">Let’s hear it</a></p>
@@ -125,6 +140,9 @@
             </div>
         </div>
     </div>
+
+
+    
 
 {% endblock %}
     
