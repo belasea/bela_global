@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'about.apps.AboutConfig',
     'blog.apps.BlogConfig',
     'products.apps.ProductsConfig',
+    'carts.apps.CartsConfig',
     
     # Library and dependency
     'django_summernote',

@@ -104,7 +104,7 @@
                                         <a class="nav-link" href="{% url 'blog' %}">Blog</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link cart-badge" href="cart.html">
+                                        <a class="nav-link cart-badge" href="{% url 'cart_list' %}">
                                             <i class="fa-solid fa-cart-shopping"></i>
                                             <span class="nav-text">Carts</span>
                                             <span class="cart-count">10</span>
@@ -131,6 +131,7 @@
                 </nav>
             </div>
         </div>
+        
         <!--=============== 
         Messages Framework
         =============== -->
@@ -144,8 +145,76 @@
             {% endfor %}
         {% endif %}
     
+        <div class="cart-sidebar-toggle-wrapper">
+    <button class="cart-sidebar-btn" 
+            type="button" 
+            data-bs-toggle="offcanvas" 
+            data-bs-target="#cartPanel">
+        <i class="bi bi-cart3 fs-4 mb-1"></i>
+        <span class="cart-sidebar-text-vertical small fw-bold">CART (0)</span>
+    </button>
+</div>
+
+<div class="offcanvas offcanvas-end cart-sidebar-panel" tabindex="-1" id="cartPanel">
+    <div class="cart-sidebar-header">
+        <h5 class="offcanvas-title text-uppercase fw-bold m-0 small tracking-wider">
+            Your Cart
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+
+    <div class="offcanvas-body p-0">
+        <div class="cart-sidebar-items-list">
+            
+            <div class="cart-sidebar-item">
+                <img src="{% static 'img/no-photo.png' %}" alt="Product" class="cart-sidebar-product-img">
+                <div class="flex-grow-1">
+                    <div class="d-flex justify-content-between">
+                        <a href="#" class="cart-sidebar-product-title">
+                            XINJI PX1 100 ANSI Lumens LCD Portable Projector
+                        </a>
+                        <button class="btn btn-link p-0 text-muted">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </div>
+                    <div class="cart-sidebar-price-row">
+                        17,000৳ <span class="cart-sidebar-qty-text">× 1 = 17,000৳</span>
+                    </div>
+                    <div class="cart-sidebar-qty-box">
+                        <button class="cart-sidebar-qty-btn" onclick="this.parentNode.querySelector('input').stepDown()">-</button>
+                        <input class="cart-sidebar-qty-input" type="number" value="1" min="1">
+                        <button class="cart-sidebar-qty-btn" onclick="this.parentNode.querySelector('input').stepUp()">+</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="cart-sidebar-footer">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control form-control-sm rounded-0" placeholder="Promo Code">
+            <button class="btn cart-sidebar-btn-apply btn-sm px-4 rounded-0">Apply</button>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-1">
+            <span class="text-secondary small">Sub-Total</span>
+            <span class="cart-sidebar-taka-sym">46,900৳</span>
+        </div>
+        <hr class="my-2 opacity-25">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <span class="text-secondary fs-5">Total</span>
+            <span class="cart-sidebar-taka-sym fs-5">46,900৳</span>
+        </div>
+        <div class="d-grid">
+            <a href="#" class="btn cart-sidebar-btn-checkout btn-lg rounded-0 fw-bold shadow-sm">CHECKOUT</a>
+        </div>
+    </div>
+</div>
+        
         <!-- Main Content -->
         {% block content %}
+
+
 
         
         {% endblock content %}

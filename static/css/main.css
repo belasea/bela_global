@@ -2632,3 +2632,165 @@ blockquote {
 }
 
 
+/*================================
+    CART SIDEBAR TOGGLE BUTTON
+================================*/
+.cart-sidebar-toggle-wrapper {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 1030;
+    pointer-events: none;
+}
+
+.cart-sidebar-btn {
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    padding: 15px 5px;
+    background-color: #006b76;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px 0 0 10px;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.cart-sidebar-btn:hover {
+    background-color: #00565e;
+    width: 55px;
+    color: #ffffff;
+}
+
+.cart-sidebar-btn .cart-sidebar-text-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 5px;
+}
+
+/*================================
+    OFFCANVAS CART PANEL
+================================*/
+.cart-sidebar-panel {
+    width: 375px !important;
+    border-left: none;
+}
+
+.cart-sidebar-header {
+    background-color: #006b76;
+    color: white;
+    padding: 1.25rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-sidebar-footer {
+    background-color: #f4f6fb;
+    padding: 1.25rem 1rem;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Product Item Styling */
+.cart-sidebar-items-list {
+    overflow-y: auto;
+    max-height: calc(100vh - 250px);
+}
+
+.cart-sidebar-item {
+    padding: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    gap: 12px;
+}
+
+.cart-sidebar-item:last-child {
+    border-bottom: none;
+}
+
+.cart-sidebar-product-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.cart-sidebar-product-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    display: block;
+    text-decoration: none;
+}
+
+.cart-sidebar-price-row {
+    font-size: 1.05rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #000;
+}
+
+.cart-sidebar-qty-text {
+    color: #6c757d;
+    font-weight: 400;
+    font-size: 0.95rem;
+}
+
+/* Quantity Controls */
+.cart-sidebar-qty-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    width: fit-content;
+    margin-top: 10px;
+    background: #fff;
+}
+
+.cart-sidebar-qty-btn {
+    border: none;
+    background: transparent;
+    padding: 0 10px;
+    font-size: 1.1rem;
+    color: #006b76;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.cart-sidebar-qty-input {
+    width: 40px;
+    text-align: center;
+    border: none;
+    border-left: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+/* Buttons & UI Components */
+.cart-sidebar-btn-apply,
+.cart-sidebar-btn-checkout {
+    background-color: #006b76;
+    color: white;
+    border: none;
+}
+
+.cart-sidebar-btn-apply:hover,
+.cart-sidebar-btn-checkout:hover {
+    background-color: #00565e;
+    color: white;
+}
+
+.cart-sidebar-taka-sym {
+    font-weight: 700;
+    color: #000;
+}

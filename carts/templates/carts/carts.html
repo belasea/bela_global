@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Cart List {{block.super}} {% endblock %}
+
+{% block content %}
+
+    <div class="cart-section py-5">
+        <div class="container mb-5">
+            <h2 class="cart-title">Your Shopping Bag</h2>
+            <hr>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="cart-items-wrapper">
+                            <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead class="bg-dark text-white">
+                                    <tr class="text-center">
+                                        <td class="hidden-xs">Image</td>
+                                        <td class="table-width">Product Name</td>
+                                        <td>Quantity</td>
+                                        <td class="cart-price-width">Unit Price</td>
+                                        <td>Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cart-item">
+                                    <td class="hidden-xs">
+                                        <div class="img-wrap">
+                                            <img src="img/salicylic.png" class="img-thumbnail img-sm img-fluid">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        Apple Smart Watch Apple
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="button btn-group mb-3">
+                                            <button class="btn btn-outline-secondary entry minus" style="width: 40px">
+                                                <b>-</b>
+                                            </button>
+                                            <button class="btn btn-outline-secondary value12" style="width: 40px">
+                                                2
+                                            </button>
+                                            <button class="btn btn-outline-secondary plus" style="width: 40px">
+                                                <b>+</b>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">1000</td>
+                                    <td class="text-center">
+                                        <a href="#" class="btn btn-outline-danger"> × Remove</a>
+                                    </td>
+                                </tr>
+                                <tr class="cart-item">
+                                    <td class="hidden-xs">
+                                        <div class="img-wrap">
+                                            <img src="img/products/1.webp" class="img-thumbnail img-sm img-fluid">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        Google Pixel 8
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="button btn-group mb-3">
+                                            <button class="btn btn-outline-secondary entry minus" style="width: 40px">
+                                                <b>-</b>
+                                            </button>
+                                            <button class="btn btn-outline-secondary value12" style="width: 40px">
+                                                2
+                                            </button>
+                                            <button class="btn btn-outline-secondary plus" style="width: 40px">
+                                                <b>+</b>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">3</td>
+                                    <td class="text-center">
+                                        <a href="#" class="btn btn-outline-danger"> × Remove</a>
+                                    </td>
+                                </tr>
+                                <tr class="cart-item">
+                                    <td class="hidden-xs">
+                                        <div class="img-wrap">
+                                            <img src="img/products/3.webp" class="img-thumbnail img-sm">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        Huawei Nova 5T
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="button btn-group mb-3">
+                                            <button class="btn btn-outline-secondary entry minus" style="width: 40px">
+                                                <b>-</b>
+                                            </button>
+                                            <button class="btn btn-outline-secondary value12" style="width: 40px">
+                                                2
+                                            </button>
+                                            <button class="btn btn-outline-secondary plus" style="width: 40px">
+                                                <b>+</b>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">3</td>
+                                    <td class="text-center">
+                                        <a href="#" class="btn btn-outline-danger"> × Remove</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <a href="index.html" class="continue-shopping mt-4 d-inline-block">
+                        <i class="fa-solid fa-arrow-left"></i> Continue Shopping
+                    </a>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="cart-summary-card">
+                        <h4>Order Summary</h4>
+                        <div class="summary-line">
+                            <span>Subtotal</span>
+                            <span>$56.00</span>
+                        </div>
+                        <div class="summary-line">
+                            <span>Shipping</span>
+                            <span class="free-text">Free</span>
+                        </div>
+                        <div class="summary-line tax">
+                            <span>Estimated Tax</span>
+                            <span>$4.50</span>
+                        </div>
+                        <hr>
+                        <div class="summary-line total">
+                            <span>Total</span>
+                            <span>$60.50</span>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a href="checkout.html" class="btn-checkout text-center">
+                                Proceed to Checkout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
