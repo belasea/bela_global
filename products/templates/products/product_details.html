@@ -5,6 +5,8 @@
 
 {% block content %}
 
+    
+
     <!--=== Product Details Section ====-->
     <section class="product-details-section">
         <div class="container-fluid p-0">
@@ -40,49 +42,174 @@
                             </div>
                         </div>
                         <div class="product-info-card">
-                            <h5 class="product-action-text">
-                                <span class="current-price">$ {{ product.price }}</span>
-
+                            <div class="price-container">
+                                <span class="price-current">$ {{ product.price }}</span>
                                 {% if product.old_price %}
-                                    <span class="old-price text-muted ms-2" style="text-decoration: line-through; font-size: 0.9em; opacity: 0.7;">
-                                        $ {{ product.old_price }}
-                                    </span>
+                                    <span class="price-old">$ {{ product.old_price }}</span>
+                                    <span class="price-badge">SAVE {{ product.discount_percentage }}%</span>
                                 {% endif %}
-                            </h5>
+                            </div>
                             <div class="size-tag">
                                 {{ product.weight }}
                             </div>
                             <p class="main-desc">
                                 {{ product.description|safe }}
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, cupiditate?
                             </p>
-
-                            <div class="info-accordion">
-                                <div class="acc-item">
-                                    <div class="acc-header">HOW TO USE IT ? <span class="chevron down"></span></div>
+                            <div class="product-info-tabs mt-5" id="productAccordion">
+                                <div class="isis-faq-item">
+                                    <h2 class="faq-header">
+                                        <button class="faq-trigger collapsed" data-bs-toggle="collapse" data-bs-target="#suitability">
+                                            IS IT RIGHT FOR ME?
+                                            <i class="fa-solid fa-plus faq-icon"></i>
+                                        </button>
+                                    </h2>
+                                    <div id="suitability" class="accordion-collapse collapse" data-bs-parent="#productAccordion">
+                                        <div class="faq-content">
+                                            {{ product.sub_category.right_for_me|safe|linebreaks }}
+                                        </div>
+                                    </div>
                                 </div>
-                                
-                                <div class="acc-item">
-                                    <div class="acc-header">OUR CLINICAL RESULTS <span class="chevron down"></span></div>
+                                <div class="isis-faq-item">
+                                    <h2 class="faq-header">
+                                        <button class="faq-trigger collapsed" data-bs-toggle="collapse" data-bs-target="#advice">
+                                            ADVICE FROM A DERMATOLOGIST
+                                            <i class="fa-solid fa-plus faq-icon"></i>
+                                        </button>
+                                    </h2>
+                                    <div id="advice" class="accordion-collapse collapse" data-bs-parent="#productAccordion">
+                                        <div class="faq-content">
+                                            {{ product.sub_category.dermatologist_advice|safe|linebreaks }}
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div class="acc-item active">
-                                    <div class="acc-header">THE COMPOSITION OF OUR PRODUCT <span class="chevron up"></span></div>
-                                    <div class="acc-body">
-                                        <p class="ingredients-list">BUTANE, LANOLIN OIL, ISOBUTANE, PROPANE, TOCOPHERYL ACETATE</p>
-                                        <p class="legal-text">
-                                            The list of ingredients used in our products are regularly updated. 
-                                            We invite you to consult the list on our product packaging to ensure 
-                                            that the ingredients are suitable for your personal use.
-                                        </p>
+                                <div class="isis-faq-item">
+                                    <h2 class="faq-header">
+                                        <button class="faq-trigger collapsed" data-bs-toggle="collapse" data-bs-target="#range">
+                                            GET TO KNOW THE {{ product.sub_category.title|upper }} RANGE
+                                            <i class="fa-solid fa-plus faq-icon"></i>
+                                        </button>
+                                    </h2>
+                                    <div id="range" class="accordion-collapse collapse" data-bs-parent="#productAccordion">
+                                        <div class="faq-content">
+                                            {{ product.sub_category.range_details|safe|linebreaks }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="cart.html" class="btn-checkout">
+                            <br>
+                            <a href="{% url 'cart_list' %}" class="btn-checkout">
                                 <i class="fa-solid fa-cart-shopping me-2"></i>
                                     Add to Cart
                             </a>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- related -->
+    <section class="related-products py-5">
+        <div class="container">
+            <h3 class="related-products-title mb-4">Related Products</h3>
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-6 mb-4">
+                    <div class="blog-card">
+                        <div class="blog-img">
+                            <a href="#">
+                                {% if blog.image %}
+                                    <img src="{{ blog.image.url }}" class="img-fluid" alt="img is missing">
+                                {% else %}
+                                    <img src="{% static 'img/no-photo.png' %}" alt="img is missing">
+                                {% endif %}
+                            </a>
+                            <a href="#">
+                                <span class="blog-category">{{ blog.category }}</span>
+                            </a>
+                        </div>
+                        <div class="blog-content">
+                            <p class="blog-date">{{ blog.timestamp }}</p>
+                            <h5 class="blog-title">
+                                <a href="#">
+                                    {{ blog.title|truncatechars:30 }}
+                                </a>
+                            </h5>
+                            <p class="blog-desc">
+                                {{ blog.description|striptags|truncatewords:20 }}
+                            </p>
+                            <a href="#" class="read-more">
+                                Read More →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="comments-section py-5 bg-light">
+        <div class="container">
+            <h3 class="section-title mb-5">Customer Reviews</h3>
+            
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="comment-item mb-4">
+                        <div class="d-flex">
+                            <div class="user-avatar">
+                                <img src="https://ui-avatars.com/api/?name=John+Doe" alt="User">
+                            </div>
+                            <div class="comment-content ms-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0">
+                                        John Doe 
+                                        <span class="date text-muted ms-2">
+                                            April 20, 2026
+                                        </span>
+                                    </h6>
+                                    <button class="btn-reply-pro">
+                                        <i class="fa-solid fa-reply me-1"></i> 
+                                        Reply
+                                    </button>
+                                </div>
+                                <p class="comment-text mt-2">
+                                    Great product! It worked wonders for my skin. Highly recommend to everyone.
+                                </p>
+                                <div class="reply-wrapper ms-4 mt-3 border-start ps-3">
+                                    <div class="d-flex">
+                                        <div class="user-avatar sm">
+                                            <img src="https://ui-avatars.com/api/?name=Admin" alt="Admin">
+                                        </div>
+                                        <div class="comment-content ms-2">
+                                            <h6 class="mb-0">Store Manager <span class="badge bg-dark ms-2">Staff</span></h6>
+                                            <p class="comment-text mt-1">
+                                                Thank you, John! We're glad you liked it.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="add-comment-box mt-5 p-4 bg-white shadow-sm">
+                        <h5>Leave a Review</h5>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label-custom">Full Name</label>
+                                    <input type="text" class="form-control custom-input" placeholder="e.g. Jayed Hossain" required>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label-custom">Email Address</label>
+                                    <input type="email" class="form-control custom-input" placeholder="e.g. jayed@example.com" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" rows="4" placeholder="Share your experience..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-dark px-4">Submit Review</button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -1229,7 +1229,7 @@ Responsive Wrapper
     color: #8fa5ac;
     font-size: 1.1rem;
     font-weight: 400;
-    margin-bottom: 35px;
+    margin-bottom: 20px;
 }
 
 
@@ -1290,6 +1290,77 @@ Responsive Wrapper
     box-shadow: 0 2px 4px rgba(0, 107, 118, 0.2);
 }
 
+/* Container for the whole FAQ */
+.product-info-tabs {
+    border-top: 1px solid #eaeaea;
+}
+
+/* Individual Item Wrapper */
+.isis-faq-item {
+    border-bottom: 1px solid #eaeaea;
+    background: transparent;
+}
+
+/* The Button / Trigger */
+.faq-trigger {
+    width: 100%;
+    padding: 20px 0;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #222;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.faq-trigger:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.faq-trigger:not(.collapsed) {
+    color: #007bff; /* Highlight color when open */
+}
+
+/* The Icon (+ / - rotation) */
+.faq-icon {
+    font-size: 0.8rem;
+    transition: transform 0.4s ease;
+    color: #999;
+}
+
+.faq-trigger:not(.collapsed) .faq-icon {
+    transform: rotate(45deg); /* Turns + into x */
+    color: #007bff;
+}
+
+/* The Hidden Content Area */
+.faq-content {
+    padding: 0 0 25px 0;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #555;
+    animation: fadeIn 0.5s ease;
+}
+
+/* Smooth Fade Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hover Effect */
+.isis-faq-item:hover .faq-trigger {
+    padding-left: 5px;
+    color: #000;
+}
+
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
@@ -1311,34 +1382,64 @@ Responsive Wrapper
 }
 /* ==========================================
    PRODUCT INFO CARD (White/Light Grey Card)
-   ========================================== */
+========================================== */
 .product-info-card {
-    margin-top: 50px;
+    margin-top: 30px;
     background-color: #f4f1f1 !important; /* Soft grey background */
     padding: 45px;
     width: 100%;
     border-radius: 4px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
-    
+}
+
+.price-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.price-current {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: -1px;
+}
+
+.price-old {
+    font-size: 1.1rem;
+    color: #999;
+    text-decoration: line-through;
+    font-weight: 400;
+}
+
+.price-badge {
+    background-color: #ff4757;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
 }
 
 .size-tag {
-    background-color: #ebf1f5;
-    color: #a4b4bc;
+    background-color: #006b76;
+    color: #ffffff;
     display: inline-block;
     padding: 8px 16px;
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 1.5px;
-    margin-bottom: 25px;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 .main-desc {
     color: #002d4b;
     font-size: 1.15rem;
     line-height: 1.6;
-    margin-bottom: 35px;
     font-weight: 500;
 }
 
@@ -2793,4 +2894,89 @@ blockquote {
 .cart-sidebar-taka-sym {
     font-weight: 700;
     color: #000;
+}
+
+
+/*==================
+Related Products 
+*/
+.related-products-section .section-title {
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+
+/* Comments & Replies */
+.user-avatar img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-avatar.sm img {
+    width: 40px;
+    height: 40px;
+}
+
+.comment-item {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.comment-text {
+    font-size: 0.95rem;
+    color: #444;
+    line-height: 1.6;
+}
+
+.btn-reply {
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.date {
+    font-size: 0.75rem;
+}
+
+.add-comment-box {
+    border-radius: 8px;
+}
+
+.add-comment-box .form-control:focus {
+    box-shadow: none;
+    border-color: #000;
+}
+
+.btn-reply-pro {
+    background: transparent;
+    border: none;
+    color: #007bff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0;
+    position: relative;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-reply-pro::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #007bff;
+    transition: width 0.3s ease;
+}
+
+.btn-reply-pro:hover {
+    color: #0056b3;
+}
+
+.btn-reply-pro:hover::after {
+    width: 100%;
 }

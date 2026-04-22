@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} Category {{block.super}} {% endblock %}
+{% block title %} {{ active_category.title }}  {{block.super}} {% endblock %}
 
 {% block content %}
 
@@ -34,39 +34,38 @@
                     Explore our range of specialized solutions tailored for your needs.
                 </p>
             </div>
-            
-
             <div class="category-product-grid">
-        {% for sub in subcategories %}
-            {% if forloop.counter0|divisibleby:2 %}
-                {# Start a new column group every 2 items #}
-                <div class="grid-col-{% if forloop.counter == 1 %}1{% else %}2 category-offset-down{% endif %}">
-            {% endif %}
+                {% for sub in subcategories %}
+                    {% if forloop.counter0|divisibleby:2 %}
+                        <div class="grid-col-{% if forloop.counter == 1 %}1{% else %}2 category-offset-down{% endif %}">
+                    {% endif %}
 
-                <div class="category-card-custom 
-                    {% if forloop.counter == 1 %}category-bg-pink 
-                    {% elif forloop.counter == 2 %}category-bg-blue 
-                    {% else %}category-bg-teal{% endif %} mb-4">
-                    
-                    <div class="title">{{ sub.title }}</div>
-                    <div class="desc">
-                        Specialized care for {{ sub.title }}
-                    </div>
-                    <div class="count">
-                        <a href="{% url 'sub_category_detail' sub.slug %}">
-                            {{ sub.products.count }} Product{{ sub.products.count|pluralize }}
-                        </a>
-                    </div>
-                </div>
+                        <div class="category-card-custom 
+                            {% if forloop.counter == 1 %}category-bg-pink 
+                            {% elif forloop.counter == 2 %}category-bg-blue 
+                            {% else %}category-bg-teal{% endif %} mb-4">
+                            
+                            <div class="title">
+                                {{ sub.title }}
+                            </div>
+                            <div class="desc">
+                                Specialized care for {{ sub.title }}
+                            </div>
+                            <div class="count">
+                                <a href="{% url 'sub_category' sub.category.slug sub.slug %}">
+                                    {{ sub.products.count }} Product{{ sub.products.count|pluralize }}
+                                </a>
+                            </div>
+                        </div>
 
-            {% if forloop.counter|divisibleby:2 or forloop.last %}
+                    {% if forloop.counter|divisibleby:2 or forloop.last %}
+                        </div>
+                    {% endif %}
+                {% empty %}
+                    <p>No subcategories found for this range.</p>
+                {% endfor %}
                 </div>
-            {% endif %}
-        {% empty %}
-            <p>No subcategories found for this range.</p>
-        {% endfor %}
-    </div>
-</div>
+            </div>
         </div>
     </div>
         

@@ -1,4 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.paginator import Paginator
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 from products.models import Category, SubCategory, Product
 
 
@@ -23,22 +26,30 @@ def product_category_view(request, category_slug):
     return render(request, "products/category.html", context)
 
 
-def product_subcategory_view(request):
-    return render(request, 'products/product_subcategory.html')
+def product_list_view(request, category_slug, subcategory_slug):
+    category = get_object_or_404(Category, slug=category_slug)
+    subcategory = get_object_or_404(SubCategory, slug=subcategory_slug, category=category)
+    active_products = subcategory.products.filter(active=True)
 
+    paginator = Paginator(active_products, 4)
+    page_number = request.GET.get('page', 1)
+    products = paginator.get_page(page_number)
 
-def product_list_view(request, subcategory_slug):
-    # Fetch the subcategory or return 404
-    subcategory = get_object_or_404(SubCategory, slug=subcategory_slug)
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        # Render ONLY the product loops
+        html = render_to_string('products/subcategory.html', {
+            'products': products, 
+            'is_ajax': True 
+        }, request=request)
+        
+        return JsonResponse({'html': html,'has_next': products.has_next()})
     
-    # Fetch products belonging to this subcategory
-    products = subcategory.products.filter(active=True)
-
     context = {
+        'category': category,
         'subcategory': subcategory,
         'products': products,
     }
-    return render(request, 'products/product_list.html', context)
+    return render(request, 'products/subcategory.html', context)
 
 
 def product_details(request, slug):

@@ -1,6 +1,13 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import HomeCategory, HomeCategoryItem, Category, SubCategory, Product
+from django_summernote.admin import SummernoteModelAdmin
+from .models import (
+    HomeCategory, 
+    HomeCategoryItem, 
+    Category, 
+    SubCategory, 
+    Product
+)
 
 @admin.register(HomeCategory)
 class HomeCategoryAdmin(admin.ModelAdmin):
@@ -31,29 +38,32 @@ class CategoryAdmin(admin.ModelAdmin):
     readonly_fields = ('timestamp', 'update')
     prepopulated_fields = {"slug": ("title",)}
 
+
+
 @admin.register(SubCategory)
-class SubCategoryAdmin(admin.ModelAdmin):
-    list_display = ('thumbnail', 'title', 'category', 'slug', 'product_count')
-    list_display_links = ('thumbnail', 'title')
+class SubCategoryAdmin(SummernoteModelAdmin):
+    summernote_fields = (
+        'description', 
+        'right_for_me', 
+        'dermatologist_advice', 
+        'range_details'
+    )
+    list_display = ('title', 'category', 'slug', 'product_count')
     list_filter = ('category',)
     search_fields = ('title',)
     readonly_fields = ('timestamp', 'update')
     prepopulated_fields = {"slug": ("title",)}
 
-    def thumbnail(self, obj):
-        if obj.image:
-            return format_html('<img src="{}" style="width: 50px; height: 50px; border-radius: 4px; object-fit: cover;" />', obj.image.url)
-        return "No Image"
-    
     def product_count(self, obj):
         return obj.products.count()
     
-    thumbnail.short_description = 'Preview'
     product_count.short_description = 'Total Products'
 
+
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ('thumbnail', 'title', 'category', 'sub_category', 'price', 'active')
+class ProductAdmin(SummernoteModelAdmin):
+    summernote_fields = ('description', )
+    list_display = ('title', 'category', 'sub_category', 'price', 'active')
     list_filter = ('active', 'category', 'sub_category')
     list_editable = ('price', 'active')
     search_fields = ('title', 'slug')

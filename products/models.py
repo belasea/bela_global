@@ -64,11 +64,25 @@ class Category(models.Model):
 
 
 class SubCategory(models.Model):
-    """Sub-segments (e.g., Cleansers, Moisturizers)"""
     title = models.CharField(max_length=50)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='subcategories')
     slug = models.SlugField(unique=True, null=True, blank=True)
-    image = models.ImageField(upload_to='products/subCategory', null=True, blank=True)
+    # New Fields for the Template
+    subheading = models.CharField(
+        max_length=255, blank=True, 
+        help_text="e.g., Scaly skin. Hyperkeratosis"
+    )
+    description = models.TextField(blank=True, null=True)
+    right_for_me = models.TextField(
+        blank=True, verbose_name="Is it right for me?"
+    )
+    dermatologist_advice = models.TextField(
+        blank=True, verbose_name="Advice from a dermatologist"
+    )
+    range_details = models.TextField(
+        blank=True, verbose_name="Get to know the range"
+    )
+
     timestamp = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
 
@@ -84,10 +98,14 @@ class Product(models.Model):
     """The actual products"""
     title = models.CharField(max_length=200, db_index=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, related_name='products')
+    sub_category = models.ForeignKey(
+        SubCategory, on_delete=models.CASCADE, 
+        related_name='products'
+    )
     image = models.ImageField(upload_to='products/')
     price = models.DecimalField(decimal_places=2, max_digits=20) 
     old_price = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    description = models.TextField(blank=True, null=True)
     weight = models.CharField(max_length=20, help_text='e.g., 20ml or 20gm')
     active = models.BooleanField(default=True, db_index=True)
     slug = models.SlugField(unique=True, null=True, blank=True, db_index=True)
