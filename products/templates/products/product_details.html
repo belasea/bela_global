@@ -109,112 +109,67 @@
     </section>
 
     <!-- related -->
-    <section class="related-products py-5">
+    <section class="related-product-section py-5">
         <div class="container">
-            <h3 class="related-products-title mb-4">Related Products</h3>
-            <div class="row">
-                <div class="col-lg-3 col-md-4 col-6 mb-4">
-                    <div class="blog-card">
-                        <div class="blog-img">
-                            <a href="#">
-                                {% if blog.image %}
-                                    <img src="{{ blog.image.url }}" class="img-fluid" alt="img is missing">
-                                {% else %}
-                                    <img src="{% static 'img/no-photo.png' %}" alt="img is missing">
-                                {% endif %}
-                            </a>
-                            <a href="#">
-                                <span class="blog-category">{{ blog.category }}</span>
-                            </a>
+            <h3 class="related-product-header mb-4">
+                Related Products
+            </h3>
+            <div class="position-relative">
+                <!-- Left Arrow -->
+                <button class="slider-btn left-btn" onclick="scrollSlider(-1)">
+                    &#10094;
+                </button>
+                <!-- Slider -->
+                <div class="related-slider">
+                    {% for item in related_products %}
+                        <div class="slider-item my-5">
+                            <div class="related-product-card">
+                                <div class="related-product-img">
+                                    <a href="{% url 'product_details' item.slug %}">
+                                        {% if item.image %}
+                                            <img src="{{ item.image.url }}">
+                                        {% else %}
+                                            <img src="{% static 'img/no-photo.png' %}">
+                                        {% endif %}
+                                    </a>
+                                    <span class="related-product-category">
+                                        {{ item.category.title }}
+                                    </span>
+                                </div>
+                                <div class="related-product-content">
+                                    <h5 class="related-product-title">
+                                        <a href="{% url 'product_details' item.slug %}">
+                                            {{ item.title|truncatechars:20 }}
+                                        </a>
+                                    </h5>
+                                    {% if item.description %}
+                                        <p class="related-product-desc">
+                                            {{ item.description|safe|truncatechars:30 }}
+                                        </p>
+                                    {% else %}
+                                        <h5>
+                                            No Description Found !
+                                        </h5>
+                                    {% endif %}
+                                    <!-- Optional price -->
+                                    <strong>৳ {{ item.price }}</strong>
+                                </div>
+                            </div>
                         </div>
-                        <div class="blog-content">
-                            <p class="blog-date">{{ blog.timestamp }}</p>
-                            <h5 class="blog-title">
-                                <a href="#">
-                                    {{ blog.title|truncatechars:30 }}
-                                </a>
-                            </h5>
-                            <p class="blog-desc">
-                                {{ blog.description|striptags|truncatewords:20 }}
-                            </p>
-                            <a href="#" class="read-more">
-                                Read More →
-                            </a>
-                        </div>
-                    </div>
+                    {% empty %}
+                        <p>No related products found.</p>
+                    {% endfor %}
                 </div>
+                <!-- Right Arrow -->
+                <button class="slider-btn right-btn" onclick="scrollSlider(1)">
+                    &#10095;
+                </button>
             </div>
         </div>
     </section>
 
-    <section class="comments-section py-5 bg-light">
-        <div class="container">
-            <h3 class="section-title mb-5">Customer Reviews</h3>
-            
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="comment-item mb-4">
-                        <div class="d-flex">
-                            <div class="user-avatar">
-                                <img src="https://ui-avatars.com/api/?name=John+Doe" alt="User">
-                            </div>
-                            <div class="comment-content ms-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="mb-0">
-                                        John Doe 
-                                        <span class="date text-muted ms-2">
-                                            April 20, 2026
-                                        </span>
-                                    </h6>
-                                    <button class="btn-reply-pro">
-                                        <i class="fa-solid fa-reply me-1"></i> 
-                                        Reply
-                                    </button>
-                                </div>
-                                <p class="comment-text mt-2">
-                                    Great product! It worked wonders for my skin. Highly recommend to everyone.
-                                </p>
-                                <div class="reply-wrapper ms-4 mt-3 border-start ps-3">
-                                    <div class="d-flex">
-                                        <div class="user-avatar sm">
-                                            <img src="https://ui-avatars.com/api/?name=Admin" alt="Admin">
-                                        </div>
-                                        <div class="comment-content ms-2">
-                                            <h6 class="mb-0">Store Manager <span class="badge bg-dark ms-2">Staff</span></h6>
-                                            <p class="comment-text mt-1">
-                                                Thank you, John! We're glad you liked it.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="add-comment-box mt-5 p-4 bg-white shadow-sm">
-                        <h5>Leave a Review</h5>
-                        <form>
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label-custom">Full Name</label>
-                                    <input type="text" class="form-control custom-input" placeholder="e.g. Jayed Hossain" required>
-                                </div>
-                                
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label-custom">Email Address</label>
-                                    <input type="email" class="form-control custom-input" placeholder="e.g. jayed@example.com" required>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <textarea class="form-control" rows="4" placeholder="Share your experience..."></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-dark px-4">Submit Review</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+   
+    
 
     <div class="main-assets-section">
         <div class="container">
@@ -238,6 +193,108 @@
             </div>
         </div>
     </div>
+
+    <section class="comments-section py-5 bg-light">
+    <div class="container">
+        <h3 class="section-title mb-5">Customer Reviews ({{ comments.count }})</h3>
+        
+        <div class="row">
+            <div class="col-lg-8">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+
+                {% for comment in comments %}
+                <div class="comment-item mb-4">
+                    <div class="d-flex">
+                        <div class="user-avatar">
+                            <img src="https://ui-avatars.com/api/?name={{ comment.name|urlencode }}" alt="User">
+                        </div>
+                        <div class="comment-content ms-3 w-100">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="mb-0">
+                                    {{ comment.name }} 
+                                    <span class="date text-muted ms-2">{{ comment.created_on|date:"M d, Y" }}</span>
+                                </h6>
+                                {% if user.is_superuser or user.is_staff %}
+                                
+                                <button type="button" class="btn-reply-pro" 
+                                        data-bs-toggle="modal" data-bs-target="#replyModal" 
+                                        onclick="setupReply('{{ comment.id }}', '{{ comment.name }}')">
+                                        <i class="fa-solid fa-reply me-1"></i> 
+                                        Reply
+                                </button>
+                                {% endif %}
+                            </div>
+                            <p class="comment-text mt-2">{{ comment.body }}</p>
+
+                            {% for reply in comment.replies.all %}
+                            <div class="reply-wrapper ms-4 mt-3 border-start ps-3">
+                                <div class="d-flex">
+                                    <div class="user-avatar sm">
+                                        <img src="https://ui-avatars.com/api/?name=Admin" alt="Admin">
+                                    </div>
+                                    <div class="comment-content ms-2">
+                                        <h6 class="mb-0">{{ reply.name }} <span class="badge bg-dark ms-2">Staff</span></h6>
+                                        <p class="comment-text mt-1">{{ reply.body }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No reviews yet.</p>
+                {% endfor %}
+
+                <div class="add-comment-box mt-5 p-4 bg-white shadow-sm">
+                    <h5>Leave a Review</h5>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label-custom">Full Name</label>
+                                <input type="text" name="name" class="form-control custom-input" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label-custom">Email Address</label>
+                                <input type="email" name="email" class="form-control custom-input" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" name="body" rows="4" placeholder="Share your experience..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-dark px-4">Submit Review</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="replyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="parent_comment_id" id="parent_comment_id">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reply to <span id="target_user"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea name="reply_body" class="form-control" rows="4" placeholder="Write admin reply..." required></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-dark">Post Admin Reply</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
     <div class="experience-section">
         <div class="container-fluid p-0">
@@ -268,6 +325,40 @@
         </div>
     </div>
 
+
+    <script>
+                function setupReply(commentId, name) {
+                    document.getElementById('parent_comment_id').value = commentId;
+                    document.getElementById('replyToName').innerText = name;
+                }
+                </script>
+    <script>
+const slider = document.querySelector('.related-slider');
+
+function scrollSlider(direction) {
+    const item = slider.querySelector('.slider-item');
+    const scrollAmount = item.offsetWidth + 15;
+
+    slider.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+    });
+}
+
+// Auto scroll every 3 seconds
+setInterval(() => {
+    slider.scrollBy({
+        left: 300,
+        behavior: 'smooth'
+    });
+
+    // reset to start when reaching end
+    if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 5) {
+        slider.scrollTo({ left: 0, behavior: 'smooth' });
+    }
+
+}, 3000);
+</script>
 
     
 

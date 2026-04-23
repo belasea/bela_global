@@ -3,6 +3,9 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from products.models import Category, SubCategory, Product
+from comments.models import Product, Comment, Reply
+from comments.forms import CommentForm
+from django.contrib import messages
 
 
 def category_view(request):
@@ -53,10 +56,49 @@ def product_list_view(request, category_slug, subcategory_slug):
 
 
 def product_details(request, slug):
-    # Fetch the specific product using the slug from the URL
     product = get_object_or_404(Product, slug=slug, active=True)
+    related_products = Product.objects.filter(
+        category=product.category, active=True
+    ).exclude(id=product.id)[:8]
+    
+    comments = product.comments.filter(approve=True)
+    
+    form = CommentForm()
+    
+    if request.method == 'POST':
+        # --- Handle Superuser Reply ---
+        if 'parent_comment_id' in request.POST:
+            if request.user.is_superuser:
+                comment_id = request.POST.get('parent_comment_id')
+                parent_comment = get_object_or_404(Comment, id=comment_id)
+                Reply.objects.create(
+                    comment=parent_comment,
+                    name=f"{request.user.first_name} {request.user.last_name}" or "Admin",
+                    body=request.POST.get('reply_body'),
+                    approve=True
+                )
+                messages.success(request, "Reply posted successfully.")
+            return redirect('product_details', slug=product.slug)
+
+        
+        # --- Handle Standard Comment with Validation ---
+        form = CommentForm(request.POST) # Bind POST data to the form
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = product
+            comment.approve = False
+            comment.save()
+            messages.info(request, "Your comment is awaiting approval.")
+            return redirect('product_details', slug=product.slug)
+        else:
+            messages.error(request, "Please correct the errors below.")
     
     context = {
         'product': product,
+        'comments': comments,
+        'form': form,
+        'related_products': related_products,
     }
     return render(request, "products/product_details.html", context)
+
+
