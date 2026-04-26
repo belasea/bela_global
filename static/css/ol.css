@@ -1,0 +1,122 @@
+
+/*======================================
+Checkout 
+======================================*/
+/* Container Box */
+.pro-card {
+    border-radius: 12px !important;
+    border-color: #f1f1f1 !important;
+}
+
+/* Section Labels */
+.pro-section-label {
+    font-size: 0.8rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase;
+    color: #333;
+}
+
+/* Professional Inputs */
+.pro-input {
+    border-radius: 8px !important;
+    padding: 0.8rem 1rem !important;
+    font-size: 0.9rem !important;
+    border: 1px solid #e2e8f0 !important;
+    background-color: #fff !important;
+    transition: all 0.2s ease !important;
+}
+
+.pro-input:focus {
+    border-color: #000 !important;
+    box-shadow: 0 0 0 4px rgba(0,0,0,0.05) !important;
+    outline: none !important;
+}
+
+/* Button & Utility */
+.ls-1 { letter-spacing: 1px; }
+
+.bg-success-subtle {
+    background-color: #f0fff4 !important;
+}
+
+/* Sticky behavior for the Summary Sidebar */
+@media (min-width: 992px) {
+    .sticky-top {
+        position: sticky;
+        top: 20px;
+        z-index: 1000;
+    }
+}
+
+/* Logo filtering for cleaner look */
+.payment-logos img {
+    filter: brightness(0) opacity(0.6);
+    transition: 0.3s;
+}
+
+.payment-logos img:hover {
+    filter: none;
+    opacity: 1;
+}
+
+
+/*=====================================
+ order-complete
+======================================*/
+.order-complete-section{
+    margin-bottom: 100px;
+}
+
+/* Typography & Spacing */
+.fw-black { font-weight: 900; }
+.ls-1 { letter-spacing: 1px; }
+.extra-small { font-size: 0.65rem; letter-spacing: 1px; }
+
+/* The Success Checkmark Animation Effect */
+.success-icon-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.success-circle {
+    width: 100px;
+    height: 100px;
+    background-color: #28a745; /* Success Green */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 50px;
+    box-shadow: 0 10px 20px rgba(40, 167, 69, 0.2);
+    animation: scaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@keyframes scaleUp {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+
+.order-card {
+    border: 1px solid #eee !important;
+}
+
+.order-meta-box {
+    border: 1px solid #f1f1f1;
+}
+
+/* Print Styling */
+@media print {
+    .btn, .order-complete-section {
+        background-color: white !important;
+    }
+    .btn, nav, footer, .review-stars {
+        display: none !important;
+    }
+    .order-card {
+        box-shadow: none !important;
+        border: none !important;
+    }
+}

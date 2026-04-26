@@ -35,7 +35,7 @@
                                     <p class="blog-date">{{ blog.timestamp }}</p>
                                     <h5 class="blog-title">
                                         <a href="{% url 'blog-details' blog.slug %}">
-                                            {{ blog.title|truncatechars:30 }}
+                                            {{ blog.title|truncatechars:20 }}
                                         </a>
                                     </h5>
                                     <p class="blog-desc">

@@ -26,6 +26,7 @@ def product_category_view(request, category_slug):
         'active_category': active_category,
         'subcategories': subcategories,
     }
+    # print("active_category :", active_category)
     return render(request, "products/category.html", context)
 
 

@@ -17,93 +17,83 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="product-info-box">
-                        <h3 class="product-main-title">
-                            {{ product.title }}
-                        </h3>
-                        <h4 class="product-category-title">
-                            {{ product.sub_category.title|upper }}
-                        </h4>
-                        <h5 class="product-action-text">
-                             {{ product.category.title|upper }}
-                        </h5>
-                        <div class="usage-icons">
-                            <div class="icon-circle">
-                                <i class="fa-solid fa-baby"></i>
-                            </div>
-                            <div class="icon-circle">
-                                <i class="fa-solid fa-child"></i>
-                            </div>
-                            <div class="icon-circle">
-                                <i class="fa-solid fa-user"></i>
-                            </div>
-                            <div class="icon-circle">
-                                <i class="fa-solid fa-person-pregnant"></i>
-                            </div>
+    <div class="product-premium-wrapper ps-lg-5">
+        <div class="brand-eyebrow d-flex align-items-center mb-2">
+            <span class="text-uppercase ls-2 fw-bold text-muted small">{{ product.category.title }}</span>
+            <div class="dot-separator mx-2"></div>
+            <span class="text-uppercase ls-1 text-secondary small">{{ product.sub_category.title }}</span>
+        </div>
+
+        <h1 class="pro-title display-5 fw-bold mb-3">{{ product.title }}</h1>
+
+        <div class="review-stars mb-4 small text-dark">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star-half-stroke"></i>
+            <span class="ms-2 text-muted">(4.8/5 - 120 Reviews)</span>
+        </div>
+
+        <div class="usage-group mb-5">
+            <label class="d-block mb-2 extra-small fw-black ls-2 text-dark">DESIGNED FOR</label>
+            <div class="d-flex gap-3">
+                <div class="pro-icon-circle" data-bs-toggle="tooltip" title="Baby"><i class="fa-solid fa-baby"></i></div>
+                <div class="pro-icon-circle" data-bs-toggle="tooltip" title="Child"><i class="fa-solid fa-child"></i></div>
+                <div class="pro-icon-circle" data-bs-toggle="tooltip" title="Adult"><i class="fa-solid fa-user"></i></div>
+                <div class="pro-icon-circle" data-bs-toggle="tooltip" title="Safe for Pregnancy"><i class="fa-solid fa-person-pregnant"></i></div>
+            </div>
+        </div>
+
+        <div class="price-action-card p-4 border bg-white mb-4">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div class="price-stack">
+                    <span class="h2 fw-black mb-0">${{ product.price }}</span>
+                    {% if product.old_price %}
+                        <div class="discount-pill mt-1">
+                            <span class="text-decoration-line-through text-muted small me-2">${{ product.old_price }}</span>
+                            <span class="badge rounded-pill bg-dark">SAVE {{ product.discount_percentage }}%</span>
                         </div>
-                        <div class="product-info-card">
-                            <div class="price-container">
-                                <span class="price-current">$ {{ product.price }}</span>
-                                {% if product.old_price %}
-                                    <span class="price-old">$ {{ product.old_price }}</span>
-                                    <span class="price-badge">SAVE {{ product.discount_percentage }}%</span>
-                                {% endif %}
-                            </div>
-                            <div class="size-tag">
-                                {{ product.weight }}
-                            </div>
-                            <p class="main-desc">
-                                {{ product.description|safe }}
-                            </p>
-                            <div class="product-info-tabs mt-5" id="productAccordion">
-                                <div class="isis-faq-item">
-                                    <h2 class="faq-header">
-                                        <button class="faq-trigger collapsed" data-bs-toggle="collapse" data-bs-target="#suitability">
-                                            IS IT RIGHT FOR ME?
-                                            <i class="fa-solid fa-plus faq-icon"></i>
-                                        </button>
-                                    </h2>
-                                    <div id="suitability" class="accordion-collapse collapse" data-bs-parent="#productAccordion">
-                                        <div class="faq-content">
-                                            {{ product.sub_category.right_for_me|safe|linebreaks }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="isis-faq-item">
-                                    <h2 class="faq-header">
-                                        <button class="faq-trigger collapsed" data-bs-toggle="collapse" data-bs-target="#advice">
-                                            ADVICE FROM A DERMATOLOGIST
-                                            <i class="fa-solid fa-plus faq-icon"></i>
-                                        </button>
-                                    </h2>
-                                    <div id="advice" class="accordion-collapse collapse" data-bs-parent="#productAccordion">
-                                        <div class="faq-content">
-                                            {{ product.sub_category.dermatologist_advice|safe|linebreaks }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="isis-faq-item">
-                                    <h2 class="faq-header">
-                                        <button class="faq-trigger collapsed" data-bs-toggle="collapse" data-bs-target="#range">
-                                            GET TO KNOW THE {{ product.sub_category.title|upper }} RANGE
-                                            <i class="fa-solid fa-plus faq-icon"></i>
-                                        </button>
-                                    </h2>
-                                    <div id="range" class="accordion-collapse collapse" data-bs-parent="#productAccordion">
-                                        <div class="faq-content">
-                                            {{ product.sub_category.range_details|safe|linebreaks }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <a href="{% url 'cart_list' %}" class="btn-checkout">
-                                <i class="fa-solid fa-cart-shopping me-2"></i>
-                                    Add to Cart
-                            </a>
-                        </div>
+                    {% endif %}
+                </div>
+                <div class="weight-badge small fw-bold border p-2 px-3 text-uppercase">
+                    {{ product.weight }}
+                </div>
+            </div>
+
+            <form method="post" action="{% url 'add-to-cart' %}">
+                {% csrf_token %}
+                <input type="hidden" name="product_id" value="{{ product.id }}">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" class="btn btn-pro-add w-100 rounded-0 py-3 mb-2">
+                    ADD TO BAG
+                </button>
+                <p class="text-center extra-small text-muted mb-0 mt-2">
+                    <i class="fa-solid fa-truck-fast me-1"></i> Free Shipping on orders over $50
+                </p>
+            </form>
+        </div>
+
+        <div class="pro-description mb-5">
+             {{ product.description|safe }}
+        </div>
+
+        <div class="accordion accordion-flush" id="proAccordion">
+            <div class="accordion-item pro-acc-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed px-0 pro-acc-trigger" data-bs-toggle="collapse" data-bs-target="#acc-1">
+                        SUITABILITY & USAGE
+                    </button>
+                </h2>
+                <div id="acc-1" class="accordion-collapse collapse" data-bs-parent="#proAccordion">
+                    <div class="accordion-body px-0 text-muted lh-lg">
+                        {{ product.sub_category.right_for_me|safe }}
                     </div>
                 </div>
+            </div>
+            </div>
+    </div>
+</div>
             </div>
         </div>
     </section>

@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% block title %}Cart List {{ block.super }} {% endblock %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+
+    <section class="cart-section py-5">
+        {% if is_cart_empty %}
+            <div class="container d-flex vh-100">
+                <div class="row m-auto">
+                    <div class="col-12 text-center">
+                        <img src="{% static 'img/cartEmpty.png' %}" alt="cart-img" class="img-fluid">
+                        <h4 class="my-3">Your shopping cart is empty</h4>
+                        <a class="btn btn-dark btn-lg" href="{% url 'category' %}">
+                            Click here to continue shopping
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="container mb-5">
+                <h2 class="cart-title">Your Shopping Bag</h2>
+                <div id="message"></div>
+                <hr>
+                <div class="row">
+                    <div class="col col-sm-12 col-md-8 col-lg-8 col-xl-8 mb-4">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead class="header-card-list">
+                                <tr class="text-center">
+                                    <td class="hidden-xs">Image</td>
+                                    <td>Product Name</td>
+                                    <td>Quantity</td>
+                                    <td>Price</td>
+                                    <td>Action</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <!--==== Normal Product ============-->
+                                    {% if normal_products %}
+                                        {% for item in normal_products %}
+                                            <tr>
+                                                <td class="hidden-xs">
+                                                    {% if item.product.image %}
+                                                        <div class="img-wrap">
+                                                            <img src="{{ item.product.image.url }}" class="img-thumbnail img-sm">
+                                                        </div>
+                                                    {% else %}
+                                                        <div class="img-wrap">
+                                                            <img src=""  alt="image is missing" class="img-thumbnail img-sm">
+                                                        </div>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {{ item.product.title }}
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="button btn-group mb-3">
+                                                        <button class="decrease-quantity-btn btn btn-outline-secondary" style="max-width: 40px" data-cart-item-id="{{ item.id }}">
+                                                            <b>-</b>
+                                                        </button>
+                                                        <button class="btn btn-outline-secondary" style="max-width: 40px">
+                                                            {{ item.quantity }}
+                                                        </button>
+                                                        <button class="increase-quantity-btn btn btn-outline-secondary " style="max-width: 40px" data-cart-item-id="{{ item.id }}">
+                                                            <b>+</b>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    {{ item.get_total_price }}
+                                                </td>
+                                                <td class="text-center">
+                                                    <form method="post" action="{% url 'remove-cart-item' item.id %}">
+                                                        {% csrf_token %}
+                                                        <button type="submit" class="btn btn-outline-danger"> × Remove</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="active-coupon">
+                            {% if active_coupon %}
+                                <div class="coupon-container mb-3">
+                                    {% if cart_obj.coupon %}
+                                        <h5>Promo Applied</h5>
+                                    {% else %}
+                                        <form method="post" action="{% url 'coupon-apply' %}">
+                                            {% csrf_token %}
+                                            <div class="input-group promo-input-group rounded-0">
+                                                <input type="text" 
+                                                    name="code" 
+                                                    class="form-control" 
+                                                    placeholder="PROMO CODE" 
+                                                    aria-label="Coupon Code"
+                                                    required>
+                                                <button class="btn btn-apply px-4 rounded-0" type="submit">
+                                                    Apply
+                                                </button>
+                                            </div>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                     <div class="col-lg-4">
+                        <div class="cart-summary-card">
+                            <h4>Order Summary</h4>
+                            <div class="summary-line">
+                                <span>Subtotal</span>
+                                <span>$ {{ cart_obj.get_sub_total }} $</span>
+                            </div>
+                            {% if cart_obj.coupon %}
+                                <div class="summary-line tax">
+                                    <span>Discount Amount</span>
+                                    <span>$ {{ cart_obj.get_coupon_discount_percentage }}</span>
+                                </div>
+                               
+                                <div class="d-flex justify-content-between align-items-center p-2 mb-2 border border-dashed rounded bg-light">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-ticket-perforated text-success me-2"></i>
+                                        <div>
+                                            <span class="fw-bold text-dark small d-block">Coupon Applied</span>
+                                            <span class="text-muted extra-small text-uppercase">{{ cart_obj.coupon.code }}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="ms-auto">
+                                        <a href="{% url 'coupon-remove' %}" 
+                                        class="btn-close" 
+                                        style="font-size: 0.65rem;" 
+                                        title="Remove Coupon"
+                                        aria-label="Remove">
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            <div class="summary-line total">
+                                <span>Total</span>
+                                <span>$ {{ cart_obj.get_total }}</span>
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                <a href="{% url 'checkout' %}" class="btn-checkout text-center">
+                                    Proceed to Checkout
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </section>
+    
+{% endblock %}
+

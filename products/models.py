@@ -107,16 +107,46 @@ class Product(models.Model):
     old_price = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
     description = models.TextField(blank=True, null=True)
     weight = models.CharField(max_length=20, help_text='e.g., 20ml or 20gm')
+    limit_buy = models.BooleanField(default=False, blank=True)
     active = models.BooleanField(default=True, db_index=True)
     slug = models.SlugField(unique=True, null=True, blank=True, db_index=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
+    
+    
+    @property
+    def get_discount(self):
+        """
+        Calculate the discount percentage for the product.
+        """
+        if self.old_price > 0:
+            discount = ((self.old_price - self.price) / self.old_price) * 100
+            return round(discount, 2)
+        else:
+            return 0
 
     class Meta:
+        indexes = [
+            models.Index(fields=['category']),
+            models.Index(fields=['sub_category']),
+            models.Index(fields=['price']),
+            models.Index(fields=['active', 'update']),
+        ]
         ordering = ['-timestamp']
 
+
     def __str__(self):
-        return self.title
+        return self.pro_id
+    
+
+    @property
+    def get_discount(self):
+        return 10
+
+    @property
+    def pro_id(self):
+        product_id = 'SKU000' + str(self.id)
+        return product_id
 
 
 # --- SIGNALS ---

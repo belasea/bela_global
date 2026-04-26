@@ -8,7 +8,7 @@
     <!-- Blog Section -->
     <section class="blog-section py-5">
         {% if object_list %}
-            <div class="container">
+            <div class="container ">
                 <!-- Section Title -->
                 <div class="section-header text-center mb-5">
                     <h2>Latest Blog</h2>
@@ -36,11 +36,11 @@
                                     <p class="blog-date">{{ blog.timestamp }}</p>
                                     <h5 class="blog-title">
                                         <a href="{% url 'blog-details' blog.slug %}">
-                                            {{ blog.title|truncatechars:30 }}
+                                            {{ blog.title|truncatechars:10 }}
                                         </a>
                                     </h5>
                                     <p class="blog-desc">
-                                        {{ blog.description|striptags|truncatewords:20 }}
+                                        {{ blog.description|striptags|truncatechars:100 }}
                                     </p>
                                     <a href="{% url 'blog-details' blog.slug %}" class="read-more">
                                         Read More →
@@ -52,7 +52,7 @@
                 </div>
                 <!-- Pagination -->
                 <div class="row">
-                    <div class="col">
+                    <div class="col my-4">
                         <div class="pagination d-flex justify-content-center">
                             {% include "pagination.html" with object_list=object_list %}
                         </div>
