@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-{% block title %}Checkout - {{ block.super }} {% endblock %}
+{% block title %}Checkout {{ block.super }} {% endblock %}
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
 {% load humanize %}
 {% block content %}
 
 
-  <div class="checkout-section" >
+  <div class="checkout-section">
       <div class="container mb-5">
         <div class="d-flex justify-content-center align-items-center text-center">
             <div class="d-flex align-items-center">
@@ -19,7 +19,7 @@
             </div>
         </div>
         <hr>
-        <div class="checkout-section">
+        <div class="checkout-form">
             <div class="container">
                 <form method="post">
                     {% csrf_token %}

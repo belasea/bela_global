@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import user_passes_test
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.template.loader import render_to_string
@@ -10,8 +11,15 @@ from django.contrib import messages
 
 def category_view(request):
     categories = Category.objects.all()
+    # Get the first category to use as a default
+    active_category = categories.first()
+    # If a category exists, get its subcategories; otherwise, return an empty list
+    subcategories = active_category.subcategories.all() if active_category else []
+    
     context = {
-        "categories": categories
+        "categories": categories,
+        "active_category": active_category,
+        "subcategories": subcategories,
     }
     return render(request, "products/category.html", context)
 
@@ -26,7 +34,6 @@ def product_category_view(request, category_slug):
         'active_category': active_category,
         'subcategories': subcategories,
     }
-    # print("active_category :", active_category)
     return render(request, "products/category.html", context)
 
 
@@ -60,7 +67,7 @@ def product_details(request, slug):
     product = get_object_or_404(Product, slug=slug, active=True)
     related_products = Product.objects.filter(
         category=product.category, active=True
-    ).exclude(id=product.id)[:8]
+    ).exclude(id=product.id)[:10]
     
     comments = product.comments.filter(approve=True)
     
@@ -103,3 +110,41 @@ def product_details(request, slug):
     return render(request, "products/product_details.html", context)
 
 
+@user_passes_test(lambda u: u.is_superuser)
+def edit_comment_item(request, item_type, item_id):
+    # Dynamically get the model (Comment or Reply)
+    model = Comment if item_type == 'comment' else Reply
+    obj = get_object_or_404(model, id=item_id)
+    
+    # Get slug for redirection
+    product_slug = obj.post.slug if item_type == 'comment' else obj.comment.post.slug
+
+    if request.method == "POST":
+        action = request.POST.get('action')
+        
+        if action == "delete":
+            obj.delete()
+            messages.warning(request, f"{item_type.capitalize()} deleted.")
+        
+        elif action == "update":
+            new_body = request.POST.get('body')
+            if new_body:
+                obj.body = new_body
+                obj.save()
+                messages.success(request, f"{item_type.capitalize()} updated.")
+                
+        return redirect('product_details', slug=product_slug)
+    
+
+@user_passes_test(lambda u: u.is_superuser)
+def delete_comment_item(request, item_type, item_id):
+    if request.method == "POST":
+        if item_type == 'comment':
+            obj = get_object_or_404(Comment, id=item_id)
+        else:
+            obj = get_object_or_404(Reply, id=item_id)
+            
+        product_slug = obj.post.slug if item_type == 'comment' else obj.comment.post.slug
+        obj.delete()
+        messages.warning(request, f"{item_type.capitalize()} deleted successfully.")
+        return redirect('product_details', slug=product_slug)

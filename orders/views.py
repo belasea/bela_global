@@ -15,7 +15,7 @@ from inventory.models import Inventory, InventoryStock, InventoryTransaction
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 
-
+# Checkout ===========================================================
 def cart_checkout(request):
     cart_obj, new_obj = Cart.objects.new_or_get(request)
 
@@ -152,6 +152,9 @@ def cart_checkout(request):
         order_obj.total_cost = cart_obj.get_total()
         order_obj.due = cart_obj.get_total()
         # order_obj.delivery_method = delivery_method
+        
+        # get_coupon_discount_percentage
+        order_obj.voucher = cart_obj.get_coupon_discount_percentage()
         if notes:
             order_obj.notes = notes
         order_obj.save()
@@ -185,29 +188,64 @@ def cart_checkout(request):
     return render(request, "orders/checkout/checkout.html", context)
 
 
-# Checkout Done ===========================================================
+# Checkout Done ======================================================
 def checkout_done_view(request, slug):
     order = get_object_or_404(Order, slug=slug)
     context = {'order': order}
     return render(request, "orders/checkout/checkout-done.html", context)
 
 
-
-# # Crete PDF View ==========================================================
-# def pdf_report_create(request, slug):
-#     obj = get_object_or_404(Order, slug=slug)
-#     template_path = 'orders/order_pdf/order_pdf.html'
-#     context = {'order': obj}
-#     response = HttpResponse(content_type='application/pdf')
-#     response['Content-Disposition'] = 'inline; filename="order.pdf"'  # Open in browser
-
-#     template = get_template(template_path)
-#     html = template.render(context)
-
-#     # Create a PDF
-#     pisa_status = pisa.CreatePDF(html, dest=response)
+# Crete PDF View ======================================================
+def pdf_report_create(request, slug):
+    obj = get_object_or_404(Order, slug=slug)
+    template_path = 'orders/order_pdf/order_pdf.html'
+    context = {'order': obj}
     
-#     if pisa_status.err:
-#         return HttpResponse(f'We had some errors with code {pisa_status.err}')
+    # 1. Initialize the response object with the correct PDF mime-type
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; filename="order.pdf"'
+
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # 2. pisa.CreatePDF writes the PDF data directly into the 'response' object
+    pisa_status = pisa.CreatePDF(html, dest=response)
     
-#     return response
+    if pisa_status.err:
+        return HttpResponse(f'We had some errors with code {pisa_status.err}')
+    
+    # 3. Return the completed response object to the browser
+    return response
+
+
+# order PDF list ==========================================================
+def order_pdf_list(request):
+    # Use Django's request.GET for query parameters
+    query = request.GET.get('q', '').strip()
+
+    # Use Django's Paginator for pagination
+    page = request.GET.get('page', 1)
+    per_page = 10
+
+    # Use filter directly on Order.objects.values
+    queryset = Order.objects.values('id', 'slug', 'timestamp', 'returned', 'cancelled','status').order_by('-timestamp')
+
+    if query:
+        queryset = queryset.filter(Q(slug__icontains=query))
+
+    paginator = Paginator(queryset, per_page)
+
+    try:
+        orders = paginator.page(page)
+    except PageNotAnInteger:
+        orders = paginator.page(1)
+    except EmptyPage:
+        orders = paginator.page(paginator.num_pages)
+
+    context = {
+        'object_list': orders,
+        'page': page,
+        'query': query
+    }
+
+    return render(request, 'orders/order_list/order_list.html', context)

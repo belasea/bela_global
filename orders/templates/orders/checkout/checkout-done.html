@@ -40,9 +40,9 @@
                         </div>
 
                         <div class="d-grid gap-2">
-                            <button onclick="window.print()" class="btn btn-dark btn-lg py-3 fw-bold ls-1 rounded-3">
+                            <a href="{% url 'create-pdf' order.slug  %}" target="_blank" class="btn btn-dark btn-lg py-3 fw-bold ls-1 rounded-3">
                                 PRINT RECEIPT <i class="fa-solid fa-print ms-2"></i>
-                            </button>
+                            </a>
                             <a href="{% url 'category' %}" class="btn btn-link text-decoration-none text-dark fw-bold mt-2">
                                 <i class="fa-solid fa-arrow-left me-2"></i> 
                                 Continue Shopping

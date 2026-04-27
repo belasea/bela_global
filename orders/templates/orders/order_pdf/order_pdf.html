@@ -1,0 +1,170 @@
+
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order PDF - Bella Global</title>
+    
+</head>
+<body>
+
+    <section id="invoice-section">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <table style="width: 100%">
+                        <tbody>
+                            <tr>
+                                <td style="font-size:20px">Order Details</td>
+                                <td></td>
+                                <td></td>
+                                <td style="font-size:20px">Bill To</td>                        
+                            </tr>
+                            <tr>
+                                <td><b>Order No #</b> 
+                                    <span style="margin-left:30px">
+                                        {{ order.slug }}
+                                    </span>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td><b>Cutomer Name : </b>
+                                    <span style="margin-left:30px">
+                                        {{ order.shipping_address.first_name }} 
+                                        {{ order.shipping_address.last_name }}
+                                    </span>
+                                </td>                        
+                            </tr>
+                            <tr>
+                                <td><b>Date :</b> 
+                                    <span style="margin-left:30px">
+                                        {{ order.timestamp }}
+                                    </span>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td><b>Address : </b>
+                                    <span style="margin-left:30px">
+                                        {{ order.shipping_address.get_user_address }}
+                                    </span>
+                                </td>                        
+                            </tr>
+                            <tr>
+                                <td><b>Website : </b> 
+                                    <span style="margin-left:30px">
+                                        <a href="https://jibon969.github.io/eShop/" style="text-decoration:none">
+                                            www.bellaglobal.ku
+                                        </a>
+                                    </span>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td><b>Location : </b>
+                                    <span style="margin-left:30px">
+                                        {{ order.shipping_address.location }}
+                                    </span>
+                                </td>                        
+                            </tr>
+                            <tr>
+                                <td><b>FB & Instagram : </b> 
+                                    <span style="margin-left:30px">
+                                        <a href="https://jibon969.github.io/eShop/" style="text-decoration:none">
+                                            Bella Global
+                                        </a>
+                                    </span>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td><b>Phone No : </b><span style="margin-left:30px">01987132107</span></td>                        
+                            </tr>
+                            <tr>
+                                <td><b>Contact No : </b> 
+                                    <span style="margin-left:30px">
+                                        {{ order.shipping_address.contact_number }}
+                                    </span>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>                        
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <table style="border: 1px solid black;!important; width: 100%">
+                        <tr>
+                            <th scope="col" style="border-collapse: collapse; padding: 5px; width: 50px">S.N</th>
+                            <th scope="col" style="border-collapse: collapse; padding: 5px; display: block; word-break: break-all; white-space: normal; overflow: hidden; width:290px;">
+                                Product Name
+                            </th>
+                            <th scope="col" style="border-collapse: collapse; padding: 5px; width: 100px">Quantity</th>
+                            <th scope="col" style="border-collapse: collapse; padding: 5px; width: 100px; text-align: center">Unit Price</th>
+                            <th scope="col" style="border-collapse: collapse; padding: 5px;">Amount</th>
+                        </tr>
+                        {% for product in order.cart.cart_items.all %}
+                            <tr>
+                                <td style="padding: 5px;">
+                                    {{ forloop.counter }}
+                                </td>
+                                <td style="padding: 5px">
+                                    {{ product.product.title }}
+                                </td>
+                                <td style="text-align: center; padding: 5px">
+                                    {{ product.quantity }}
+                                </td>
+                                <td style="padding: 5px; text-align: center">
+                                    {{ product.price|floatformat|intcomma }}
+                                </td>
+                                <td style="width: 180px; text-align: right; margin-right: 5px; padding: 5px">
+                                    {{ product.cart_item_total|floatformat|intcomma }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <table style="width: 100%;">
+                        <tr>
+                            <th colspan="6" style="text-align: right;">Total Product Price</th>
+                            <td style="text-align: right;">{{ order.total_product_price|intcomma }}</td>
+                        </tr>
+                        {% if order.voucher %}
+                            <tr>
+                                <th colspan="6" style="text-align: right;">Voucher</th>
+                                <td style="text-align: right;">{{ order.voucher|intcomma }}</td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <th colspan="6" style="text-align: right;">Received</th>
+                            <td style="text-align: right;">{{ order.received|intcomma }}</td>
+                        </tr>
+                        <tr>
+                            <th colspan="6" style="text-align: right;">
+                                Amount to be collected
+                            </th>
+                            <td style="text-align: right;">{{ order.amount_to_be_collect|intcomma }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col">
+                    {% if order.notes %}
+                        <p><b>Notes :</b> {{ order.notes }}</p>
+                    {% endif %}
+                    <p><b>Thank you for your order.</b> </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
