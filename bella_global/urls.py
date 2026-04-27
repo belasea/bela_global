@@ -25,10 +25,14 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('', include('dashboard.urls')),
     path('', include('contacts.urls')),
+    path('', include('notification.urls')),
     path('', include('about.urls')),
     path('', include('blog.urls')),
-    # path('', include('products.urls')),
-    path('', include('notification.urls')),
+    path('', include('products.urls')),
+    path('', include('carts.urls')),
+    path('', include('orders.urls')),
+    path('', include('offers.urls')),
+   
     path('summernote/', include('django_summernote.urls')),
 ]
 

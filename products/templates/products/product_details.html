@@ -1,0 +1,356 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ product.title }} {{ block.super }} {% endblock %}
+
+{% block content %}
+
+    
+
+    <!--=== Product Details Section ====-->
+    <section class="product-details-section">
+        <div class="container-fluid p-0">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="product-details-img">
+                        <img src="{% static 'img/low.png' %}" alt="img missing" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-md-6">
+    <div class="product-premium-wrapper ps-lg-5">
+        <div class="brand-eyebrow d-flex align-items-center mb-2">
+            <span class="text-uppercase ls-2 fw-bold text-muted small">{{ product.category.title }}</span>
+            <div class="dot-separator mx-2"></div>
+            <span class="text-uppercase ls-1 text-secondary small">{{ product.sub_category.title }}</span>
+        </div>
+
+        <h1 class="pro-title display-5 fw-bold mb-3">{{ product.title }}</h1>
+
+        <div class="review-stars mb-4 small text-dark">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star-half-stroke"></i>
+            <span class="ms-2 text-muted">(4.8/5 - 120 Reviews)</span>
+        </div>
+
+        <div class="usage-group mb-5">
+            <label class="d-block mb-2 extra-small fw-black ls-2 text-dark">DESIGNED FOR</label>
+            <div class="d-flex gap-3">
+                <div class="pro-icon-circle" data-bs-toggle="tooltip" title="Baby"><i class="fa-solid fa-baby"></i></div>
+                <div class="pro-icon-circle" data-bs-toggle="tooltip" title="Child"><i class="fa-solid fa-child"></i></div>
+                <div class="pro-icon-circle" data-bs-toggle="tooltip" title="Adult"><i class="fa-solid fa-user"></i></div>
+                <div class="pro-icon-circle" data-bs-toggle="tooltip" title="Safe for Pregnancy"><i class="fa-solid fa-person-pregnant"></i></div>
+            </div>
+        </div>
+
+        <div class="price-action-card p-4 border bg-white mb-4">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div class="price-stack">
+                    <span class="h2 fw-black mb-0">${{ product.price }}</span>
+                    {% if product.old_price %}
+                        <div class="discount-pill mt-1">
+                            <span class="text-decoration-line-through text-muted small me-2">${{ product.old_price }}</span>
+                            <span class="badge rounded-pill bg-dark">SAVE {{ product.discount_percentage }}%</span>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="weight-badge small fw-bold border p-2 px-3 text-uppercase">
+                    {{ product.weight }}
+                </div>
+            </div>
+
+            <form method="post" action="{% url 'add-to-cart' %}">
+                {% csrf_token %}
+                <input type="hidden" name="product_id" value="{{ product.id }}">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" class="btn btn-pro-add w-100 rounded-0 py-3 mb-2">
+                    ADD TO BAG
+                </button>
+                <p class="text-center extra-small text-muted mb-0 mt-2">
+                    <i class="fa-solid fa-truck-fast me-1"></i> Free Shipping on orders over $50
+                </p>
+            </form>
+        </div>
+
+        <div class="pro-description mb-5">
+             {{ product.description|safe }}
+        </div>
+
+        <div class="accordion accordion-flush" id="proAccordion">
+            <div class="accordion-item pro-acc-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed px-0 pro-acc-trigger" data-bs-toggle="collapse" data-bs-target="#acc-1">
+                        SUITABILITY & USAGE
+                    </button>
+                </h2>
+                <div id="acc-1" class="accordion-collapse collapse" data-bs-parent="#proAccordion">
+                    <div class="accordion-body px-0 text-muted lh-lg">
+                        {{ product.sub_category.right_for_me|safe }}
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- related -->
+    <section class="related-product-section py-5">
+        <div class="container">
+            <h3 class="related-product-header mb-4">
+                Related Products
+            </h3>
+            <div class="position-relative">
+                <!-- Left Arrow -->
+                <button class="slider-btn left-btn" onclick="scrollSlider(-1)">
+                    &#10094;
+                </button>
+                <!-- Slider -->
+                <div class="related-slider">
+                    {% for item in related_products %}
+                        <div class="slider-item my-5">
+                            <div class="related-product-card">
+                                <div class="related-product-img">
+                                    <a href="{% url 'product_details' item.slug %}">
+                                        {% if item.image %}
+                                            <img src="{{ item.image.url }}">
+                                        {% else %}
+                                            <img src="{% static 'img/no-photo.png' %}">
+                                        {% endif %}
+                                    </a>
+                                    <span class="related-product-category">
+                                        {{ item.category.title }}
+                                    </span>
+                                </div>
+                                <div class="related-product-content">
+                                    <h5 class="related-product-title">
+                                        <a href="{% url 'product_details' item.slug %}">
+                                            {{ item.title|truncatechars:20 }}
+                                        </a>
+                                    </h5>
+                                    {% if item.description %}
+                                        <p class="related-product-desc">
+                                            {{ item.description|safe|truncatechars:30 }}
+                                        </p>
+                                    {% else %}
+                                        <h5>
+                                            No Description Found !
+                                        </h5>
+                                    {% endif %}
+                                    <!-- Optional price -->
+                                    <strong>৳ {{ item.price }}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p>No related products found.</p>
+                    {% endfor %}
+                </div>
+                <!-- Right Arrow -->
+                <button class="slider-btn right-btn" onclick="scrollSlider(1)">
+                    &#10095;
+                </button>
+            </div>
+        </div>
+    </section>
+
+   
+    
+
+    <div class="main-assets-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="assets-content">
+                        <h2 class="assets-title">Main Assets</h2>
+                        <h4 class="asset-name">Ultra-pure lanolin*: 
+                            <span class="asset-label">Natural Asset</span>
+                        </h4>
+                        <p class="asset-description">
+                            Long-lasting hydration / biomimetic action...
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="assets-image-wrapper">
+                        <img src="{% static 'img/skin/skin3.png' %}" class="assets-main-img" alt="Assets">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="comments-section py-5 bg-light">
+    <div class="container">
+        <h3 class="section-title mb-5">Customer Reviews ({{ comments.count }})</h3>
+        
+        <div class="row">
+            <div class="col-lg-8">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+
+                {% for comment in comments %}
+                <div class="comment-item mb-4">
+                    <div class="d-flex">
+                        <div class="user-avatar">
+                            <img src="https://ui-avatars.com/api/?name={{ comment.name|urlencode }}" alt="User">
+                        </div>
+                        <div class="comment-content ms-3 w-100">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="mb-0">
+                                    {{ comment.name }} 
+                                    <span class="date text-muted ms-2">{{ comment.created_on|date:"M d, Y" }}</span>
+                                </h6>
+                                {% if user.is_superuser or user.is_staff %}
+                                
+                                <button type="button" class="btn-reply-pro" 
+                                        data-bs-toggle="modal" data-bs-target="#replyModal" 
+                                        onclick="setupReply('{{ comment.id }}', '{{ comment.name }}')">
+                                        <i class="fa-solid fa-reply me-1"></i> 
+                                        Reply
+                                </button>
+                                {% endif %}
+                            </div>
+                            <p class="comment-text mt-2">{{ comment.body }}</p>
+
+                            {% for reply in comment.replies.all %}
+                            <div class="reply-wrapper ms-4 mt-3 border-start ps-3">
+                                <div class="d-flex">
+                                    <div class="user-avatar sm">
+                                        <img src="https://ui-avatars.com/api/?name=Admin" alt="Admin">
+                                    </div>
+                                    <div class="comment-content ms-2">
+                                        <h6 class="mb-0">{{ reply.name }} <span class="badge bg-dark ms-2">Staff</span></h6>
+                                        <p class="comment-text mt-1">{{ reply.body }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No reviews yet.</p>
+                {% endfor %}
+
+                <div class="add-comment-box mt-5 p-4 bg-white shadow-sm">
+                    <h5>Leave a Review</h5>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label-custom">Full Name</label>
+                                <input type="text" name="name" class="form-control custom-input" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label-custom">Email Address</label>
+                                <input type="email" name="email" class="form-control custom-input" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" name="body" rows="4" placeholder="Share your experience..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-dark px-4">Submit Review</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="replyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="parent_comment_id" id="parent_comment_id">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reply to <span id="target_user"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea name="reply_body" class="form-control" rows="4" placeholder="Write admin reply..." required></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-dark">Post Admin Reply</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+    <div class="experience-section">
+        <div class="container-fluid p-0">
+            <div class="row g-0 align-items-center">
+                <div class="col-md-6 position-relative decorative-container">
+                    <div class="bg-blue-block">
+                        <svg class="wavy-line" viewBox="0 0 500 500" preserveAspectRatio="none">
+                            <path d="M0,100 C150,200 350,0 500,100 L500,500 L0,500 Z" fill="none" stroke="white" stroke-width="2" opacity="0.5"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="experience-content">
+                        <span class="sub-title">YOUR EXPERIENCE</span>
+                        <h1 class="main-brand-title">
+                            {{ product.sub_category.title|upper }}
+                        </h1>
+                        <h2 class="brand-name">{{ product.title }}</h2>
+                        <p class="mt-3">Price: ${{ product.price }}</p>
+                        <div class="review-status">
+                            <p class="no-reviews">No reviews available yet</p>
+                            <p class="feedback-link">Something wrong ? <a href="#">Let’s hear it</a></p>
+                            <p class="faq-link">Consult our <a href="#">FAQ</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+                function setupReply(commentId, name) {
+                    document.getElementById('parent_comment_id').value = commentId;
+                    document.getElementById('replyToName').innerText = name;
+                }
+                </script>
+    <script>
+const slider = document.querySelector('.related-slider');
+
+function scrollSlider(direction) {
+    const item = slider.querySelector('.slider-item');
+    const scrollAmount = item.offsetWidth + 15;
+
+    slider.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+    });
+}
+
+// Auto scroll every 3 seconds
+setInterval(() => {
+    slider.scrollBy({
+        left: 300,
+        behavior: 'smooth'
+    });
+
+    // reset to start when reaching end
+    if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 5) {
+        slider.scrollTo({ left: 0, behavior: 'smooth' });
+    }
+
+}, 3000);
+</script>
+
+    
+
+{% endblock %}
+    

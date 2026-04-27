@@ -35,8 +35,15 @@ INSTALLED_APPS = [
     'about.apps.AboutConfig',
     'blog.apps.BlogConfig',
     'products.apps.ProductsConfig',
+    'comments.apps.CommentsConfig',
+    'inventory.apps.InventoryConfig',
+    'offers.apps.OffersConfig',
+    'carts.apps.CartsConfig',
+    'addresses.apps.AddressesConfig',
+    'orders.apps.OrdersConfig',
     
     # Library and dependency
+    'django.contrib.humanize',
     'django_summernote',
     'import_export',
     'crispy_forms',  
@@ -77,6 +84,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 # App name -> file name -> function name
                 'notification.notifications_context_processor.notification_value',
+                'carts.cart_context_processor.cart_value_renderer',
             ],
         },
     },

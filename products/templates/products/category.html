@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ active_category.title }} {{block.super}} {% endblock %}
+
+{% block content %}
+
+    <!--=== Others Section ====-->
+    <div class="category-container">
+        <div class="category-sidebar">
+            {% if categories %}
+                <ul class="side-nav-list">
+                    {% for cat in categories %}
+                        <li class="side-nav-item {% if cat == active_category %}active{% endif %}">
+                            <a href="{% url 'product_category' cat.slug %}">
+                                {{ cat.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <ul>
+                    <li class="side-nav-item">
+                        No Categories Found !
+                    </li>
+                </ul>
+            {% endif %}
+        </div>
+        <div class="category-section">
+            <div class="category-header-box">
+                <h2>{{ active_category.subcategories.count }} Ranges</h2>
+                <h4>For the <strong>{{ active_category.title }}</strong></h4>
+                <p>
+                    Explore our range of specialized solutions tailored for your needs.
+                </p>
+            </div>
+            <div class="category-product-grid">
+                {% for sub in subcategories %}
+                    {% if forloop.counter0|divisibleby:2 %}
+                        <div class="grid-col-{% if forloop.counter == 1 %}1{% else %}2 category-offset-down{% endif %}">
+                    {% endif %}
+
+                        <div class="category-card-custom 
+                            {% if forloop.counter == 1 %}category-bg-pink 
+                            {% elif forloop.counter == 2 %}category-bg-blue 
+                            {% else %}category-bg-teal{% endif %} mb-4">
+                            
+                            <div class="title">
+                                {{ sub.title }}
+                            </div>
+                            <div class="desc">
+                                Specialized care for {{ sub.title }}
+                            </div>
+                            <div class="count">
+                                <a href="{% url 'sub_category' sub.category.slug sub.slug %}">
+                                    {{ sub.products.count }} Product{{ sub.products.count|pluralize }}
+                                </a>
+                            </div>
+                        </div>
+
+                    {% if forloop.counter|divisibleby:2 or forloop.last %}
+                        </div>
+                    {% endif %}
+                {% empty %}
+                    <p>No subcategories found for this range.</p>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+        
+{% endblock %}

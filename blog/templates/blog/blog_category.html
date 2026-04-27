@@ -22,7 +22,7 @@
                                 <div class="blog-img">
                                     <a href="{% url 'blog-details' blog.slug %}">
                                         {% if blog.image %}
-                                            <img src="{{ b.image.url }}" class="img-fluid" alt="img is missing">
+                                            <img src="{{ blog.image.url }}" class="img-fluid" alt="img is missing">
                                         {% else %}
                                             <img src="{% static 'img/no-photo.png' %}" alt="img is missing">
                                         {% endif %}
@@ -35,7 +35,7 @@
                                     <p class="blog-date">{{ blog.timestamp }}</p>
                                     <h5 class="blog-title">
                                         <a href="{% url 'blog-details' blog.slug %}">
-                                            {{ blog.title|truncatechars:30 }}
+                                            {{ blog.title|truncatechars:20 }}
                                         </a>
                                     </h5>
                                     <p class="blog-desc">

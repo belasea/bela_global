@@ -315,10 +315,51 @@ Search Overlay
     display: none;
 }
 
+/* Professional Coupon Styling */
+.coupon-container {
+    max-width: 350px;
+}
 
-/* ---===============================
-    Slider Section 
-==================================--- */
+.promo-input-group {
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+    background-color: #fff;
+}
+
+/* Highlight the whole group when the user clicks the input */
+.promo-input-group:focus-within {
+    border-color: #000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.promo-input-group .form-control {
+    border: none !important; /* Hide default input border */
+    box-shadow: none !important;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase; /* Looks more like a 'code' */
+}
+
+.promo-input-group .form-control::placeholder {
+    text-transform: none;
+    letter-spacing: normal;
+    color: #a0a0a0;
+}
+
+.btn-apply {
+    background-color: #000;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease;
+}
+
+.btn-apply:hover {
+    background-color: #333;
+    color: #fff;
+}
 
 /* ===============================
 slider Content
@@ -450,7 +491,7 @@ slider Content
     display: flex;
     align-items: center; 
     justify-content: center;
-    margin-left: 100px;
+    margin-left: 40px;
 }
 
 .sidebar-link {
@@ -1016,8 +1057,6 @@ Responsive Wrapper
     }
 }
 
-
-
 /*==================================
     SUB CATEGORY
 ===================================*/
@@ -1025,7 +1064,6 @@ Responsive Wrapper
     background: linear-gradient(to right, #ffffff 50%, #fdfaf7 50%);
     min-height: 100vh;
     display: flex;
-    
 }
 
 .sub-category-left {
@@ -1038,7 +1076,31 @@ Responsive Wrapper
     margin-top: 100px;
 }
 
-/* --- Header Section --- */
+.sub-category-header-box {
+    max-width: 440px;
+    margin-bottom: 100px;
+    margin-top: 100px;
+    margin-left: 100px;
+}
+
+.sub-category-header-box h2 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.sub-category-header-box h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.sub-category-header-box p {
+    font-size: 1rem;
+    color: #8a8a8a;
+    line-height: 1.8;
+}
+
 .sub-category-header {
     color: #b33d45;
     font-size: 3.5rem;
@@ -1061,7 +1123,6 @@ Responsive Wrapper
 
 /* Container spacing */
 .sub-category-right {
-    /* padding: 80px 0;  */
     margin-top: 130px;
     margin-bottom: 100px;
 }
@@ -1077,7 +1138,19 @@ Responsive Wrapper
     display: block;
     background-color: #f4e0e1; 
     border-radius: 4px;
-    
+}
+
+.sub-category-right:hover img {
+    opacity: 0.7;
+    filter: grayscale(0.2);
+    transition: 0.4s ease;
+}
+
+.sub-category-right img:hover {
+    opacity: 1 !important;
+    filter: grayscale(0) brightness(1.05) !important;
+    transform: translateY(-15px) scale(1.03);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.1);
 }
 
 /* Desktop specific alignment (Staggered Effect) */
@@ -1153,13 +1226,22 @@ Responsive Wrapper
 }
 
 /* Product Image Styling */
-.product-details-img img {
+/* .product-details-img img {
     height: 500px;
     width: 450px;
     object-fit: contain;
-    /* Soft shadow to match the airy feel */
     filter: drop-shadow(0 15px 25px rgba(0,0,0,0.08));
     margin-left: 250px;
+} */
+
+/* Product Image Styling */
+.product-details-img img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.08));
+  margin: 0 auto;
+  display: block;
 }
 
 /* Content Box Styling */
@@ -1197,7 +1279,7 @@ Responsive Wrapper
     color: #8fa5ac;
     font-size: 1.1rem;
     font-weight: 400;
-    margin-bottom: 35px;
+    margin-bottom: 20px;
 }
 
 
@@ -1258,6 +1340,77 @@ Responsive Wrapper
     box-shadow: 0 2px 4px rgba(0, 107, 118, 0.2);
 }
 
+/* Container for the whole FAQ */
+.product-info-tabs {
+    border-top: 1px solid #eaeaea;
+}
+
+/* Individual Item Wrapper */
+.isis-faq-item {
+    border-bottom: 1px solid #eaeaea;
+    background: transparent;
+}
+
+/* The Button / Trigger */
+.faq-trigger {
+    width: 100%;
+    padding: 20px 0;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #222;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.faq-trigger:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.faq-trigger:not(.collapsed) {
+    color: #007bff; /* Highlight color when open */
+}
+
+/* The Icon (+ / - rotation) */
+.faq-icon {
+    font-size: 0.8rem;
+    transition: transform 0.4s ease;
+    color: #999;
+}
+
+.faq-trigger:not(.collapsed) .faq-icon {
+    transform: rotate(45deg); /* Turns + into x */
+    color: #007bff;
+}
+
+/* The Hidden Content Area */
+.faq-content {
+    padding: 0 0 25px 0;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #555;
+    animation: fadeIn 0.5s ease;
+}
+
+/* Smooth Fade Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hover Effect */
+.isis-faq-item:hover .faq-trigger {
+    padding-left: 5px;
+    color: #000;
+}
+
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
@@ -1279,34 +1432,64 @@ Responsive Wrapper
 }
 /* ==========================================
    PRODUCT INFO CARD (White/Light Grey Card)
-   ========================================== */
+========================================== */
 .product-info-card {
-    margin-top: 50px;
+    margin-top: 30px;
     background-color: #f4f1f1 !important; /* Soft grey background */
     padding: 45px;
     width: 100%;
     border-radius: 4px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
-    
+}
+
+.price-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.price-current {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: -1px;
+}
+
+.price-old {
+    font-size: 1.1rem;
+    color: #999;
+    text-decoration: line-through;
+    font-weight: 400;
+}
+
+.price-badge {
+    background-color: #ff4757;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
 }
 
 .size-tag {
-    background-color: #ebf1f5;
-    color: #a4b4bc;
+    background-color: #006b76;
+    color: #ffffff;
     display: inline-block;
     padding: 8px 16px;
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 1.5px;
-    margin-bottom: 25px;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 .main-desc {
     color: #002d4b;
     font-size: 1.15rem;
     line-height: 1.6;
-    margin-bottom: 35px;
     font-weight: 500;
 }
 
@@ -2600,3 +2783,513 @@ blockquote {
 }
 
 
+/*================================
+    CART SIDEBAR TOGGLE BUTTON
+================================*/
+.cart-sidebar-toggle-wrapper {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 1030;
+    pointer-events: none;
+}
+
+.cart-sidebar-btn {
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    padding: 15px 5px;
+    background-color: #006b76;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px 0 0 10px;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.cart-sidebar-btn:hover {
+    background-color: #00565e;
+    width: 55px;
+    color: #ffffff;
+}
+
+.cart-sidebar-btn .cart-sidebar-text-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 5px;
+}
+
+/*================================
+    OFFCANVAS CART PANEL
+================================*/
+.cart-sidebar-panel {
+    width: 375px !important;
+    border-left: none;
+}
+
+.cart-sidebar-header {
+    background-color: #006b76;
+    color: white;
+    padding: 1.25rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-sidebar-footer {
+    background-color: #f4f6fb;
+    padding: 1.25rem 1rem;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Product Item Styling */
+.cart-sidebar-items-list {
+    overflow-y: auto;
+    max-height: calc(100vh - 250px);
+}
+
+.cart-sidebar-item {
+    padding: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    gap: 12px;
+}
+
+.cart-sidebar-item:last-child {
+    border-bottom: none;
+}
+
+.cart-sidebar-product-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.cart-sidebar-product-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    display: block;
+    text-decoration: none;
+}
+
+.cart-sidebar-price-row {
+    font-size: 1.05rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #000;
+}
+
+.cart-sidebar-qty-text {
+    color: #6c757d;
+    font-weight: 400;
+    font-size: 0.95rem;
+}
+
+/* Quantity Controls */
+.cart-sidebar-qty-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    width: fit-content;
+    margin-top: 10px;
+    background: #fff;
+}
+
+.cart-sidebar-qty-btn {
+    border: none;
+    background: transparent;
+    padding: 0 10px;
+    font-size: 1.1rem;
+    color: #006b76;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.cart-sidebar-qty-input {
+    width: 40px;
+    text-align: center;
+    border: none;
+    border-left: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+/* Buttons & UI Components */
+.cart-sidebar-btn-apply,
+.cart-sidebar-btn-checkout {
+    background-color: #006b76;
+    color: white;
+    border: none;
+    border-radius: 8px !important;
+    padding: 10px;
+}
+
+.cart-sidebar-btn-apply:hover,
+.cart-sidebar-btn-checkout:hover {
+    background-color: #00565e;
+    color: white;
+}
+
+.cart-sidebar-taka-sym {
+    font-weight: 700;
+    color: #000;
+}
+
+
+/* Comments & Replies */
+.user-avatar img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-avatar.sm img {
+    width: 40px;
+    height: 40px;
+}
+
+.comment-item {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.comment-text {
+    font-size: 0.95rem;
+    color: #444;
+    line-height: 1.6;
+}
+
+.btn-reply {
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.date {
+    font-size: 0.75rem;
+}
+
+.add-comment-box {
+    border-radius: 8px;
+}
+
+.add-comment-box .form-control:focus {
+    box-shadow: none;
+    border-color: #000;
+}
+
+.btn-reply-pro {
+    background: transparent;
+    border: none;
+    color: #007bff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0;
+    position: relative;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-reply-pro::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #007bff;
+    transition: width 0.3s ease;
+}
+
+.btn-reply-pro:hover {
+    color: #0056b3;
+}
+
+.btn-reply-pro:hover::after {
+    width: 100%;
+}
+
+
+/*===============================
+Related Products 
+===============================*/
+
+.related-product-section {
+    overflow: hidden;
+}
+
+/* Header */
+.related-product-header {
+    font-weight: 700;
+    font-size: 28px;
+    margin-bottom: 40px; /* FIXED (was 125px ❌ too large) */
+    position: relative;
+    display: inline-block;
+}
+
+.related-product-header::after {
+    content: "";
+    width: 50%;
+    height: 3px;
+    background: #ff7e5f;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    border-radius: 10px;
+}
+
+/* Card */
+.related-product-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.related-product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+/* Image */
+.related-product-img {
+    position: relative;
+    overflow: hidden;
+}
+
+.related-product-img img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: 0.4s ease;
+}
+
+/* Category Badge */
+.related-product-category {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: linear-gradient(45deg, #ff7e5f, #ff9966);
+    color: #fff;
+    padding: 4px 10px;
+    font-size: 11px;
+    border-radius: 50px;
+}
+
+/* Content */
+.related-product-content {
+    padding: 15px;
+}
+
+.related-product-title {
+    margin: 8px 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.related-product-title a {
+    color: #222;
+    text-decoration: none;
+}
+
+.related-product-title a:hover {
+    color: #ff7e5f;
+}
+
+.related-product-desc {
+    font-size: 13px;
+    color: #666;
+}
+
+/* Slider */
+.related-slider {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    scroll-behavior: smooth;
+}
+
+/* Item sizing */
+.slider-item {
+    flex: 0 0 auto;
+}
+
+/* Responsive */
+@media (min-width: 992px) {
+    .slider-item { width: 25%; }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .slider-item { width: 33.33%; }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .slider-item { width: 50%; }
+}
+
+@media (max-width: 575px) {
+    .slider-item { width: 80%; }
+}
+
+/* Hide scrollbar */
+.related-slider::-webkit-scrollbar {
+    display: none;
+}
+
+/* Arrows */
+.slider-btn {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.left-btn { left: 0; }
+.right-btn { right: 0; }
+
+/* Mobile UX */
+@media (max-width: 768px) {
+    .left-btn { display: none; }
+}
+
+
+
+/* Container Box */
+.pro-card {
+    border-radius: 12px !important;
+    border-color: #f1f1f1 !important;
+}
+
+/* Section Labels */
+.pro-section-label {
+    font-size: 0.8rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase;
+    color: #333;
+}
+
+/* Professional Inputs */
+.pro-input {
+    border-radius: 8px !important;
+    padding: 0.8rem 1rem !important;
+    font-size: 0.9rem !important;
+    border: 1px solid #e2e8f0 !important;
+    background-color: #fff !important;
+    transition: all 0.2s ease !important;
+}
+
+.pro-input:focus {
+    border-color: #000 !important;
+    box-shadow: 0 0 0 4px rgba(0,0,0,0.05) !important;
+    outline: none !important;
+}
+
+/* Button & Utility */
+.ls-1 { letter-spacing: 1px; }
+
+.bg-success-subtle {
+    background-color: #f0fff4 !important;
+}
+
+/* Sticky behavior for the Summary Sidebar */
+@media (min-width: 992px) {
+    .sticky-top {
+        position: sticky;
+        top: 20px;
+        z-index: 1000;
+    }
+}
+
+/* Logo filtering for cleaner look */
+.payment-logos img {
+    filter: brightness(0) opacity(0.6);
+    transition: 0.3s;
+}
+
+.payment-logos img:hover {
+    filter: none;
+    opacity: 1;
+}
+
+
+/*=====================================
+ order-complete
+======================================*/
+.order-complete-section{
+    margin-bottom: 100px;
+}
+
+/* Typography & Spacing */
+.fw-black { font-weight: 900; }
+.ls-1 { letter-spacing: 1px; }
+.extra-small { font-size: 0.65rem; letter-spacing: 1px; }
+
+/* The Success Checkmark Animation Effect */
+.success-icon-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.success-circle {
+    width: 100px;
+    height: 100px;
+    background-color: #28a745; /* Success Green */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 50px;
+    box-shadow: 0 10px 20px rgba(40, 167, 69, 0.2);
+    animation: scaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@keyframes scaleUp {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+
+.order-card {
+    border: 1px solid #eee !important;
+}
+
+.order-meta-box {
+    border: 1px solid #f1f1f1;
+}
+
+/* Print Styling */
+@media print {
+    .btn, .order-complete-section {
+        background-color: white !important;
+    }
+    .btn, nav, footer, .review-stars {
+        display: none !important;
+    }
+    .order-card {
+        box-shadow: none !important;
+        border: none !important;
+    }
+}

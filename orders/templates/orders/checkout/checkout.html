@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% block title %}Checkout - {{ block.super }} {% endblock %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% block content %}
+
+
+  <div class="checkout-section" >
+      <div class="container mb-5">
+        <div class="d-flex justify-content-center align-items-center text-center">
+            <div class="d-flex align-items-center">
+                <h2 class="fw-bold mb-0" style="letter-spacing: -1.5px; font-size: 2.5rem;">
+                    Secure Checkout
+                </h2>
+                <span class="ms-3 badge bg-white text-dark border fw-normal shadow-sm py-2 px-3" style="border-radius: 8px;">
+                    <i class="fa-solid fa-lock me-2 text-success"></i> 256-bit SSL
+                </span>
+            </div>
+        </div>
+        <hr>
+        <div class="checkout-section">
+            <div class="container">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    {% if errors %}
+                    <div class="alert alert-danger rounded-3 border-0 shadow-sm mb-4">
+                        <p class="fw-bold mb-1"><i class="fa-solid fa-triangle-exclamation me-2"></i> Please correct the following:</p>
+                        <ul class="mb-0 small">
+                            {% for field, error_list in errors.items %}
+                                {% for error in error_list %}
+                                    <li>{{ field|title }}: {{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    <div class="row g-lg-5">
+                        <div class="col-lg-7">
+                            <div class="pro-card p-4 mb-4 bg-white border shadow-sm">
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <h5 class="pro-section-label mb-0">Contact Information</h5>
+                                    {% if not request.user.is_authenticated %}
+                                    <small class="text-muted">Already have an account? 
+                                        <a href="{% url 'login' %}" class="text-dark fw-bold">Login</a>
+                                    </small>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    <input name="email" type="email" class="form-control pro-input" 
+                                          placeholder="Email Address" value="{{ form.email.value|default:'' }}" required>
+                                    <div class="form-check mt-3">
+                                        <input class="form-check-input" type="checkbox" id="news" name="subscribe">
+                                        <label class="form-check-label small text-muted" for="news">
+                                            Keep me updated on news and offers
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pro-card p-4 mb-4 bg-white border shadow-sm">
+                                <h5 class="pro-section-label mb-4">Shipping Address</h5>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <input type="text" name="first_name" class="form-control pro-input" 
+                                              placeholder="First Name" value="{{ form.first_name.value|default:'' }}" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="last_name" class="form-control pro-input" 
+                                              placeholder="Last Name" value="{{ form.last_name.value|default:'' }}" required>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input type="text" name="contact_number" class="form-control pro-input" 
+                                              placeholder="Phone (e.g. +88017...)" value="{{ form.contact_number.value|default:'' }}" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <input type="text" name="address" class="form-control pro-input" 
+                                              placeholder="Street Address" value="{{ form.address.value|default:'' }}" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="city" class="form-control pro-input" 
+                                              placeholder="City" value="{{ form.city.value|default:'' }}" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select name="country" class="form-select pro-input" required>
+                                            <option value="" disabled {% if not form.country.value %}selected{% endif %}>Select Country</option>
+                                            <option value="United Kingdom" {% if form.country.value == "United Kingdom" %}selected{% endif %}>United Kingdom</option>
+                                            <option value="France" {% if form.country.value == "France" %}selected{% endif %}>France</option>
+                                            <option value="Bangladesh" {% if form.country.value == "Bangladesh" %}selected{% endif %}>Bangladesh</option>
+                                        </select>
+                                    </div>
+                                    <input type="hidden" name="address_type" value="shipping">
+                                </div>
+                            </div>
+
+                            <div class="pro-card p-4 bg-white border shadow-sm">
+                                <h5 class="pro-section-label mb-2">Payment</h5>
+                                <p class="text-muted small mb-4">
+                                  All transactions are secure and encrypted.
+                                </p>
+                                <div class="border rounded-3 overflow-hidden">
+                                    <div class="p-3 bg-light border-bottom d-flex justify-content-between align-items-center">
+                                        <div class="form-check mb-0">
+                                            <input class="form-check-input" type="radio" name="payment_method" id="cc" checked>
+                                            <label class="form-check-label fw-bold small ms-2" for="cc">Credit Card</label>
+                                        </div>
+                                        <div class="payment-logos">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/349/349221.png" height="20" class="me-1">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/349/349228.png" height="20">
+                                        </div>
+                                    </div>
+                                    <div class="p-4 bg-white">
+                                        <div class="mb-3 position-relative">
+                                            <input type="text" class="form-control pro-input" placeholder="Card number" disabled>
+                                            <i class="fa-solid fa-lock position-absolute top-50 end-0 translate-middle-y me-3 text-muted opacity-50"></i>
+                                        </div>
+                                        <div class="row g-2">
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control pro-input" placeholder="MM / YY" disabled>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control pro-input" placeholder="CVV" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3 p-2 bg-light rounded text-center">
+                                            <small class="text-muted"><i class="fa-solid fa-info-circle me-1"></i> Payment gateway integration required.</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-dark w-100 py-3 mt-4 fw-bold ls-1 rounded-3 shadow">
+                                    COMPLETE PURCHASE
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5">
+                            <div>
+                                <div class="pro-card p-4 bg-white border shadow-sm">
+                                    <h5 class="pro-section-label border-bottom pb-3">
+                                      Order Summary
+                                    </h5>
+                                    <div class="summary-details">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="text-muted small">Subtotal</span>
+                                            <span class="fw-bold small">
+                                              $ {{ cart.get_sub_total }}
+                                            </span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="text-muted small">Shipping</span>
+                                            <span class="text-success small fw-bold">
+                                              Free
+                                            </span>
+                                        </div>
+                                        {% if cart.coupon %}
+                                          <div class="d-flex justify-content-between mb-2">
+                                              <span class="text-success small">
+                                                Discount ({{ cart.coupon.code }})
+                                              </span>
+                                              <span class="text-success small fw-bold">
+                                                - $ {{ cart.get_coupon_discount_percentage }}
+                                              </span>
+                                          </div>
+                                        {% endif %}
+
+                                        <hr class="my-3 opacity-10">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="h6 mb-0 fw-bold text-dark">Total</span>
+                                            <span class="h3 mb-0 fw-bold text-dark">$ {{ cart.get_total|floatformat:2 }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-4 p-3 bg-success-subtle rounded-3 text-center border border-success border-opacity-10">
+                                        <small class="text-success fw-bold">
+                                            <i class="fa-solid fa-check-circle me-1"></i> 
+                                            Secure checkout via Encrypted SSL
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+  </div>
+
+{% endblock %}

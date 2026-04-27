@@ -1,0 +1,163 @@
+{% load static %}
+<div class="cart-sidebar-toggle-wrapper">
+    <button class="cart-sidebar-btn" 
+            type="button" 
+            data-bs-toggle="offcanvas" 
+            data-bs-target="#cartPanel">
+        <i class="bi bi-cart3 fs-4 mb-1"></i>
+        {% if request.session.cart_items %}
+            <span class="cart-sidebar-text-vertical small fw-bold">
+                CART  ({{ request.session.cart_items }})
+            </span>                         
+        {% else %}
+            <span class="cart-sidebar-text-vertical small fw-bold">
+                CART (0)
+            </span>
+        {% endif %}
+    </button>
+</div>
+
+<div class="offcanvas offcanvas-end cart-sidebar-panel" tabindex="-1" id="cartPanel">
+    {% if request.session.cart_items %}
+        <div class="cart-sidebar-header">
+            {% if request.session.cart_items %}
+                <h5 class="offcanvas-title text-uppercase fw-bold m-0 small tracking-wider">
+                    Your Cart ({{ request.session.cart_items }})
+                </h5>                        
+            {% else %}
+                <h5 class="offcanvas-title text-uppercase fw-bold m-0 small tracking-wider">
+                    Your Cart (0)
+                </h5>
+            {% endif %}
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+
+        <div class="offcanvas-body p-0">
+            <div class="cart-sidebar-items-list">
+                {% if normal_products %}
+                    {% for item in normal_products %}
+                        <div class="cart-sidebar-item">
+                            {% if item.product.image %}
+                                <img src="{{ item.product.image.url }}" alt="Product" class="cart-sidebar-product-img">
+                            {% else %}
+                                <img src="{% static 'img/no-photo.png' %}" alt="Product" class="cart-sidebar-product-img">
+                            {% endif %}
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between">
+                                    <!-- item title -->
+                                    <a href="#" class="cart-sidebar-product-title">
+                                        {{ item.product.title }}
+                                    </a>
+                                    <!-- Remove item -->
+                                    <form method="post" class="cart-sidebar-product-title" action="{% url 'remove-cart-item' item.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-link p-0 text-muted">
+                                            <i class="bi bi-trash3"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="cart-sidebar-price-row">
+                                    {{ item.product.price }} × {{ item.quantity }} = {{ item.line_total }} $
+                                </div>
+                                <!-- 
+                                <div class="cart-sidebar-qty-box">
+                                    <button class="decrease-quantity-btn btn cart-sidebar-qty-btn" onclick="this.parentNode.querySelector('input').stepDown()">-</button>
+                                    <input class="cart-sidebar-qty-input" type="number" value="{{ item.quantity }}" min="1">
+                                    <button class="increase-quantity-btn btn cart-sidebar-qty-btn" onclick="this.parentNode.querySelector('input').stepUp()">+</button>
+                                </div>
+                                -->
+                                <div class="button btn-group mb-3">
+                                    <button class="decrease-quantity-btn btn btn-outline-secondary" style="max-width: 40px" data-cart-item-id="{{ item.id }}">
+                                        <b>-</b>
+                                    </button>
+                                    <button class="btn btn-outline-secondary" style="max-width: 40px">
+                                        {{ item.quantity }}
+                                    </button>
+                                    <button class="increase-quantity-btn btn btn-outline-secondary " style="max-width: 40px" data-cart-item-id="{{ item.id }}">
+                                        <b>+</b>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %} 
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="cart-sidebar-footer">
+            {% if active_coupon %}
+                {% if cart_obj.coupon %}
+                    <div class="d-flex justify-content-between align-items-center p-2 bg-light border mb-2">
+                        <div>
+                            <span class="text-success small fw-bold">
+                                <i class="bi bi-tag-fill"></i> {{ cart_obj.coupon.code }} Applied
+                            </span>
+                            <br>
+                            <small class="text-secondary">{{ cart_obj.get_coupon_discount_percentage }}% Discount</small>
+                        </div>
+                        <a href="{% url 'coupon-remove' %}" class="btn-close" aria-label="Remove">   
+                        </a>
+                    </div>
+                {% else %}
+                    <form method="post" action="{% url 'coupon-apply' %}">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input type="text" name="code"  class="form-control form-control-sm rounded-0" placeholder="Promo Code">
+                            <button class="btn cart-sidebar-btn-apply btn-sm px-4 rounded-0">
+                                Apply
+                            </button>
+                        </div>
+                    </form>
+                {% endif %}
+            {% endif %}
+            <!-- Sub total -->
+            <div class="d-flex justify-content-between align-items-center mb-1">
+                <span class="text-secondary small">Sub-Total</span>
+                <span class="cart-sidebar-taka-sym">
+                    {{ cart_obj.get_sub_total }} $
+                </span>
+            </div>
+            <hr class="my-1 opacity-25">
+            <!-- Discount Amount -->
+            {% if cart_obj.coupon %}
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="text-secondary small">Discount Amount</span>
+                    <span class="cart-sidebar-taka-sym">
+                        {{ cart_obj.get_coupon_discount_percentage }} $
+                    </span>
+                </div>
+            {% endif %}
+            <hr class="my-1 opacity-25">
+            <!-- Total -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <span class="text-secondary fs-5">Total</span>
+                <span class="cart-sidebar-taka-sym fs-5">
+                    {{ cart_obj.get_total }} $
+                </span>
+            </div>
+            <div class="d-grid">
+                <a href="{% url 'checkout' %}" class="btn cart-sidebar-btn-checkout rounded-0 fw-bold shadow-sm">CHECKOUT</a>
+            </div>
+        </div>
+    {% else %}
+    <div class="cart-sidebar-header">
+        <h5 class="offcanvas-title text-uppercase fw-bold m-0 small tracking-wider">
+            Your Cart (0)
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="container">
+        <div class="row min-vh-100 justify-content-center align-items-center">
+            <div class="col">
+                <div class="text-center">
+                    <img src="{% static 'img/cartEmpty.png' %}" alt="cart-img" class="img-fluid">
+                    <h4 class="my-3">Cart is empty</h4>
+                    <a class="btn btn-dark btn-lg" href="{% url 'category' %}">
+                        Click continue shopping
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>

@@ -1,0 +1,160 @@
+
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ subcategory.title }} {{block.super}} {% endblock %}
+
+{% block content %}
+
+    <div class="sub-category">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="sub-category-left">
+                        <div class="sub-category-content">
+                            <h1 class="sub-category-header">
+                                {{ subcategory.title }}
+                            </h1>
+                            
+                            {% if subcategory.subheading %}
+                                <p class="sub-category-subheading">
+                                    {{ subcategory.subheading }}
+                                </p>
+                            {% endif %}
+
+                            <div class="description-text">
+                                <p>
+                                    {{ subcategory.description|safe }}
+                                </p>
+                            </div>
+                            <div class="accordion accordion-flush isis-accordion mt-5" id="ureliaFaq">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#f1">
+                                            IS IT RIGHT FOR ME?
+                                        </button>
+                                    </h2>
+                                    <div id="f1" class="accordion-collapse collapse" data-bs-parent="#ureliaFaq">
+                                        <div class="accordion-body py-3">
+                                            {{ subcategory.right_for_me|safe|linebreaks }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#f2">
+                                            ADVICE FROM A DERMATOLOGIST
+                                        </button>
+                                    </h2>
+                                    <div id="f2" class="accordion-collapse collapse" data-bs-parent="#ureliaFaq">
+                                        <div class="accordion-body py-3">
+                                            {{ subcategory.dermatologist_advice|safe|linebreaks }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#f3">
+                                            GET TO KNOW THE {{ subcategory.title|upper }} RANGE
+                                        </button>
+                                    </h2>
+                                    <div id="f3" class="accordion-collapse collapse" data-bs-parent="#ureliaFaq">
+                                        <div class="accordion-body py-3">
+                                            {{ subcategory.range_details|safe|linebreaks }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="sub-category-right">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="img-left" id="append-left">
+                                    {% if not is_ajax or is_ajax %} 
+                                        {% for product in products %}
+                                            {% if not forloop.counter|divisibleby:2 %}
+                                                <a href="{% url 'product_details' product.slug %}" class="ajax-item-left">
+                                                    <img src="{{ product.image.url }}" class="img-fluid mb-4" alt="{{ product.title }}">
+                                                </a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="img-right" id="append-right">
+                                    {% if not is_ajax or is_ajax %}
+                                        {% for product in products %}
+                                            {% if forloop.counter|divisibleby:2 %}
+                                                <a href="{% url 'product_details' product.slug %}" class="ajax-item-right">
+                                                    <img src="{{ product.image.url }}" class="img-fluid mb-4" alt="{{ product.title }}">
+                                                </a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div id="scroll-anchor" style="height: 10px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if not is_ajax %}
+        <script>
+            let page = 1;
+            let hasNext = {% if products.has_next %}true{% else %}false{% endif %};
+            let loading = false;
+
+            window.onscroll = function() {
+                if (loading || !hasNext) return;
+
+                const anchor = document.getElementById('scroll-anchor');
+                const rect = anchor.getBoundingClientRect();
+                
+                // Trigger load when anchor is near the bottom of the screen
+                if (rect.top <= window.innerHeight + 100) {
+                    loadMore();
+                }
+            };
+
+            function loadMore() {
+                loading = true;
+                page++;
+
+                fetch(`?page=${page}`, {
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(data.html, 'text/html');
+                    
+                    // 1. Find new items for the left column
+                    const newLeft = doc.querySelectorAll('.ajax-item-left');
+                    newLeft.forEach(item => document.getElementById('append-left').appendChild(item));
+
+                    // 2. Find new items for the right column
+                    const newRight = doc.querySelectorAll('.ajax-item-right');
+                    newRight.forEach(item => document.getElementById('append-right').appendChild(item));
+
+                    // 3. Update the stop-switch
+                    hasNext = data.has_next;
+                    loading = false;
+                })
+                .catch(err => {
+                    console.error("Error:", err);
+                    loading = false;
+                });
+            }
+        </script>
+    {% endif %}
+        
+{% endblock %}
