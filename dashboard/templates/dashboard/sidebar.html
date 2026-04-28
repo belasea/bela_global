@@ -13,6 +13,13 @@
                 <span>Admin</span>
             </a>
         </li>
+        <!--Order List-->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'order-pdf-list' %}">
+                <i class="fas fa-shopping-bag text-dark"></i>
+                <span>Order List</span>
+            </a>
+        </li>
         <!--User List-->
         <li class="nav-item">
             <a class="nav-link collapsed" href="{% url 'user_list' %}">
@@ -43,10 +50,33 @@
         </li>
         <!-- More -->
         <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#setup-sales-nav" 
+            data-bs-toggle="collapse" href="#">
+                <i class="fas fa-comment-alt"></i>
+                <span> Sales </span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="setup-sales-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{% url 'contact-list' %}">
+                        <i class="fas fa-envelope" style="font-size: 13px;"></i>
+                        <span>Contact Us</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'user_list' %}">
+                        <i class="fas fa-users" style="font-size: 13px;"></i>
+                        <span>User List</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!-- More -->
+        <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#setup-rule-nav" 
             data-bs-toggle="collapse" href="#">
                 <i class="fas fa-comment-alt"></i>
-                <span> Mores </span>
+                <span> Sales </span>
                 <i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="setup-rule-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
