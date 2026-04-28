@@ -1,0 +1,126 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %} Order Details - {{ block.super }} {% endblock %}
+
+{% block content %}
+
+   <section class="order-details my-3">
+        <div class="container-fluid">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body">
+                    <!-- Breadcrumb -->
+                    <div class="row">
+                        <div class="col mt-2">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <a href="{% url 'order-pdf-list' %}" class="text-primary">
+                                            Order Details
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <a href="{% url 'order-pdf-list' %}">
+                                          Back to Order List
+                                        </a> 
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                
+                    <!--Search/Add-->
+                    <div class="row">
+                        <div class="col">
+                            <!-- Search & Download -->
+                            <div class="search-download">
+                                <div class="float-start mb-2">
+                                    <a href="{% url 'update-order' object_list.slug %}" class="btn btn-dark w-100 rounded-pill px-3 shadow-sm"> Update 
+                                        <i class="fa fa-edit"></i> 
+                                    </a>
+                                </div>
+                                <!-- Search Box Here -->
+                                <div class="float-end mb-2">
+                                    <!-- Search -->
+                                    <form method="GET" class="search" style="max-width: 300px;">
+                                        <div class="input-group">
+                                            <input class="form-control rounded-start-pill"
+                                                name="q"
+                                                type="text"
+                                                placeholder="Search..."
+                                                value="{{ request.GET.q }}">
+                                            <button type="submit"
+                                                    class="btn btn-dark rounded-end-pill">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Table-->
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive custom-scroll" id="dragTable">
+                                <table class="table table-striped table-bordered mb-0 text-nowrap">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th scope="col" class="wd-lg-25p"># SN</th>
+                                            <th scope="col" class="wd-lg-25p">Action</th>
+                                            <th scope="col" class="wd-lg-25p">Product</th>
+                                            <th scope="col" class="wd-lg-25p">Category</th>
+                                            <th scope="col" class="wd-lg-25p">Quantity</th>
+                                            <th scope="col" class="wd-lg-25p">Selling Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if object_list %}
+                                            {% for obj in object_list.cart.cart_items.all %}
+                                                <tr class="text-center">
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>
+                                                        <div class="btn-group" role="group" aria-label="Order Actions">
+                                                            <form method="POST" action="{% url 'remove-product' %}">
+                                                                {% csrf_token %}
+                                                                <input type="hidden" name="invoice" value="{{ object_list.slug }}">
+                                                                <input type="hidden" name="entry" value="{{  obj.id }}">
+                                                                <button class="btn btn-danger btn-sm" type="submit">
+                                                                    <i class="fa fa-trash"></i> Remove
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ obj.product.title }}</td>
+                                                    <td>{{ obj.product.category.title }}</td>
+                                                    <td>{{ obj.quantity }}</td>
+                                                    <td>{{ obj.price }}</td>
+                                            {% endfor %}
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="11">
+                                                    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                                                        <strong>Oops!</strong> No results found for
+                                                        <span class="text-danger font-weight-bold">{{ query }},</span>
+                                                        try a different search.
+                                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                    </div>
+                                                    <h4 class="text-center my-3">
+                                                        <a href="#">
+                                                            <i class="fa fa-undo"></i>  Reload this Page!
+                                                        </a>
+                                                    </h4>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

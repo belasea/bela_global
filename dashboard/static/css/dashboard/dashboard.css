@@ -48,10 +48,18 @@ hr {
   border: none;
   height: 3px;
   background: linear-gradient(to right, #0d6efd, #6c757d);
-  border-radius: 2px;
+  border-radius: 1px !important;
   margin-bottom: 2rem;
 }
 
+.main-content{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.active{
+  color: teal !important;
+}
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
@@ -1042,6 +1050,13 @@ hr {
       custom_breadcrumb
 =======================================================*/
 
+
+.breadcrumb{
+  border-bottom: 1px solid #e0e7ff;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
 .custom_breadcrumb {
   background: linear-gradient(90deg, #dbeafe, #e0e7ff, #ace0f9) !important;
   padding: 8px !important;
@@ -1371,7 +1386,7 @@ Order PDF List Button
 =======================================*/
 .order-status {
     font-size: 13px;
-    padding: 6px 12px;
+    padding: 6px 8px;
     border-radius: 50px;
     font-weight: 600;
     display: inline-flex;
@@ -1383,7 +1398,7 @@ Order PDF List Button
     background-color: rgba(255, 159, 67, 0.15);
     color: #ff9f43;
     border: 1px solid rgba(255, 159, 67, 0.25);
-    padding: 10px;
+    padding: 8px;
 }
 
 /* Delivered (green soft) */
@@ -1391,7 +1406,7 @@ Order PDF List Button
     background-color: rgba(40, 167, 69, 0.15);
     color: #28a745;
     border: 1px solid rgba(40, 167, 69, 0.25);
-    padding: 10px;
+    padding: 8px;
 }
 
 /* Cancelled (red soft) */
@@ -1399,13 +1414,14 @@ Order PDF List Button
     background-color: rgba(220, 53, 69, 0.15);
     color: #dc3545;
     border: 1px solid rgba(220, 53, 69, 0.25);
-    padding: 10px;
+    padding: 8px;
 }
 
 .order-status.return {
     background-color: rgba(13, 110, 253, 0.1); /* soft blue bg */
     color: #0d6efd; /* bootstrap primary blue */
     border: 1px solid rgba(13, 110, 253, 0.25);
+    padding: 8px;
 }
 
 

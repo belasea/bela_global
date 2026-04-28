@@ -61,13 +61,6 @@ class Inventory(models.Model):
     @property
     def stock_loss(self):
         return self.quantity_cost * self.damage_quantity
-    
-    
-    def in_stock(self):
-        inventory = InventoryStock.objects.filter(
-            pro_id__title=self.title)
-        inventory = inventory.first()
-        return inventory.stock_quantity
 
     @property
     def date_of_stock(self):
@@ -151,6 +144,8 @@ class InventoryStock(models.Model):
     @property
     def get_title(self):
         return self.pro_id.title
+    
+    
 
 
 @receiver(post_save, sender=InventoryStock)

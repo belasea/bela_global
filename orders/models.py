@@ -6,6 +6,8 @@ from django.db.models import Sum, Avg, Count, Q
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from .utils import (
     order_unique_slug_generator, 
     cancelled_order_unique_slug_generator,
@@ -15,8 +17,7 @@ from offers.models import Coupon
 from addresses.models import Address
 from products.models import Product
 from carts.models import Cart
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+
 
 User = get_user_model()
 
@@ -79,6 +80,7 @@ class Order(models.Model):
     
     class Meta:
         ordering = ['-timestamp']
+        
 
     def save(self, *args, **kwargs):
         if not self.timestamp:

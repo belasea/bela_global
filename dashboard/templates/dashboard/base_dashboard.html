@@ -9,7 +9,7 @@
     <meta name="keyword" content="">
     <meta name="author" content="Jayed Hossain Jibon">
     <meta name="designer" content="Jayed Hossain Jibon">
-    <title>{% block title %} Dashboard {% endblock title %}</title>
+    <title>{% block title %} Sales monitoring dashboard{% endblock title %}</title>
     <link rel="shortcut icon" href="" type="image/x-icon" />
     <link rel="shortcut icon" href="{% static 'img/dashboard/favicon-16x16.png' %}" type="image/x-icon"/>
 
@@ -37,7 +37,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/dashboard/dashboard.css' %}">
 
-  
+    <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
 
   </head>
   <body class="d-flex flex-column min-vh-100">
@@ -111,7 +111,7 @@
     <script src="{% static 'js/dashboard/loader.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{% static 'js/dashboard/chart.js' %}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
     <script>
       $(document).ready(function() {
           $('#summernote').summernote({
@@ -119,6 +119,16 @@
           });
       });
     </script>
-    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".select-item").forEach(function(el) {
+                new TomSelect(el, {
+                    placeholder: "Search ...",
+                    allowEmptyOption: true,
+                });
+            });
+        });
+    </script>
   </body>
 </html>
