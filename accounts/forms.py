@@ -24,6 +24,7 @@ class RegisterForm(forms.ModelForm):
             'contact_number',
             'date_of_birth',
             'gender',
+            'country',
         ]
 
     # -------------------------
@@ -103,7 +104,9 @@ class RegisterForm(forms.ModelForm):
         if commit:
             user.save()
         return user
-    
+
+
+
 # ----------------------------
 # LoginForm
 # ----------------------------

@@ -1,4 +1,5 @@
 from django.db import models
+from bella_global.countries import COUNTRIES_TYPES  
 from django.contrib.auth.models import (
     BaseUserManager,
     AbstractUser
@@ -67,7 +68,6 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
 class User(AbstractUser):
     username = None
     email = models.EmailField(verbose_name='Email Address', max_length=255, unique=True)
@@ -79,6 +79,7 @@ class User(AbstractUser):
     date_of_birth = models.DateField(auto_now_add=False, blank=True, null=True)
     profile = models.FileField(upload_to="account/", blank=True, null=True)
     contact_number = models.CharField(max_length=15)
+    country = models.CharField(max_length=150, choices=COUNTRIES_TYPES, blank=True, null=True)
     gender = models.CharField(max_length=1, choices=GENDER, blank=True, null=True)
     is_moderator = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
@@ -88,4 +89,6 @@ class User(AbstractUser):
     
     def __str__(self):
         return self.email
+
+
 

@@ -86,15 +86,20 @@
                                     {{ product.weight }}
                                 </div>
                             </div>
-                            <form method="post" action="{% url 'add-to-cart' %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="product_id" value="{{ product.id }}">
-                                <input type="hidden" name="quantity" value="1">
-                                <button type="submit" class="btn btn-pro-add w-100 rounded-0 py-2 mb-2">
+                            {% if request.user.is_authenticated %}
+                                <form method="post" action="{% url 'add-to-cart' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" class="btn btn-pro-add w-100 rounded-0 py-2 mb-2">
+                                        ADD TO BAG
+                                    </button>
+                                </form>
+                            {% else %}
+                                <a href="{% url 'login' %}" class="btn btn-pro-add w-100 rounded-0 py-2 mb-2">
                                     ADD TO BAG
-                                </button>
-                                
-                            </form>
+                                </a>
+                            {% endif %}
                             <div class="pro-description my-3">
                                 {{ product.description|safe }}
                             </div>

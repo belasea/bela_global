@@ -26,14 +26,14 @@ class AddressForm(forms.ModelForm):
             raise forms.ValidationError(".edu email not allowed")
         return email
 
-    def clean_city(self):
-        city = self.cleaned_data.get("city")
-        if not city.isalpha():
-            raise forms.ValidationError("City must contain only letters")
-        return city
+    # def clean_city(self):
+    #     city = self.cleaned_data.get("city")
+    #     if not city.isalpha():
+    #         raise forms.ValidationError("City must contain only letters")
+    #     return city
     
-    def clean_country(self):
-        city = self.cleaned_data.get("country")
-        if not city.isalpha():
-            raise forms.ValidationError("City must contain only letters")
-        return city
+    # def clean_country(self):
+    #     country = self.cleaned_data.get("country")
+    #     if not country.isalpha():
+    #         raise forms.ValidationError("country must contain only letters")
+    #     return country

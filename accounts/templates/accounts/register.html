@@ -42,28 +42,38 @@
                                     <form method="POST">
                                         {% csrf_token %}
                                         <div class="row">
-                                            <div class="form-group col-md-6 mb-3 mt-3">
+                                            <div class="form-group col-md-6 mt-3">
                                                 <input type="text" class="form-control" placeholder="First name *" name="first_name">
                                                 <span class="text-danger">{{ form.first_name.errors }}</span>
                                             </div>
-                                            <div class="form-group col-md-6 mb-3 mt-3">
+                                            <div class="form-group col-md-6 mt-3">
                                                 <input type="text" class="form-control" placeholder="Last name *" name="last_name">
                                                 <span class="text-danger">{{ form.last_name.errors }}</span>
                                             </div>
                                         </div>
-
                                         <!-- Email -->
-                                        <div class="form-group mb-3">
+                                        <div class="form-group col my-3">
                                             <input type="email" class="form-control" placeholder="E-mail address *" name="email">
                                             <span class="text-danger">{{ form.email.errors }}</span>
                                         </div>
 
                                         <!-- Contact Number -->
-                                        <div class="form-group mb-3">
+                                        <div class="form-group col my-3">
                                             <input type="tel" class="form-control" placeholder="Phone number *" name="contact_number">
                                             <span class="text-danger">{{ form.contact_number.errors }}</span>
                                         </div>
-
+                                        <!-- country -->
+                                        <div class="form-group col my-3">
+                                            <select class="form-select pro-input" name="country">
+                                                <option value="" selected>Select Country *</option>
+                                                {% for value, name in form.fields.country.choices %}
+                                                    <option value="{{ value }}" 
+                                                        {% if form.country.value == value or request.user.country == value %}selected{% endif %}>
+                                                        {{ name }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
                                         <div class="row">
                                             <!-- Gender -->
                                             <div class="form-group col-md-6 mb-3">

@@ -40,8 +40,16 @@
                     {% for sub in subcategories %}
                         {% if not forloop.counter|divisibleby:2 %}
                             <div class="category-card-custom {% cycle 'category-bg-pink' 'category-bg-blue' 'category-bg-teal' as colors %} mb-4">
-                                <div class="title">{{ sub.title }}</div>
-                                <div class="desc">Specialized care for {{ sub.title }}</div>
+                                <div class="title">
+                                    <a href="{% url 'sub_category' sub.category.slug sub.slug %}">
+                                        {{ sub.title }}
+                                    </a>
+                                </div>
+                                <div class="desc">
+                                    <a href="{% url 'sub_category' sub.category.slug sub.slug %}">
+                                        Specialized care for {{ sub.title }}
+                                    </a>
+                                </div>
                                 <div class="count">
                                     <a href="{% url 'sub_category' sub.category.slug sub.slug %}">
                                         {{ sub.products.count }} Product{{ sub.products.count|pluralize }}
@@ -56,9 +64,18 @@
                     
                     {% for sub in subcategories %}
                         {% if forloop.counter|divisibleby:2 %}
+                        
                             <div class="category-card-custom {% cycle 'category-bg-blue' 'category-bg-teal' 'category-bg-pink' %} mb-4">
-                                <div class="title">{{ sub.title }}</div>
-                                <div class="desc">Specialized care for {{ sub.title }}</div>
+                                <div class="title">
+                                    <a href="{% url 'sub_category' sub.category.slug sub.slug %}">
+                                        {{ sub.title }}
+                                    </a>
+                                </div>
+                                <div class="desc">
+                                    <a href="{% url 'sub_category' sub.category.slug sub.slug %}">
+                                        Specialized care for {{ sub.title }}
+                                    </a>
+                                </div>
                                 <div class="count">
                                     <a href="{% url 'sub_category' sub.category.slug sub.slug %}">
                                         {{ sub.products.count }} Product{{ sub.products.count|pluralize }}

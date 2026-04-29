@@ -54,6 +54,7 @@ class OrderManager(models.Manager):
 class Order(models.Model):
     order_id = models.CharField(max_length=120, blank=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    country = models.CharField(max_length=150, blank=True, null=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     shipping_address = models.ForeignKey(Address, on_delete=models.PROTECT)
     status = models.CharField(max_length=120, default='created', choices=ORDER_STATUS_CHOICES)
