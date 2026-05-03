@@ -89,6 +89,11 @@ class User(AbstractUser):
     
     def __str__(self):
         return self.email
+    
+    @property
+    def get_full(self):
+        for_name = self.first_name + ' ' + self.last_name
+        return "{for_name}".format(for_name=for_name)
 
 
 

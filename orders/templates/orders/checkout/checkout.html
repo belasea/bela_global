@@ -6,113 +6,168 @@
 {% block content %}
 
 
-  <div class="checkout-section">
-      <div class="container mb-5">
-        <div class="d-flex justify-content-center align-items-center text-center">
-            <div class="d-flex align-items-center">
-                <h2 class="fw-bold mb-0" style="letter-spacing: -1.5px; font-size: 2.5rem;">
-                    Secure Checkout
-                </h2>
-                <span class="ms-3 badge bg-white text-dark border fw-normal shadow-sm py-2 px-3" style="border-radius: 8px;">
-                    <i class="fa-solid fa-lock me-2 text-success"></i> 256-bit SSL
-                </span>
+    <section class="checkout-section">
+        <div class="container">
+            <div class="d-flex justify-content-center align-items-center text-center">
+                <div class="d-flex align-items-center">
+                    <h2 class="checkout-title mb-0">
+                        Secure Checkout
+                    </h2>
+                    <span class="ssl_bit ms-3 bg-white text-dark badge border fw-normal shadow-sm py-2 px-3">
+                        <i class="fa-solid fa-lock me-2 text-success"></i> 256-bit SSL
+                    </span>
+                </div>
             </div>
+            <hr>
         </div>
-        <hr>
         <div class="checkout-form">
-            <div class="container">
+            <div class="container mb-5">
                 <form method="post">
                     {% csrf_token %}
-                    
-                    {% if errors %}
-                        <div class="alert alert-danger rounded-3 border-0 shadow-sm mb-4">
-                            <p class="fw-bold mb-1"><i class="fa-solid fa-triangle-exclamation me-2"></i> Please correct the following:</p>
-                            <ul class="mb-0 small">
-                                {% for field, error_list in errors.items %}
-                                    {% for error in error_list %}
-                                        <li>{{ field|title }}: {{ error }}</li>
-                                    {% endfor %}
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endif %}
-
-                    <div class="row g-lg-5">
-                        <div class="col-lg-7">
+                    <div class="row">
+                        <div class="col-md-7 col-lg-7">
+                            <!-- Billing Address -->
                             <div class="pro-card p-4 mb-4 bg-white border shadow-sm">
                                 <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <h5 class="pro-section-label mb-0">Billing Address</h5>
-                                    {% if not request.user.is_authenticated %}
-                                    <small class="text-muted">Already have an account? 
-                                        <a href="{% url 'login' %}" class="text-dark fw-bold">Login</a>
-                                    </small>
-                                    {% endif %}
+                                    <h5 class="pro-section-label mb-0">
+                                        Billing Address
+                                    </h5>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 mt-3">
                                         <div class="form-group">
                                             <input class="form-control pro-input" 
-                                                placeholder="Email Address" value="{{ request.user.email }}" required
-                                            >
-                                            <div class="form-check mt-3">
-                                                <input class="form-check-input" type="checkbox" id="news" name="subscribe">
-                                                <label class="form-check-label small text-muted" for="news">
-                                                    Keep me updated on news and offers
-                                                </label>
-                                            </div>
+                                                placeholder="Email" 
+                                                value="{{ request.user.get_full }}" 
+                                                readonly>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <select class="form-select pro-input" name="country_display" disabled>
-                                            <option value="" selected disabled>Select Country *</option>
-                                            {% for value, name in form.fields.country.choices %}
-                                                <option value="{{ value }}" 
-                                                    {% if form.country.value == value or request.user.country == value %}selected{% endif %}>
-                                                    {{ name }}
-                                                </option>
-                                            {% endfor %}
-                                        </select>
-
-                                        <input type="hidden" name="country" value="{{ form.country.value|default:request.user.country }}">
-                                        <span class="text-danger">{{ form.country.errors }}</span>
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <input class="form-control pro-input" 
+                                                placeholder="contact_number" 
+                                                value="{{ request.user.contact_number }}" 
+                                                readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <input class="form-control pro-input" 
+                                                placeholder="email" 
+                                                value="{{ request.user.email }}" 
+                                                readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <div class="form-group">
+                                            <input class="form-control pro-input" 
+                                                placeholder="Country" 
+                                                value="{{ request.user.country }}" 
+                                                readonly>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Shipping Address -->
                             <div class="pro-card p-4 mb-4 bg-white border shadow-sm">
                                 <h5 class="pro-section-label mb-4">Shipping Address</h5>
-                                <div class="row g-3">
+                                <input type="hidden" name="address_type" value="shipping">
+                                <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <input type="text" name="first_name" class="form-control pro-input" 
-                                              placeholder="First Name" value="{{ form.first_name.value|default:'' }}" required>
+                                            placeholder="First Name" value="{{ form.first_name.value|default:'' }}" required>
+                                        <div class="error-message">
+                                            {% if form.first_name.errors %}
+                                                <span class="text-danger small">{{ form.first_name.errors.0 }}</span>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <input type="text" name="last_name" class="form-control pro-input" 
-                                              placeholder="Last Name" value="{{ form.last_name.value|default:'' }}" required>
+                                            placeholder="Last Name" value="{{ form.last_name.value|default:'' }}" required>
+                                        <div class="error-message">
+                                            {% if form.last_name.errors %}
+                                                <span class="text-danger small">{{ form.last_name.errors.0 }}</span>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row g-3">
+                                <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <input type="text" name="contact_number" class="form-control pro-input" 
-                                            placeholder="Phone (e.g. +88017...)" value="{{ form.contact_number.value|default:'' }}" required>
+                                            placeholder="Phone (e.g. +00...)" value="{{ form.contact_number.value|default:'' }}" required>
+                                        <div class="error-message">
+                                            {% if form.contact_number.errors %}
+                                                <span class="text-danger small">{{ form.contact_number.errors.0 }}</span>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <input name="email" type="email" class="form-control pro-input" 
                                           placeholder="Email Address" value="{{ form.email.value|default:'' }}" required>
+                                        <div class="error-message">
+                                            {% if form.email.errors %}
+                                                <span class="text-danger small">{{ form.email.errors.0 }}</span>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row g-3">
+                                <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <input type="text" name="address" class="form-control pro-input" 
-                                              placeholder="Street Address" value="{{ form.address.value|default:'' }}" required>
+                                        <select class="form-select pro-input {% if form.country.errors %}is-invalid{% endif %}" 
+                                                name="country" id="id_country" required>
+                                            <option value="">Select Country *</option>
+                                            {% for value, name in form.fields.country.choices %}
+                                                {% if value %}
+                                                    <option value="{{ value }}" 
+                                                        {% if form.country.value == value %}selected{% endif %}>
+                                                        {{ name }}
+                                                    </option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <input type="text" name="city" class="form-control pro-input" 
-                                              placeholder="City" value="{{ form.city.value|default:'' }}" required>
+                                            placeholder="City" value="{{ form.city.value|default:'' }}" required>
+                                        <div class="error-message">
+                                            {% if form.city.errors %}
+                                                <span class="text-danger small">{{ form.city.errors.0 }}</span>
+                                            {% endif %}
+                                        </div>
                                     </div>
-                                    <input type="hidden" name="address_type" value="shipping">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <input type="text" name="address" class="form-control pro-input" 
+                                              placeholder="Street Address" value="{{ form.address.value|default:'' }}" required>
+                                        <div class="error-message">
+                                            {% if form.address.errors %}
+                                                <span class="text-danger small">{{ form.address.errors.0 }}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <input type="text" name="location" class="form-control pro-input" 
+                                              placeholder="Location" value="{{ form.location.value|default:'' }}" required>
+                                        
+                                        <div class="error-message">
+                                            {% if form.location.errors %}
+                                                <span class="text-danger small">{{ form.location.errors.0 }}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <textarea class="form-control" style="border:1px solid #c6bfbf" name="notes" rows="3" 
+                                        placeholder="Enter your notes here..."></textarea>
+                                    </div>
                                 </div>
                             </div>
-
+                            <!-- Payments -->
                             <div class="pro-card p-4 bg-white border shadow-sm">
                                 <h5 class="pro-section-label mb-2">Payment</h5>
                                 <p class="text-muted small mb-4">
@@ -153,9 +208,8 @@
                                 </button>
                             </div>
                         </div>
-
-                        <div class="col-lg-5">
-                            <div>
+                        <div class="col-md-5 col-lg-5">
+                            <div class="order-summary">
                                 <div class="pro-card p-4 bg-white border shadow-sm">
                                     <h5 class="pro-section-label border-bottom pb-3">
                                       Order Summary
@@ -204,7 +258,6 @@
                 </form>
             </div>
         </div>
-      </div>
-  </div>
+    </section>
 
 {% endblock %}

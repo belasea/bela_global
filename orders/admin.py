@@ -4,8 +4,16 @@ from import_export.admin import ImportExportModelAdmin
 from .models import Order, CancelledOrder, ReturnedOrder
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('order_id', 'user', 'shipping_address', 'status', 'total_product_price', 'timestamp')
-    search_fields = ('order_id', 'user__username', 'shipping_address__full_address', 'timestamp')
+    list_display = (
+        'order_id', 
+        'user', 
+        'country',
+        'status', 
+        'total_product_price', 
+        'timestamp'
+    )
+    search_fields = ('order_id',)
+    list_filter = ('country',)
 
 admin.site.register(Order, OrderAdmin)
 

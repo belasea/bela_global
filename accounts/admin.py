@@ -3,8 +3,8 @@ from .models import User
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['first_name', 'last_name', 'email', 'country']
-    search_fields = ['first_name', 'last_name', 'email', 'country']
+    list_display = ['first_name', 'country', 'email', 'date_joined']
+    search_fields = ['first_name', 'country', 'email', 'date_joined']
     list_filter = ('country',)
     list_per_page = 20
 

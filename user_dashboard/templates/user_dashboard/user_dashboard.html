@@ -1,0 +1,157 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+{% block title %} User Dashboard - {{ block.super }} {% endblock %}
+
+{% block content %}
+
+    <section class="main-dashboard-content">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="mt-2">
+                    <h2 class="fw-bold mb-0">Hi, {{ request.user.get_full }}</h2>
+                    <p class="text-muted">Welcome to the bella dashboard</p>
+                </div>
+            </div>
+            <div class="row g-3 mb-4">
+                <div class="col-md-3">
+                    <div class="stat-card card-blue">
+                        <p>Order History</p>
+                        <h3>{{ total_orders }}</h3>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <small>Total lifetime orders</small>
+                            {% if total_orders > 0 %}
+                                <span class="badge-percent">Active</span>
+                            {% else %}
+                                <span class="badge-percent text-muted">No Activity</span>
+                            {% endif %}    
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card card-pink">
+                        <p>Total Spent</p>
+                        <h3>$ {{ total_spent }}</h3>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <small>Net amount spent</small>
+                            <span class="badge-percent">Verified</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card card-green">
+                        <p>Pending Cart</p>
+                        <h3>{{ cart_items_count }}</h3>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <small>Items not yet ordered</small>
+                            {% if cart_items_count > 0 %}
+                                <a href="{% url 'cart-list' %}" class="badge-percent text-white decoration-none">
+                                    View Cart 
+                                </a>
+                            {% else %}
+                                <span class="badge-percent">Empty</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card card-orange">
+                        <p>Total Cancelled</p>
+                        <h3>{{ total_cancelled|default:"0" }}</h3>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <small>Unsuccessful orders</small>
+                            {% if total_cancelled > 0 %}
+                                <span class="badge-percent bg-danger text-white">Action Required</span>
+                            {% else %}
+                                <span class="badge-percent bg-light text-dark">Clean History</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row g-4 mt-2 mb-5">
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                        <h6 class="fw-bold mb-1">LATEST ORDER</h6>
+                        <p class="text-muted small mb-4">
+                            This is your most recent orders and Value
+                        </p>
+                        {% if latest_five_orders %}
+                            <div class="list-group list-group-flush border rounded-3">
+                                {% for order in latest_five_orders %}
+                                    <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                        <span class="small fw-semibold">{{ order.order_id }}</span>
+                                        <span class="fw-bold">$ {{ order.total_product_price }}</span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="list-group list-group-flush border rounded-3">
+                                <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                    <span class="small fw-semibold">No item found</span>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                        <h6 class="fw-bold mb-1">Order Summary</h6>
+                        <p class="text-muted small mb-4">
+                            This is your most recent orders
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table table-bordered align-middle mb-0 custom-table">
+                                <thead class="table-light">
+                                    <tr class="text-center">
+                                        <th class="small fw-bold py-3">Order ID</th>
+                                        <th class="small fw-bold py-3">Date</th>
+                                        <th class="small fw-bold py-3">Total Cost</th>
+                                        <th class="small fw-bold py-3">Status</th>
+                                        <th class="small fw-bold py-3">PDF</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if  orders %}
+                                        {% for order in orders %}
+                                            <tr class="text-center bg-blue-light">
+                                                <td class="small fw-bold text-navy">{{ order.order_id }}</td>
+                                                <td class="small text-navy">{{ order.timestamp }}</td>
+                                                <td>
+                                                    <span class="badge rounded-pill bg-info-subtle text-info px-3">
+                                                        {{ order.status }}
+                                                    </span>
+                                                </td>
+                                                <td class="small fw-bold text-navy">{{ order.total_product_price }}</td>
+                                                <td>
+                                                    <a href="{% url 'create-pdf' order.slug %}" target="_blank" class="btn btn-success rounded-pill btn-sm px-3 shadow-sm mx-1">
+                                                        <i class="fa fa-eye mx-1"></i> PDF View
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        <!-- No Query -->
+                                        <tr>
+                                            <td colspan="5" class="text-center">
+                                                <div class="alert alert-dark alert-dismissible fade show text-center" role="alert">
+                                                    <strong>Oops!</strong> No item found 
+                                                    <span class="text-danger fw-bold mx-2">
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endif %}                                 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ 
+
+{% endblock %}

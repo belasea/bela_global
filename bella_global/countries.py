@@ -18,3 +18,6 @@ COUNTRIES_TYPES = (
     ('Turkey', 'Turkey'),
     ('pan_african', 'Pan African'),
 )
+
+
+

@@ -1,198 +1,227 @@
-<!-- ======= Sidebar ======= -->
-<aside id="sidebar" class="sidebar">
-    <ul class="sidebar-nav" id="sidebar-nav">
-        <li class="nav-item">
-            <a class="nav-link dashboard-link" href="{% url 'dashboard' %}">
-            <i class="fas fa-tachometer-alt me-2"></i>
-                <span>Dashboard</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'admin:index' %}">
-                <i class="fas fa-user-shield"></i>
-                <span>Admin</span>
-            </a>
-        </li>
-        <!--Order List-->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'order-pdf-list' %}">
-                <i class="fas fa-shopping-bag text-dark"></i>
-                <span>Order List</span>
-            </a>
-        </li>
-        <!--Cancelled Orders-->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'cancelled-orders-list' %}">
-                <i class="fas fa-tag text-danger"></i>
-                <span>Cancelled Orders</span>
-            </a>
-        </li>
-        <!--Returned Orders-->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'returned-order-list' %}">
-                <i class="fas fa-undo text-warning"></i>
-                <span>Returned Orders</span>
-            </a>
-        </li>
+{% if request.user.is_authenticated and request.user.is_staff %}
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link dashboard-link" href="{% url 'dashboard' %}">
+                <i class="fas fa-tachometer-alt me-2"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'admin:index' %}">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Admin</span>
+                </a>
+            </li>
+            <!--Order List-->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'order-pdf-list' %}">
+                    <i class="fas fa-shopping-bag text-dark"></i>
+                    <span>Order List</span>
+                </a>
+            </li>
+            <!--Cancelled Orders-->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'cancelled-orders-list' %}">
+                    <i class="fas fa-tag text-danger"></i>
+                    <span>Cancelled Orders</span>
+                </a>
+            </li>
+            <!--Returned Orders-->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'returned-order-list' %}">
+                    <i class="fas fa-undo text-warning"></i>
+                    <span>Returned Orders</span>
+                </a>
+            </li>
 
-        <!-- inventory -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#setup-inventory-nav" 
-            data-bs-toggle="collapse" href="#">
-                <i class="fas fa-boxes"></i>
-                <span> Inventory Report</span>
-                <i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="setup-inventory-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{% url 'inventory-list' %}">
-                        <i class="fas fa-list-ul" style="font-size: 13px;"></i>
-                        <span>Inventory List</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'out-of-stock' %}">
-                        <i class="fas fa-exclamation-triangle" style="font-size: 13px;"></i>
-                        <span>Out of Stock</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
+            <!-- inventory -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#setup-inventory-nav" 
+                data-bs-toggle="collapse" href="#">
+                    <i class="fas fa-boxes"></i>
+                    <span> Inventory Report</span>
+                    <i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="setup-inventory-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{% url 'inventory-list' %}">
+                            <i class="fas fa-list-ul" style="font-size: 13px;"></i>
+                            <span>Inventory List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'out-of-stock' %}">
+                            <i class="fas fa-exclamation-triangle" style="font-size: 13px;"></i>
+                            <span>Out of Stock</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
-        <!-- Manage Reports -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#setup-report-nav" 
-            data-bs-toggle="collapse" href="#">
-                <i class="fas fa-chart-bar"></i>
-                <span> Manage Reports </span>
-                <i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="setup-report-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="#">
-                        <i class="fas fa-file-invoice-dollar" style="font-size: 13px;"></i>
-                        <span>Sales Report</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-user-friends" style="font-size: 13px;"></i>
-                        <span>Customer Report</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
+            <!-- Manage Reports -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#setup-report-nav" 
+                data-bs-toggle="collapse" href="#">
+                    <i class="fas fa-chart-bar"></i>
+                    <span> Manage Reports </span>
+                    <i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="setup-report-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-file-invoice-dollar" style="font-size: 13px;"></i>
+                            <span>Sales Report</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-user-friends" style="font-size: 13px;"></i>
+                            <span>Customer Report</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
-        <!-- Support Message -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#setup-contact-nav" 
-            data-bs-toggle="collapse" href="#">
-                <i class="fas fa-headset"></i>
-                <span> Support Message </span>
-                <i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="setup-contact-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{% url 'contact-list' %}">
-                        <i class="fas fa-comment-dots" style="font-size: 13px;"></i>
-                        <span>Contact Us</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'notification' %}">
-                        <i class="fas fa-bell" style="font-size: 13px;"></i>
-                        <span>Notification List</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
+            <!-- Support Message -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#setup-contact-nav" 
+                data-bs-toggle="collapse" href="#">
+                    <i class="fas fa-headset"></i>
+                    <span> Support Message </span>
+                    <i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="setup-contact-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{% url 'contact-list' %}">
+                            <i class="fas fa-comment-dots" style="font-size: 13px;"></i>
+                            <span>Contact Us</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'notification' %}">
+                            <i class="fas fa-bell" style="font-size: 13px;"></i>
+                            <span>Notification List</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
-        <!-- Manage Warehouse -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#setup-warehouse-nav" 
-            data-bs-toggle="collapse" href="#">
-                <i class="fas fa-warehouse"></i>
-                <span>Warehouse </span>
-                <i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="setup-warehouse-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="">
-                        <i class="fas fa-map-marked-alt" style="font-size: 13px;"></i>
-                        <span>Warehouse List</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <i class="fas fa-clipboard-list" style="font-size: 13px;"></i>
-                        <span>Product Summary</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-truck-loading" style="font-size: 13px;"></i>
-                        <span>Request Product</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
+            <!-- Manage Warehouse -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#setup-warehouse-nav" 
+                data-bs-toggle="collapse" href="#">
+                    <i class="fas fa-warehouse"></i>
+                    <span>Warehouse </span>
+                    <i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="setup-warehouse-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="">
+                            <i class="fas fa-map-marked-alt" style="font-size: 13px;"></i>
+                            <span>Warehouse List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="fas fa-clipboard-list" style="font-size: 13px;"></i>
+                            <span>Product Summary</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-truck-loading" style="font-size: 13px;"></i>
+                            <span>Request Product</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
-        <!-- Export File -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#setup-export-nav" 
-            data-bs-toggle="collapse" href="#">
-                <i class="fas fa-warehouse"></i>
-                <span>Export CSV </span>
-                <i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="setup-export-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="">
-                        <i class="fas fa-map-marked-alt" style="font-size: 13px;"></i>
-                        <span>User List</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <i class="fas fa-clipboard-list" style="font-size: 13px;"></i>
-                        <span>Contact List</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-truck-loading" style="font-size: 13px;"></i>
-                        <span>Address List</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
+            <!-- Export File -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#setup-export-nav" 
+                data-bs-toggle="collapse" href="#">
+                    <i class="fas fa-warehouse"></i>
+                    <span>Export CSV </span>
+                    <i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="setup-export-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="">
+                            <i class="fas fa-map-marked-alt" style="font-size: 13px;"></i>
+                            <span>User List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="fas fa-clipboard-list" style="font-size: 13px;"></i>
+                            <span>Contact List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-truck-loading" style="font-size: 13px;"></i>
+                            <span>Address List</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
-        <!-- User Activity -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#setup-activity-nav" 
-            data-bs-toggle="collapse" href="#">
-                <i class="fas fa-user-clock"></i>
-                <span> User Activity </span>
-                <i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="setup-activity-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{% url 'user_list' %}">
-                        <i class="fas fa-users" style="font-size: 13px;"></i>
-                        <span>User List</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-eye" style="font-size: 13px;"></i>
-                        <span>Product View</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
+            <!-- User Activity -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#setup-activity-nav" 
+                data-bs-toggle="collapse" href="#">
+                    <i class="fas fa-user-clock"></i>
+                    <span> User Activity </span>
+                    <i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="setup-activity-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{% url 'user_list' %}">
+                            <i class="fas fa-users" style="font-size: 13px;"></i>
+                            <span>User List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-eye" style="font-size: 13px;"></i>
+                            <span>Product View</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
-        
-        
-    </ul>
-    <!-- Custom Button at Bottom -->
-</aside>
+            
+            
+        </ul>
+        <!-- Custom Button at Bottom -->
+    </aside>
+{% else %}
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link dashboard-link" href="{% url 'dashboard' %}">
+                <i class="fas fa-tachometer-alt me-2"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <!--Order List-->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'order-pdf-list' %}">
+                    <i class="fas fa-shopping-bag text-dark"></i>
+                    <span>Order List</span>
+                </a>
+            </li>
+            <!--Tracking My Parcel-->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{% url 'order-pdf-list' %}">
+                    <i class="fas fa-shipping-fast text-dark"></i>
+                    <span>Parcel Tracking</span>
+                </a>
+            </li>
+        </ul>
+        <!-- Custom Button at Bottom -->
+    </aside>
+{% endif %}

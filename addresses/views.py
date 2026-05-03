@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Address
-from .forms import AddressForm
+from .forms import shippingForm
 import csv
 
 
@@ -48,13 +48,13 @@ def billing_addresses_view(request):
 # Address Create Form ==================================================================================
 def address_create_form(request):
     if request.method == "POST":
-        form = AddressForm(request.POST or None)
+        form = shippingForm(request.POST or None)
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Create new address successfully Created.')
             return redirect('billing-addresses')
     else:
-        form = AddressForm()
+        form = shippingForm()
     context = {
         'form': form
     }
@@ -67,11 +67,11 @@ def updated_user_address(request, id):
     obj = get_object_or_404(Address, pk=id)
 
     # Initialize the form with the data from the retrieved address object
-    form = AddressForm(instance=obj)
+    form = shippingForm(instance=obj)
 
     if request.method == "POST":
         # If a POST request is made, populate the form with the submitted data
-        form = AddressForm(request.POST, instance=obj)
+        form = shippingForm(request.POST, instance=obj)
         if form.is_valid():
             # Save the updated data and provide a success message
             form.save()

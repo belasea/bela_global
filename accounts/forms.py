@@ -133,6 +133,7 @@ class UserUpdateForm(forms.ModelForm):
             'profile',
             'date_of_birth',
             'contact_number',
+            'country',
         ]
         
     # first_name validation
