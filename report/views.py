@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import F, Sum, Q
 from accounts.models import User
 from orders.models import Order
 from carts.models import Cart
+
 
 
 def user_dashboard(request):
@@ -44,4 +45,4 @@ def user_dashboard(request):
         'query': query,
         'total_cancelled': total_cancelled
     }
-    return render(request, "user_dashboard/user_dashboard.html", context)
+    return render(request, "report/user_dashboard.html", context)

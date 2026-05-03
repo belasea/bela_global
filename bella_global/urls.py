@@ -34,16 +34,16 @@ urlpatterns = [
     path('', include('offers.urls')),
     path('', include('addresses.urls')),
     path('', include('inventory.urls')),
-    path('', include('user_dashboard.urls')),
-   
+    path('', include('report.urls')),
     path('summernote/', include('django_summernote.urls')),
 ]
+
 
 if settings.DEBUG:
     urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
-admin.site.site_header = "Bella Global Admin"
-admin.site.site_title = "Bella Global"
-admin.site.index_title = "Welcome to Bella Global"
+admin.site.site_header = "The Bella Admin"
+admin.site.site_title = "The Bella"
+admin.site.index_title = "Welcome to The Bella"

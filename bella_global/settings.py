@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'carts.apps.CartsConfig',
     'addresses.apps.AddressesConfig',
     'orders.apps.OrdersConfig',
-    'user_dashboard.apps.UserDashboardConfig',
+    'report.apps.ReportConfig',
     # Library and dependency
     'django.contrib.humanize',
     'django_summernote',
