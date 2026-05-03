@@ -69,7 +69,7 @@
           <li class="nav-item dropdown pe-3">
             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
               {% if request.user.profile %}
-                <img src="{{ request.user.profile.url }}" alt="Profile" class="rounded-circle">
+                <img src="{{ request.user.profile.url }}" width="60" hight="60" alt="Profile" class="rounded-circle">
               {% else %}
                 <img src="{% static 'img/accounts/img/no-photo.png' %}" alt="Profile" class="rounded-circle">
               {% endif %}
