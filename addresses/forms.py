@@ -63,26 +63,3 @@ class shippingForm(forms.ModelForm):
             )
         return phone
     
-
-"""
-    <div class="pro-card p-4 mb-4 bg-white border shadow-sm">
-                                        <h5 class="pro-section-label mb-4">Billing Address (Profile)</h5>
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label class="small text-muted">Account Email</label>
-                                                <input name="email" class="form-control pro-input" 
-                                                    value="{{ billing_form.email.value|default:'' }}" required>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label class="small text-muted">Default Country</label>
-                                                <select class="form-select pro-input" name="country">
-                                                    {% for value, name in billing_form.fields.country.choices %}
-                                                        <option value="{{ value }}" {% if billing_form.country.value == value %}selected{% endif %}>
-                                                            {{ name }}
-                                                        </option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>   
-"""

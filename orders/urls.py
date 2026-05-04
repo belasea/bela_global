@@ -9,7 +9,6 @@ urlpatterns = [
     path('order-pdf-list/', views.order_pdf_list, name='order-pdf-list'),
     
     path('order-csv-by-date/', views.order_csv_by_date, name="order-csv-by-date"),
-    path('download-order/', views.download_order, name="download-order"),
     path('order-details/<slug:slug>/', views.order_details_view, name='order-details'),
     path('update-order/<slug:slug>/', views.update_order_view, name='update-order'),
     path('remove-product/', views.remove_product_order_list, name='remove-product'),

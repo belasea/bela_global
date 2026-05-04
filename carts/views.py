@@ -38,54 +38,62 @@ def cart_list(request):
 
 
 def add_to_cart(request):
-    if request.user.is_authenticated:
-        try:
-            cart_obj, new_obj = Cart.objects.new_or_get(request)
-            product_id = request.POST.get('product_id')
-            quantity = int(request.POST.get('quantity', 0))
-        
-            if not (product_id) or quantity <= 0:
-                messages.warning(request, "Invalid selection or quantity.")
-                return redirect(request.META.get('HTTP_REFERER', '/'))
-            
-            # Handling Normal Products
-            selected_country = request.user.country
-            product_obj = get_object_or_404(Product, id=product_id)
-            stock = get_object_or_404(InventoryStock, pro_id=product_obj, country=selected_country)
-
-            if stock.stock_quantity <= 0:
-                messages.warning(request, "Item is out of stock!")
-                return redirect(request.META.get('HTTP_REFERER', '/'))
-            
-
-            cart_items = CartItem.objects.filter(cart=cart_obj, product=product_obj)
-
-            total_quantity = cart_items.aggregate(total_quantity=Sum('quantity'))['total_quantity'] or 0
-            limit = 1 if product_obj.limit_buy else 10
-
-            if total_quantity + quantity > limit:
-                messages.warning(request, f"You cannot add more than {limit} per product.")
-            else:
-                if cart_items.exists():
-                    cart_items.update(quantity=F('quantity') + quantity)
-                else:
-                    CartItem.objects.create(
-                        cart=cart_obj,
-                        product=product_obj,
-                        quantity=quantity,
-                        price=product_obj.price,
-                    )
-                messages.success(request, f"'{product_obj.title}' added to cart successfully.")
-
-        except (Product.DoesNotExist, InventoryStock.DoesNotExist) as e:
-            messages.error(request, f"An error occurred: {str(e)}")
-
-        request.session['cart_items'] = cart_obj.get_count()
-        return redirect(request.META.get('HTTP_REFERER', '/'))
-    else:
-        messages.info(request, "Please login to continue to add to cart.")
+    if not request.user.is_authenticated:
+        messages.info(request, "Please login to continue.")
         return redirect('login')
 
+    try:
+        cart_obj, new_obj = Cart.objects.new_or_get(request)
+        product_id = request.POST.get('product_id')
+        quantity = int(request.POST.get('quantity', 0))
+    
+        if not product_id or quantity <= 0:
+            messages.warning(request, "Invalid selection or quantity.")
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+        
+        product_obj = get_object_or_404(Product, id=product_id)
+        
+        # Get user's country (ensure your User model has this field)
+        selected_country = request.user.country 
+
+        # Find country-specific stock
+        stock = InventoryStock.objects.filter(
+            pro_id=product_obj, 
+            country=selected_country).first()
+
+        # 1. Check if the product even exists for this country
+        if not stock:
+            messages.warning(request, f"'{product_obj.title}' is not currently available for {selected_country}.")
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+        
+        if stock.stock_quantity <= 0:
+            messages.warning(request, f"'{product_obj.title}' is currently out of stock in {selected_country}.")
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+
+        # Logic for quantity limits
+        cart_items = CartItem.objects.filter(cart=cart_obj, product=product_obj)
+        total_quantity = cart_items.aggregate(total_quantity=Sum('quantity'))['total_quantity'] or 0
+        limit = 1 if product_obj.limit_buy else 10
+
+        if total_quantity + quantity > limit:
+            messages.warning(request, f"You can only purchase up to {limit} of this item.")
+        else:
+            if cart_items.exists():
+                cart_items.update(quantity=F('quantity') + quantity)
+            else:
+                CartItem.objects.create(
+                    cart=cart_obj,
+                    product=product_obj,
+                    quantity=quantity,
+                    price=product_obj.price,
+                )
+            messages.success(request, f"'{product_obj.title}' added to cart successfully.")
+
+    except Exception as e:
+        messages.error(request, "An unexpected error occurred. Please try again.")
+
+    request.session['cart_items'] = cart_obj.get_count()
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def increase_quantity(request, cart_item_id):

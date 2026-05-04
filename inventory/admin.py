@@ -62,6 +62,7 @@ class InventoryStockAdmin(ImportExportModelAdmin):
     # list_editable = ['stock_quantity']
     readonly_fields = ['stock_quantity']
     list_per_page = 20
+    list_filter = ('country',)
     search_fields = ['pro_id__title', 'pro_id__id']
 
     def get_id(self, obj):

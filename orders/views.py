@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, StreamingHttpResponse
 from django.db import transaction
 from django.utils import timezone
+from datetime import datetime
 from django.urls import reverse
 from django.contrib import messages
 from decimal import Decimal
@@ -19,15 +20,19 @@ from xhtml2pdf import pisa
 import csv
 
 
+
 def cart_checkout(request):
     if not request.user.is_authenticated:
         messages.info(request, "Please login to continue to checkout.")
         return redirect('login')
 
+    # Get or create cart
     cart_obj, new_obj = Cart.objects.new_or_get(request)
     if new_obj or cart_obj.cart_items.count() == 0:
+        messages.warning(request, "Your cart is empty.")
         return redirect("cart-list")
 
+    # Get existing shipping address if available
     user_address = Address.objects.filter(user=request.user, address_type='shipping').first()
 
     if request.method == 'POST':
@@ -35,109 +40,119 @@ def cart_checkout(request):
         shipping_form = shippingForm(request.POST, instance=user_address)
 
         if billing_form.is_valid() and shipping_form.is_valid():
-            # 1. Start a Transaction to ensure all or nothing happens
-            with transaction.atomic():
-                # Save forms
-                billing_form.save()
-                shipping_instance = shipping_form.save(commit=False)
-                shipping_instance.user = request.user
-                shipping_instance.address_type = 'shipping'
-                shipping_instance.save()
-                
-                user_notes = request.POST.get('notes') 
-                selected_country = shipping_instance.country
-                
-                # Process each cart item
-                for cart_item in cart_obj.cart_items.all():
-                    product = cart_item.product
+            try:
+                with transaction.atomic():
+                    # 1. Save Address Details
+                    billing_form.save()
+                    shipping_instance = shipping_form.save(commit=False)
+                    shipping_instance.user = request.user
+                    shipping_instance.address_type = 'shipping'
+                    shipping_instance.save()
                     
-                    # 2. Get Country-Specific Stock Total (InventoryStock)
-                    # We filter by both product and country
-                    try:
-                        inventory_entry = InventoryStock.objects.select_for_update().get(
-                            pro_id=product, 
-                            country=selected_country
-                        )
-                    except InventoryStock.DoesNotExist:
-                        messages.warning(request, f"{product.title} is not available for {selected_country}.")
-                        return redirect('cart-list')
-
-                    if inventory_entry.stock_quantity < cart_item.quantity:
-                        messages.warning(request, f"Insufficient stock for {product.title} in {selected_country}.")
-                        return redirect('cart-list')
-
-                    # Deduct from aggregated Country Stock
-                    inventory_entry.stock_quantity = F('stock_quantity') - cart_item.quantity
-                    inventory_entry.save()
-
-                    # 3. Deduct from specific Inventory Batches for this country (FIFO)
-                    remain_quantity = cart_item.quantity
-                    product_inventory_list = Inventory.objects.filter(
-                        pro_id=product, 
-                        country=selected_country, # Country specific batches
-                        stock_quantity__gt=0,
-                        is_cancelled=False
-                    ).order_by('purchase_date')
-
-                    seller_names = []
-                    quantity_costs = []
-                    selling_quantities = []
-
-                    for inventory in product_inventory_list:
-                        if remain_quantity <= 0:
-                            break
+                    user_notes = request.POST.get('notes') 
+                    selected_country = shipping_instance.country
+                    
+                    # 2. Process each cart item for Stock Validation
+                    for cart_item in cart_obj.cart_items.all():
+                        product = cart_item.product
                         
-                        if inventory.stock_quantity >= remain_quantity:
-                            quantity_decreased = remain_quantity
-                            inventory.stock_quantity -= remain_quantity
-                            remain_quantity = 0
-                        else:
-                            quantity_decreased = inventory.stock_quantity
-                            remain_quantity -= inventory.stock_quantity
-                            inventory.stock_quantity = 0
+                        # Lock the stock row for the specific country to prevent race conditions
+                        try:
+                            inventory_entry = InventoryStock.objects.select_for_update().get(
+                                pro_id=product, 
+                                country=selected_country
+                            )
+                        except InventoryStock.DoesNotExist:
+                            messages.warning(request, f"Sorry, {product.title} is not available for {selected_country}.")
+                            return redirect('cart-list')
 
-                        seller_names.append(str(inventory.seller))
-                        quantity_costs.append(str(inventory.quantity_cost))
-                        selling_quantities.append(str(quantity_decreased))
+                        # --- SPECIFIC STOCK CHECK LOGIC ---
+                        if inventory_entry.stock_quantity < cart_item.quantity:
+                            if inventory_entry.stock_quantity <= 0:
+                                messages.warning(request, f"Insufficient stock: {product.title} is out of stock in {selected_country}.")
+                            else:
+                                # This provides the "1 item left" style message
+                                messages.warning(
+                                    request, 
+                                    f"Insufficient stock for {product.title}. Only {inventory_entry.stock_quantity} left in {selected_country}."
+                                )
+                            return redirect('cart-list')
 
-                        # Log country-specific transaction
-                        InventoryTransaction.objects.create(
-                            inventory=inventory,
-                            product=product,
-                            quantity=-quantity_decreased,
-                            reason='sale',
-                            ref_id=cart_obj.id
-                        )
-                        inventory.save()
+                        # 3. Deduct from InventoryStock (Aggregated)
+                        inventory_entry.stock_quantity = F('stock_quantity') - cart_item.quantity
+                        inventory_entry.save()
 
-                    # Save batch details to the cart item
-                    cart_item.seller_name = ", ".join(seller_names)
-                    cart_item.purchase_quantity_cost = ", ".join(quantity_costs)
-                    cart_item.selling_quantity = ", ".join(selling_quantities)
-                    cart_item.save()
+                        # 4. Deduct from specific Inventory Batches (FIFO)
+                        remain_quantity = cart_item.quantity
+                        product_inventory_list = Inventory.objects.filter(
+                            pro_id=product, 
+                            country=selected_country,
+                            stock_quantity__gt=0,
+                            is_cancelled=False
+                        ).order_by('purchase_date')
 
-                # Clean up empty batches
-                Inventory.objects.filter(Q(is_cancelled=True) & Q(stock_quantity=0)).delete()
+                        seller_names = []
+                        quantity_costs = []
+                        selling_quantities = []
 
-                # 4. Finalize Order
-                order_obj, _ = Order.objects.new_or_get(request, shipping_instance, cart_obj)
-                order_obj.total_product_price = cart_obj.get_total()
-                order_obj.total_cost = cart_obj.get_total()
-                order_obj.due = cart_obj.get_total()
-                order_obj.voucher = cart_obj.get_coupon_discount_percentage()
-                order_obj.country = selected_country
-                order_obj.notes = user_notes
-                order_obj.save()
+                        for inventory in product_inventory_list:
+                            if remain_quantity <= 0:
+                                break
+                            
+                            if inventory.stock_quantity >= remain_quantity:
+                                quantity_decreased = remain_quantity
+                                inventory.stock_quantity -= remain_quantity
+                                remain_quantity = 0
+                            else:
+                                quantity_decreased = inventory.stock_quantity
+                                remain_quantity -= inventory.stock_quantity
+                                inventory.stock_quantity = 0
 
-                # Clear session
-                request.session['cart_items'] = 0
-                if 'cart_id' in request.session:
-                    del request.session['cart_id']
+                            seller_names.append(str(inventory.seller))
+                            quantity_costs.append(str(inventory.quantity_cost))
+                            selling_quantities.append(str(quantity_decreased))
 
-            messages.success(request, "Your order is successfully completed")
-            return redirect('checkout-done', slug=order_obj.slug)
+                            # Log the transaction
+                            InventoryTransaction.objects.create(
+                                inventory=inventory,
+                                product=product,
+                                quantity=-quantity_decreased,
+                                reason='sale',
+                                ref_id=cart_obj.id
+                            )
+                            inventory.save()
+
+                        # Update cart item metadata
+                        cart_item.seller_name = ", ".join(seller_names)
+                        cart_item.purchase_quantity_cost = ", ".join(quantity_costs)
+                        cart_item.selling_quantity = ", ".join(selling_quantities)
+                        cart_item.save()
+
+                    # 5. Finalize Order
+                    order_total = cart_obj.get_total()
+                    order_obj, _ = Order.objects.new_or_get(request, shipping_instance, cart_obj)
+                    order_obj.total_product_price = order_total
+                    order_obj.total_cost = order_total
+                    order_obj.due = order_total
+                    order_obj.voucher = cart_obj.get_coupon_discount_percentage()
+                    order_obj.country = selected_country
+                    order_obj.notes = user_notes
+                    order_obj.save()
+
+                    # 6. Success Cleanup
+                    request.session['cart_items'] = 0
+                    if 'cart_id' in request.session:
+                        del request.session['cart_id']
+
+                messages.success(request, "Your order has been successfully completed!")
+                return redirect('checkout-done', slug=order_obj.slug)
+
+            except Exception as e:
+                messages.error(request, f"An error occurred during checkout: {str(e)}")
+                return redirect('cart-list')
             
     else:
+        # GET request: Initialize forms
         billing_form = BillingForm(instance=request.user)
         initial_shipping = {
             'first_name': request.user.first_name,
@@ -195,29 +210,18 @@ def order_pdf_list(request):
     # 1. Authentication Check
     if not request.user.is_authenticated:
         return render(request, 'orders/order_list/order_list.html', {'error': 'Login required'})
-
-    # 2. Get User's Country
-    # Ensure your User profile model actually has a 'country' attribute
-    user_country = getattr(request.user, 'country', None)
     
-    # 3. Base Queryset
-    # We use .all() initially. Note: select_related is not needed if using .values()
+    user_country = getattr(request.user, 'country', None)
     queryset = Order.objects.all()
 
-    # 4. Filter by Country (Directly on the Order table)
     if user_country:
-        # This matches the 'country' field in your Order model
         queryset = queryset.filter(country__iexact=user_country)
     else:
-        # If user has no country, they see no orders (Privacy/Security measure)
         queryset = queryset.none()
     
-    # 5. Apply Search Filter
     if query:
         queryset = queryset.filter(Q(slug__icontains=query) | Q(order_id__icontains=query))
 
-    # 6. Select Specific Fields & Order
-    # values() makes the query faster by not fetching every column
     queryset = queryset.values(
         'id', 'order_id', 'slug', 'timestamp', 'returned', 'cancelled', 'status', 'country'
     ).order_by('-timestamp')
@@ -241,55 +245,79 @@ def order_pdf_list(request):
     return render(request, 'orders/order_list/order_list.html', context)
 
 
-def download_order(request):
-   
-    queryset = Order.objects.all()
-    response = HttpResponse(content_type="text/csv")
-    writer = csv.writer(response)
-    writer.writerow([
-        'ID', 'Order ID', 'Slug', 'User', 'Addresses', 'Cart', 'Total product price', 'Due', 'Received',
-        'Delivery Charge', 'Voucher',  'Cancelled', 'Returned', 'Notes',
-    ])
-
-    for order in queryset:
-        row = []
-        row.extend([
-           order.id, order.order_id, order.slug, order.user, order.shipping_address.first_name, 
-           order.total_product_price, order.due, order.received, order.delivery_charge, order.voucher,
-           order.returned,
-
-        ])
-        writer.writerow(row[:])
-    response['Content-Disposition'] = f'attachment; filename="order.csv"'
-    return response
-
+class Echo:
+    """An object that implements just the write method of the file-like interface.
+    Used by StreamingHttpResponse to stream CSV rows.
+    """
+    def write(self, value):
+        return value
 
 def order_csv_by_date(request):
-    try:
-        if request.method == "POST":
-            start_date = request.POST.get('start-date')
-            end_date = request.POST.get('end-date', None)
-            queryset = Order.objects.order_download_by_date(start_date, end_date)
-            response = HttpResponse(content_type='text/csv')
-            writer = csv.writer(response)
-            writer.writerow([
-                'ID', 'Order ID', 'Slug', 'User', 'Addresses', 'Cart', 'Total product price', 'Due', 'Received',
-                'Delivery Charge', 'Voucher',  'Cancelled', 'Returned', 'Notes',
-            ])
-
-            for order in queryset:
-                row = []
-                row.extend([
-                    order.id, order.order_id, order.slug, order.user, order.shipping_address.first_name, 
-                    order.total_product_price, order.due, order.received, order.delivery_charge, order.voucher,
-                    order.returned,
-                ])
-                writer.writerow(row[:])
-            response['Content-Disposition'] = f'attachment; filename="order.csv"'
-            return response
-    except:
-        messages.add_message(request, messages.SUCCESS, "Oops you forgot select start date to end date.")
+    if not request.user.is_authenticated:
+        messages.error(request, "Access denied.")
         return redirect('order-pdf-list')
+
+    if request.method == "POST":
+        try:
+            start_date_str = request.POST.get('start-date')
+            end_date_str = request.POST.get('end-date')
+            user_country = getattr(request.user, 'country', None)
+
+            if not start_date_str or not user_country:
+                messages.error(request, "Missing date or country profile.")
+                return redirect('order-pdf-list')
+
+            # 1. Base Query with Filtering
+            # We use .iterator() later to save memory
+            queryset = Order.objects.filter(
+                country__iexact=user_country,
+                cancelled=False
+            ).select_related('user', 'shipping_address').order_by('-timestamp')
+
+            # 2. Date Filtering
+            start_date = datetime.strptime(start_date_str, '%Y-%m-%d')
+            if end_date_str:
+                end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
+                queryset = queryset.filter(timestamp__date__range=[start_date, end_date])
+            else:
+                queryset = queryset.filter(timestamp__date=start_date)
+
+            # 3. Generator function to stream rows
+            def row_generator():
+                pseudo_buffer = Echo()
+                writer = csv.writer(pseudo_buffer)
+                
+                # Write Header
+                yield writer.writerow([
+                    'ID', 'Order ID', 'Date', 'User', 'Country', 
+                    'Shipping Name', 'Total Price', 'Due', 'Received'
+                ])
+
+                # Use .iterator() to fetch small batches from DB instead of loading all at once
+                for order in queryset.iterator(chunk_size=1000):
+                    yield writer.writerow([
+                        order.id,
+                        order.order_id,
+                        order.timestamp.strftime('%Y-%m-%d %H:%M'),
+                        order.user.email if order.user else "Guest",
+                        order.country,
+                        order.shipping_address.first_name if order.shipping_address else "N/A",
+                        order.total_product_price,
+                        order.due,
+                        order.received,
+                    ])
+
+            # 4. Stream the Response
+            filename = f"orders_{user_country}_{start_date_str}.csv"
+            response = StreamingHttpResponse(row_generator(), content_type="text/csv")
+            response['Content-Disposition'] = f'attachment; filename="{filename}"'
+            return response
+
+        except Exception as e:
+            messages.error(request, f"Error: {str(e)}")
+            return redirect('order-pdf-list')
+
+    return redirect('order-pdf-list')
 
 
 # Crete PDF View ==========================================================
@@ -324,11 +352,12 @@ def order_details_view(request, slug):
 
 # Update Order View =================================================================
 def update_order_view(request, slug):
+    
     order_instance = get_object_or_404(Order, slug=slug)
     products = Product.objects.filter(active=True)
 
     address = order_instance.shipping_address
-    form = AddressForm(request.POST or None, instance=address)
+    form = shippingForm(request.POST or None, instance=address)
 
     delivery_charge = order_instance.delivery_charge if order_instance.delivery_charge else ''
     delivery_method = order_instance.delivery_method if order_instance.delivery_method else ''
@@ -339,7 +368,7 @@ def update_order_view(request, slug):
     cart_items = order_instance.cart.cart_items.all()
     product_list = [item.product.id for item in cart_items if item.product]
     normal_quantities = [str(item.quantity) for item in cart_items if item.product]
-   
+    selected_country = address.country # Define the country context
 
     if form.is_valid():
         form.save()
@@ -390,8 +419,13 @@ def update_order_view(request, slug):
 
             # Update inventory for normal products
             remain_quantity = int(normal_quantities[count])
+            
+            # Get user's country (ensure your User model has this field)
+            
             product_inventory_list = Inventory.objects.filter(
-                pro_id=product_obj, stock_quantity__gt=0
+                pro_id=product_obj, 
+                stock_quantity__gt=0,
+                country=selected_country
             ).order_by('purchase_date')
 
             seller_names = []

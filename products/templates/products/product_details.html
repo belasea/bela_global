@@ -87,19 +87,34 @@
                                 </div>
                             </div>
                             {% if request.user.is_authenticated %}
-                                <form method="post" action="{% url 'add-to-cart' %}">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="product_id" value="{{ product.id }}">
-                                    <input type="hidden" name="quantity" value="1">
-                                    <button type="submit" class="btn btn-pro-add w-100 rounded-0 py-2 mb-2">
-                                        ADD TO BAG
-                                    </button>
-                                </form>
+                                {% with stock_list=product.inventorystock_set.all %}
+                                    {% for s in stock_list %}
+                                        {% if s.country == request.user.country %}
+                                            {% if s.stock_quantity > 0 %}
+                                                {# --- STATUS: AVAILABLE --- #}
+                                                <form method="post" action="{% url 'add-to-cart' %}">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                                    <input type="hidden" name="quantity" value="1">
+                                                    <button type="submit" class="btn btn-pro-add w-100 rounded-0 py-2 mb-2">
+                                                        ADD TO BAG
+                                                    </button>
+                                                </form>
+                                            {% else %}
+                                                <!-- UNAVAILABLE -->
+                                                <button disabled class="btn btn-danger w-100 rounded-4 py-2 mb-2">
+                                                    Out of stock in {{ s.country }} 
+                                                </button>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endwith %}
                             {% else %}
                                 <a href="{% url 'login' %}" class="btn btn-pro-add w-100 rounded-0 py-2 mb-2">
                                     ADD TO BAG
                                 </a>
                             {% endif %}
+
                             <div class="pro-description my-3">
                                 {{ product.description|safe }}
                             </div>

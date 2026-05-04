@@ -1,4 +1,3 @@
-
 COUNTRIES_TYPES = (
     ('bangladesh', 'Bangladesh'),
     ('india', 'India'),
@@ -12,12 +11,9 @@ COUNTRIES_TYPES = (
     ('china', 'China'),
     ('belgium', 'Belgium'),
     ('france', 'France'),
-    ('hongKong', 'HongKong'),
+    ('hongkong', 'HongKong'),
     ('italy', 'Italy'),
     ('nederlands', 'Nederlands'),
-    ('Turkey', 'Turkey'),
+    ('turkey', 'Turkey'),
     ('pan_african', 'Pan African'),
 )
-
-
-

@@ -30,7 +30,7 @@ ORDER_STATUS_CHOICES = (
 )
 
 class OrderManager(models.Manager):
-
+    
     def new_or_get(self, request, address_obj, cart_obj):
         created = False
         queryset = self.get_queryset().filter(
@@ -50,6 +50,8 @@ class OrderManager(models.Manager):
     def new(self, user=None, shipping_address=None, cart=None):
         user_obj = user if user and user.is_authenticated else None
         return self.model.objects.create(user=user_obj, shipping_address=shipping_address, cart=cart)
+    
+    
     
 class Order(models.Model):
     order_id = models.CharField(max_length=120, blank=True)

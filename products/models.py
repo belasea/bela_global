@@ -147,6 +147,11 @@ class Product(models.Model):
         product_id = 'SKU000' + str(self.id)
         return product_id
     
+    @property
+    def get_stock_for_country(self, country):
+        """Returns the InventoryStock record for a specific country."""
+        return self.inventorystock_set.filter(country=country).first()
+    
    
 
 # --- SIGNALS ---

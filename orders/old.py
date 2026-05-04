@@ -357,4 +357,145 @@ def cart_checkout(request):
         login_url = reverse('login')
         return redirect(f"{login_url}")
         
-    
+"""
+
+# def cart_checkout(request):
+#     if not request.user.is_authenticated:
+#         messages.info(request, "Please login to continue to checkout.")
+#         return redirect('login')
+
+#     cart_obj, new_obj = Cart.objects.new_or_get(request)
+#     if new_obj or cart_obj.cart_items.count() == 0:
+#         return redirect("cart-list")
+
+#     user_address = Address.objects.filter(user=request.user, address_type='shipping').first()
+
+#     if request.method == 'POST':
+#         billing_form = BillingForm(request.POST, instance=request.user)
+#         shipping_form = shippingForm(request.POST, instance=user_address)
+
+#         if billing_form.is_valid() and shipping_form.is_valid():
+#             # 1. Start a Transaction to ensure all or nothing happens
+#             with transaction.atomic():
+#                 # Save forms
+#                 billing_form.save()
+#                 shipping_instance = shipping_form.save(commit=False)
+#                 shipping_instance.user = request.user
+#                 shipping_instance.address_type = 'shipping'
+#                 shipping_instance.save()
+                
+#                 user_notes = request.POST.get('notes') 
+#                 selected_country = shipping_instance.country
+                
+#                 # Process each cart item
+#                 for cart_item in cart_obj.cart_items.all():
+#                     product = cart_item.product
+                    
+#                     # 2. Get Country-Specific Stock Total (InventoryStock)
+#                     # We filter by both product and country
+#                     try:
+#                         inventory_entry = InventoryStock.objects.select_for_update().get(
+#                             pro_id=product, 
+#                             country=selected_country
+#                         )
+#                     except InventoryStock.DoesNotExist:
+#                         messages.warning(request, f"{product.title} is not available for {selected_country}.")
+#                         return redirect('cart-list')
+
+#                     if inventory_entry.stock_quantity < cart_item.quantity:
+#                         messages.warning(request, f"Insufficient stock for {product.title} in {selected_country}.")
+#                         return redirect('cart-list')
+
+#                     # Deduct from aggregated Country Stock
+#                     inventory_entry.stock_quantity = F('stock_quantity') - cart_item.quantity
+#                     inventory_entry.save()
+
+#                     # 3. Deduct from specific Inventory Batches for this country (FIFO)
+#                     remain_quantity = cart_item.quantity
+#                     product_inventory_list = Inventory.objects.filter(
+#                         pro_id=product, 
+#                         country=selected_country, # Country specific batches
+#                         stock_quantity__gt=0,
+#                         is_cancelled=False
+#                     ).order_by('purchase_date')
+
+#                     seller_names = []
+#                     quantity_costs = []
+#                     selling_quantities = []
+
+#                     for inventory in product_inventory_list:
+#                         if remain_quantity <= 0:
+#                             break
+                        
+#                         if inventory.stock_quantity >= remain_quantity:
+#                             quantity_decreased = remain_quantity
+#                             inventory.stock_quantity -= remain_quantity
+#                             remain_quantity = 0
+#                         else:
+#                             quantity_decreased = inventory.stock_quantity
+#                             remain_quantity -= inventory.stock_quantity
+#                             inventory.stock_quantity = 0
+
+#                         seller_names.append(str(inventory.seller))
+#                         quantity_costs.append(str(inventory.quantity_cost))
+#                         selling_quantities.append(str(quantity_decreased))
+
+#                         # Log country-specific transaction
+#                         InventoryTransaction.objects.create(
+#                             inventory=inventory,
+#                             product=product,
+#                             quantity=-quantity_decreased,
+#                             reason='sale',
+#                             ref_id=cart_obj.id
+#                         )
+#                         inventory.save()
+
+#                     # Save batch details to the cart item
+#                     cart_item.seller_name = ", ".join(seller_names)
+#                     cart_item.purchase_quantity_cost = ", ".join(quantity_costs)
+#                     cart_item.selling_quantity = ", ".join(selling_quantities)
+#                     cart_item.save()
+
+#                 # Clean up empty batches
+#                 Inventory.objects.filter(Q(is_cancelled=True) & Q(stock_quantity=0)).delete()
+
+#                 # 4. Finalize Order
+#                 order_obj, _ = Order.objects.new_or_get(request, shipping_instance, cart_obj)
+#                 order_obj.total_product_price = cart_obj.get_total()
+#                 order_obj.total_cost = cart_obj.get_total()
+#                 order_obj.due = cart_obj.get_total()
+#                 order_obj.voucher = cart_obj.get_coupon_discount_percentage()
+#                 order_obj.country = selected_country
+#                 order_obj.notes = user_notes
+#                 order_obj.save()
+
+#                 # Clear session
+#                 request.session['cart_items'] = 0
+#                 if 'cart_id' in request.session:
+#                     del request.session['cart_id']
+
+#             messages.success(request, "Your order is successfully completed")
+#             return redirect('checkout-done', slug=order_obj.slug)
+            
+#     else:
+#         billing_form = BillingForm(instance=request.user)
+#         initial_shipping = {
+#             'first_name': request.user.first_name,
+#             'last_name': request.user.last_name,
+#             'email': request.user.email,
+#             'contact_number': request.user.contact_number,
+#             'country': request.user.country,
+#         }
+#         shipping_form = shippingForm(instance=user_address, initial=initial_shipping)
+
+#     context = {
+#         "cart": cart_obj,
+#         "billing_form": billing_form,
+#         "form": shipping_form,
+#         "errors": billing_form.errors or shipping_form.errors,
+#     }
+#     return render(request, "orders/checkout/checkout.html", context)
+
+
+
+"""
