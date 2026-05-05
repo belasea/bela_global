@@ -143,3 +143,6 @@ def remove_cart_item(request, cart_item_id):
     cart_item.delete()
     request.session['cart_items'] = cart.get_count()
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+

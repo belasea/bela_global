@@ -115,7 +115,7 @@ class InventoryTransaction(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     reason = models.CharField(max_length=20, choices=[('sale','Sale'), ('cancel','Cancel')])
-    ref_id = models.IntegerField(null=True, blank=True)
+    ref_id = models.CharField(max_length=120, null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     is_restored = models.BooleanField(default=False)
 

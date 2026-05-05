@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'report.apps.ReportConfig',
     # Library and dependency
     'django.contrib.humanize',
+    'mathfilters',
     'django_summernote',
     'import_export',
     'crispy_forms',  

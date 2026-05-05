@@ -70,15 +70,21 @@
                 </a>
                 <ul id="setup-report-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="#">
+                        <a href="{% url 'customer-report' %}">
+                            <i class="fas fa-user-friends" style="font-size: 13px;"></i>
+                            <span>Customer Report</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'sales-report' %}">
                             <i class="fas fa-file-invoice-dollar" style="font-size: 13px;"></i>
                             <span>Sales Report</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fas fa-user-friends" style="font-size: 13px;"></i>
-                            <span>Customer Report</span>
+                        <a href="{% url 'annual-sales' %}">
+                            <i class="fas fa-file-invoice-dollar" style="font-size: 13px;"></i>
+                            <span>Annual Sales</span>
                         </a>
                     </li>
                 </ul>

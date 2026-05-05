@@ -5,6 +5,15 @@ from django.contrib.auth.models import (
     AbstractUser
 )
 
+
+class Country(models.Model):
+    name = models.CharField(max_length=100)
+    iso_code = models.CharField(max_length=2, help_text="e.g., 'BD', 'US'")
+    
+    def __str__(self):
+        return self.name
+    
+    
 class UserManager(BaseUserManager):
     def create_user(
             self, email, 

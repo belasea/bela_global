@@ -15,6 +15,8 @@ from products.models import Product
 from addresses.forms import BillingForm, shippingForm
 from orders.models import Order, CancelledOrder, ReturnedOrder
 from inventory.models import Inventory, InventoryStock, InventoryTransaction
+from report.models import CustomerReport
+from bella_global.countries import COUNTRIES_TYPES
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 import csv
@@ -138,6 +140,12 @@ def cart_checkout(request):
                     order_obj.country = selected_country
                     order_obj.notes = user_notes
                     order_obj.save()
+                    
+                    # Generate customer report
+                    CustomerReport.objects.create(
+                        order=order_obj,
+                        country=selected_country
+                    )
 
                     # 6. Success Cleanup
                     request.session['cart_items'] = 0
@@ -368,12 +376,19 @@ def update_order_view(request, slug):
     cart_items = order_instance.cart.cart_items.all()
     product_list = [item.product.id for item in cart_items if item.product]
     normal_quantities = [str(item.quantity) for item in cart_items if item.product]
-    selected_country = address.country # Define the country context
+    selected_country = order_instance.country or address.country
+    
 
     if form.is_valid():
         form.save()
+        address.refresh_from_db()
+        selected_country = order_instance.country or address.country
 
     if request.method == 'POST':
+        # Override with POST country if available
+        post_country = request.POST.get('country', None)
+        if post_country:
+            selected_country = post_country
         product_list = request.POST.getlist('products')
     
         # Get quantities for normal products, combo products, and BOGO products
@@ -383,9 +398,14 @@ def update_order_view(request, slug):
         count = 0
         for product_id in product_list:
             product_obj = Product.objects.get(id=int(product_id))
-            product_inventory_list = InventoryStock.objects.get(pro_id=product_obj)
-            if product_inventory_list.stock_quantity - int(normal_quantities[count]) < 2:
-                return HttpResponse(f'Stock is not available for {product_obj}')
+            
+            product_inventory_list = InventoryStock.objects.filter(pro_id=product_obj, country=selected_country).first()
+            if not product_inventory_list:
+                messages.error(request, f'No inventory record found for {product_obj.title} ({product_obj}) in {selected_country}')
+                return redirect('update-order', slug=slug)
+            if product_inventory_list.stock_quantity - int(normal_quantities[count]) < 0:
+                messages.error(request, f'Stock is not available for {product_obj.title} ({product_obj}) in {selected_country}. Available: {product_inventory_list.stock_quantity}, Requested: {normal_quantities[count]}')
+                return redirect('update-order', slug=slug)
             count += 1
 
         entry_set = order_instance.cart.cart_items.all()
@@ -504,6 +524,7 @@ def update_order_view(request, slug):
         'delivery_method': delivery_method,
         'voucher': voucher,
         'received': received,
+        'countries': COUNTRIES_TYPES,
     }
 
     return render(request, "orders/update_order/update_order.html", context)
@@ -568,19 +589,27 @@ def add_product_inventory(request):
                 total_restored += qty_to_restore
 
             # --------------------------
-            # Update InventoryStock table
+            # Update InventoryStock table (per country)
             # --------------------------
-            total_stock = Inventory.objects.filter(pro_id=product).aggregate(
-                total=Sum('stock_quantity')
-            )['total'] or 0
+            countries_with_inventory = Inventory.objects.filter(
+                pro_id=product
+            ).values_list('country', flat=True).distinct()
 
-            InventoryStock.objects.update_or_create(
-                pro_id=product,
-                defaults={'stock_quantity': total_stock}
-            )
+            total_global_stock = 0
+            for country in countries_with_inventory:
+                country_stock = Inventory.objects.filter(
+                    pro_id=product, country=country
+                ).aggregate(total=Sum('stock_quantity'))['total'] or 0
+
+                InventoryStock.objects.update_or_create(
+                    pro_id=product,
+                    country=country,
+                    defaults={'stock_quantity': country_stock}
+                )
+                total_global_stock += country_stock
 
             # Set Product active/inactive
-            product.active = total_stock > 0
+            product.active = total_global_stock > 0
             product.save()
 
             if total_restored > 0:

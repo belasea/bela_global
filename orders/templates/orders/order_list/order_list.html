@@ -110,10 +110,11 @@
                                         <tr class="text-center">
                                             <th scope="col"># SN</th>
                                             <th scope="col">Order Number</th>
+                                            <th scope="col">Order Date</th>
+                                            <th scope="col">Country</th>
                                             <th scope="col">Order Status</th>
                                             <th scope="col">Action</th>
                                             <th scope="col">Download</th>
-                                            <th scope="col">Order Date</th>
                                             <th scope="col">Cancelled</th>
                                             <th scope="col">Returned</th>
                                             <th scope="col">Remove Order</th>
@@ -125,7 +126,13 @@
                                                 <tr class="text-center">
                                                 <td>{{ forloop.counter }}</td>
                                                 <td>{{ order.slug }}</td>
-                                                <td class="text-capitalize">{{ order.status }}</td>
+                                                <td>{{ order.timestamp }}</td>
+                                                <td>{{ order.country }}</td>
+                                                <td class="text-capitalize">
+                                                    <span class="badge order-status px-3  delivered">
+                                                        <i class="fa-solid fa-circle-xmark me-1"></i> {{ order.status }}
+                                                    </span>
+                                                </td>
                                                 <td class="text-center">
                                                     <a href="{% url 'order-details' order.slug %}" class="btn btn-dark rounded-pill px-3 btn-sm shadow-sm mx-1">
                                                         <i class="fa fa-edit"></i> Edit Order
@@ -150,8 +157,6 @@
                                                         <i class="fa fa-eye mx-1"></i> PDF View
                                                     </a>
                                                 </td>
-                                                <td>{{ order.timestamp }}</td>
-                                                
                                                 <td>
                                                     {% if order.cancelled %}
                                                         <a href="{% url 'cancelled-orders-list' %}">
@@ -198,7 +203,7 @@
                                         {% else %}
                                             <!-- No Query -->
                                             <tr>
-                                                <td colspan="9" class="text-center">
+                                                <td colspan="10" class="text-center">
                                                     <div class="alert alert-dark alert-dismissible fade show text-center" role="alert">
                                                         <strong>Oops!</strong> No results found for 
                                                         <span class="text-danger fw-bold mx-2">{{ query }}, </span> try a different search.
