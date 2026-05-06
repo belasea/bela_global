@@ -1,9 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import user_passes_test
-from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.template.loader import render_to_string
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
+from django.db.models import Q, F
+from decimal import Decimal, InvalidOperation
+from products.models import Product
 from django.contrib.contenttypes.models import ContentType
 from analytics.models import ObjectViewed
 from analytics.utils import get_client_ip
@@ -160,3 +163,56 @@ def delete_comment_item(request, item_type, item_id):
         obj.delete()
         messages.warning(request, f"{item_type.capitalize()} deleted successfully.")
         return redirect('product_details', slug=product_slug)
+
+
+def search_view(request):
+    query = request.GET.get('q', '').strip()
+    sort_by = request.GET.get('sort_by')
+    min_price = request.GET.get('min', 0.00)
+    max_price = request.GET.get('max', 10000.00)
+
+    # Start with the base queryset for products
+    queryset = Product.objects.filter(active=True)
+
+    # Apply search filter only if query exists
+    if query:
+        queryset = Product.objects.filter(
+            Q(title__icontains=query) |
+            Q(title__startswith=query) |
+            Q(title__endswith=query) |
+            Q(description__icontains=query) |
+            Q(category__title__icontains=query) |
+            Q(sub_category__title__icontains=query)
+        ).order_by('-timestamp').distinct()
+        
+    # Apply price range filter
+    try:
+        min_price = Decimal(min_price)
+        max_price = Decimal(max_price)
+        queryset = queryset.filter(price__range=(min_price, max_price))
+    except (InvalidOperation, TypeError):
+        messages.error(request, "Enter a valid numeric value for price range.")
+
+    # Apply sorting
+    sorting_map = {
+        "1": "title",
+        "2": "-title",
+        "3": "price",
+        "4": "-price",
+    }
+   
+    # Paginate results
+    paginator = Paginator(queryset, 4)
+    page = request.GET.get('page', 1)
+    try:
+        object_list = paginator.page(page)
+    except (PageNotAnInteger, EmptyPage):
+        object_list = paginator.page(1)
+
+    context = {
+        'object_list': object_list,
+        'page_title': query or "All Products",
+        'query': query,
+    }
+
+    return render(request, "products/search_product.html", context)

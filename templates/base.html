@@ -52,8 +52,10 @@
                                      <!--===== Search Overlay ====-->
                                     <div class="search-overlay" id="searchOverlay">
                                         <div class="search-box container">
-                                            <input type="text" placeholder="Search for products, skin concerns...">
-                                            <button class="close-search" id="closeSearch">&times;</button>
+                                            <form action="{% url 'search' %}" method="get">
+                                                <input type="text" name="q" placeholder="Search for products, skin concerns...">
+                                                <button class="close-search" id="closeSearch">&times;</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

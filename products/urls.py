@@ -8,4 +8,5 @@ urlpatterns = [
     path('product/<slug:slug>/', views.product_details, name='product_details'),
     path('comment-action/<str:item_type>/<int:item_id>/', views.edit_comment_item, name='comment_action'),
     path('delete-item/<str:item_type>/<int:item_id>/', views.delete_comment_item, name='delete_comment_item'),
+    path('search/', views.search_view, name="search"),
 ]
