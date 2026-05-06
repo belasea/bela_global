@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'report.apps.ReportConfig',
     'analytics.apps.AnalyticsConfig',
+    'warehouse.apps.WarehouseConfig',
     # Library and dependency
     'django.contrib.humanize',
     'mathfilters',

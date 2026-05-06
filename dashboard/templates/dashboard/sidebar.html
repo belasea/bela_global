@@ -124,21 +124,21 @@
                 </a>
                 <ul id="setup-warehouse-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="">
+                        <a href="{% url 'warehouse-list' %}">
                             <i class="fas fa-map-marked-alt" style="font-size: 13px;"></i>
                             <span>Warehouse List</span>
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="{% url 'normal-product-summary' %}">
                             <i class="fas fa-clipboard-list" style="font-size: 13px;"></i>
                             <span>Product Summary</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{% url 'export-today-product-summary' %}">
                             <i class="fas fa-truck-loading" style="font-size: 13px;"></i>
-                            <span>Request Product</span>
+                            <span>Export Summary</span>
                         </a>
                     </li>
                 </ul>
