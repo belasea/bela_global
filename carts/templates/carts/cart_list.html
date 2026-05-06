@@ -6,7 +6,7 @@
 
 {% block content %}
 
-    <section class="cart-section py-5">
+    <section class="cart-items-wrapper">
         {% if is_cart_empty %}
             <div class="container d-flex vh-100">
                 <div class="row m-auto">
@@ -20,7 +20,7 @@
                 </div>
             </div>
         {% else %}
-            <div class="container mb-5">
+            <div class="container my-5">
                 <h2 class="cart-title">Your Shopping Bag</h2>
                 <div id="message"></div>
                 <hr>
@@ -75,7 +75,9 @@
                                                 <td class="text-center">
                                                     <form method="post" action="{% url 'remove-cart-item' item.id %}">
                                                         {% csrf_token %}
-                                                        <button type="submit" class="btn btn-outline-danger"> × Remove</button>
+                                                        <button type="submit" class="btn btn-outline-danger">
+                                                            <i class="bi bi-trash3"></i>
+                                                        </button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -109,7 +111,8 @@
                             {% endif %}
                         </div>
                     </div>
-                     <div class="col-lg-4">
+                    
+                    <div class="col-lg-4">
                         <div class="cart-summary-card">
                             <h4>Order Summary</h4>
                             <div class="summary-line">
@@ -121,7 +124,7 @@
                                     <span>Discount Amount</span>
                                     <span>$ {{ cart_obj.get_coupon_discount_percentage }}</span>
                                 </div>
-                               
+                            
                                 <div class="d-flex justify-content-between align-items-center p-2 mb-2 border border-dashed rounded bg-light">
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-ticket-perforated text-success me-2"></i>
@@ -159,5 +162,6 @@
         {% endif %}
     </section>
     
+
 {% endblock %}
 

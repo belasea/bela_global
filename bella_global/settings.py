@@ -41,9 +41,11 @@ INSTALLED_APPS = [
     'carts.apps.CartsConfig',
     'addresses.apps.AddressesConfig',
     'orders.apps.OrdersConfig',
-    
+    'report.apps.ReportConfig',
+    'analytics.apps.AnalyticsConfig',
     # Library and dependency
     'django.contrib.humanize',
+    'mathfilters',
     'django_summernote',
     'import_export',
     'crispy_forms',  
@@ -68,6 +70,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    # ADD analytics
+    'analytics.middleware.UserSessionMiddleware',
 ]
 
 ROOT_URLCONF = 'bella_global.urls'

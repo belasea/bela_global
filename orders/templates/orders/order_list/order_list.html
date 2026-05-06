@@ -1,0 +1,240 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+{% block title %} Order PDF List - {{block.super}} {% endblock %}
+
+{% block content %}
+
+    <section class="order-pdf-list my-3">
+        <div class="container-fluid">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body mb-0 pb-0">
+                    <!-- Breadcrumb -->
+                    <div class="row">
+                        <div class="col mt-2">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <a href="{% url 'order-pdf-list' %}" class="text-primary">
+                                            Order List
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <a href="{% url 'dashboard' %}">
+                                          Back to Dashboard
+                                        </a> 
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <!--Search/Add-->
+                    <div class="row">
+                        <div class="col">
+                            <!-- Search & Download -->
+                            <div class="search-download">
+                                <div class="float-start mb-2">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-dark w-100 rounded-pill px-3 shadow-sm" data-bs-toggle="modal"
+                                            data-bs-target="#dropdownBrandModal">
+                                        <i class="fa fa-download"></i> Export
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="dropdownBrandModal" tabindex="-1" aria-labelledby="dropdownBrandModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="dropdownBrandModalLabel">
+                                                        Order Export
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{% url 'order-csv-by-date' %}" method="POST">
+                                                        {% csrf_token %}
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                                                <div class="form-group">
+                                                                    <label for="exampleFormControlInput">Start Date</label>
+                                                                    <input type="date" name="start-date" class="form-control" id="exampleFormControlInput">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-6 col-lg-5 col-xl-6">
+                                                                <div class="form-group">
+                                                                    <label for="exampleFormControlInput">End Date</label>
+                                                                    <input type="date" name="end-date" class="form-control"
+                                                                            id="exampleFormControlInput">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col mt-3">
+                                                                <button type="submit" class="btn btn-dark w-100">
+                                                                    Download <i class="fa fa-paper-plane"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Search Box Here -->
+                                <div class="float-end mb-2">
+                                    <!-- Search -->
+                                    <form method="GET" class="search" style="max-width: 300px;">
+                                        <div class="input-group">
+                                            <input class="form-control rounded-start-pill"
+                                                name="q"
+                                                type="text"
+                                                placeholder="Search..."
+                                                value="{{ request.GET.q }}">
+                                            <button type="submit"
+                                                    class="btn btn-dark rounded-end-pill">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Table-->
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered mb-0 text-nowrap">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th scope="col"># SN</th>
+                                            <th scope="col">Order Number</th>
+                                            <th scope="col">Order Date</th>
+                                            <th scope="col">Country</th>
+                                            <th scope="col">Order Status</th>
+                                            <th scope="col">Action</th>
+                                            <th scope="col">Download</th>
+                                            <th scope="col">Cancelled</th>
+                                            <th scope="col">Returned</th>
+                                            <th scope="col">Remove Order</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if object_list %}
+                                            {% for order in object_list %}
+                                                <tr class="text-center">
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ order.slug }}</td>
+                                                <td>{{ order.timestamp }}</td>
+                                                <td>{{ order.country }}</td>
+                                                <td class="text-capitalize">
+                                                    <span class="badge order-status px-3  delivered">
+                                                        <i class="fa-solid fa-circle-xmark me-1"></i> {{ order.status }}
+                                                    </span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="{% url 'order-details' order.slug %}" class="btn btn-dark rounded-pill px-3 btn-sm shadow-sm mx-1">
+                                                        <i class="fa fa-edit"></i> Edit Order
+                                                    </a>
+                                                    {% if order.cancelled %}
+                                                        <!-- Cancelled -->
+                                                            <a href="#">
+                                                                <span class="badge order-status cancelled">
+                                                                <i class="fa fa-times-circle me-1"></i>
+                                                                Order Cancelled
+                                                            </span>
+                                                        </a>
+                                                    {% else %}
+                                                        <a href="{% url 'cancelled-order' order.slug %}" class="btn btn-warning btn-sm rounded-pill px-3 shadow-sm mx-1">
+                                                            <i class="fa fa-times-circle me-1"></i>
+                                                            Cancel Order
+                                                        </a>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    <a href="{% url 'create-pdf' order.slug %}" target="_blank" class="btn btn-success rounded-pill btn-sm px-3 shadow-sm mx-1">
+                                                        <i class="fa fa-eye mx-1"></i> PDF View
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    {% if order.cancelled %}
+                                                        <a href="{% url 'cancelled-orders-list' %}">
+                                                            <!-- Cancelled -->
+                                                            <span class="badge order-status px-3  cancelled">
+                                                                <i class="fa-solid fa-circle-xmark me-1"></i> Yes
+                                                            </span>
+                                                        </a>
+                                                    {% else %}
+                                                        <span class="badge order-status delivered px-3 ">
+                                                            <i class="fa-solid fa-circle-xmark me-1"></i> No
+                                                        </span>
+                                                    {% endif %}
+                                                </td>
+                                                {% if order.cancelled and not order.returned %}
+                                                    <td>
+                                                        <a class="btn btn-outline-danger btn-sm rounded-pill px-3 shadow-sm"
+                                                        href="{% url 'create-returned-order' order.slug %}">
+                                                        Return order?
+                                                    </a>
+                                                    </td>
+                                                {% else %}
+                                                    <td>
+                                                        {% if order.returned %}
+                                                            <span class="badge order-status return"> 
+                                                                <i class="fa fa-rotate-left me-1"></i>
+                                                                Returned
+                                                            </span>
+                                                        {% else %}
+                                                            <span class="badge order-status delivered">
+                                                                <i class="fa-solid fa-circle-xmark me-1"></i> 
+                                                                No Returned
+                                                            </span>
+                                                        {% endif %}
+                                                    </td>
+                                                {% endif %}
+                                                <td>
+                                                    <a href="{% url 'order-remove-item' order.id %}" class="btn btn-danger rounded-pill btn-sm px-3 shadow-sm">
+                                                        <i class="fa fa-trash"></i> Remove 
+                                                    </a>
+                                                </td>
+                                            </tr> 
+                                            {% endfor %}
+                                        {% else %}
+                                            <!-- No Query -->
+                                            <tr>
+                                                <td colspan="10" class="text-center">
+                                                    <div class="alert alert-dark alert-dismissible fade show text-center" role="alert">
+                                                        <strong>Oops!</strong> No results found for 
+                                                        <span class="text-danger fw-bold mx-2">{{ query }}, </span> try a different search.
+                                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                    </div>
+                                                    <h5 class="text-center my-3">
+                                                        <a href="{% url 'order-pdf-list' %}" class="text-decoration-none">
+                                                            <i class="fa fa-undo"></i>
+                                                            Reload this Page!
+                                                        </a>
+                                                    </h5>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="row mt-3">
+                        <div class="col">
+                            {% if object_list %}
+                                {% include "dashboard/pagination.html" with object_list=object_list %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

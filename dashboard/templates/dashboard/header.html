@@ -3,12 +3,12 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
       <a href="{% url 'home' %}" class="logo d-flex align-items-center">
-        <span class="d-none d-lg-block">Bella Global</span>
+        <span class="d-none d-lg-block">The Bella</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i> 
       <div class="d-block d-lg-none">
         <a href="{% url 'home' %}">
-          <span class="fw-bold h4">Bella Global - Dashboard</span>
+          <span class="fw-bold h4">The Bella - Dashboard</span>
         </a>
       </div>
     </div>
@@ -69,7 +69,7 @@
           <li class="nav-item dropdown pe-3">
             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
               {% if request.user.profile %}
-                <img src="{{ request.user.profile.url }}" alt="Profile" class="rounded-circle">
+                <img src="{{ request.user.profile.url }}" width="60" hight="60" alt="Profile" class="rounded-circle">
               {% else %}
                 <img src="{% static 'img/accounts/img/no-photo.png' %}" alt="Profile" class="rounded-circle">
               {% endif %}

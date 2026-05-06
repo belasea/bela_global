@@ -1,0 +1,86 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+{% block title %} Update Billing Address {{block.super}} {% endblock %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+   <section class="update-billing-address my-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb" class="custom_breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">
+                                <a href="#" class="text-primary">
+                                   <i class="bi bi-person-lines-fill me-1"></i>
+                                   Update
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                <a href="{% url 'billing-addresses' %}">
+                                    Billing Address
+                                </a> 
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="card shadow-sm rounded-3">
+                <div class="card-body p-4">   
+                    <!--Update Address-->
+                    <div class="row">
+                        <div class="col">
+                            <form method="POST" novalidate>
+                                {% csrf_token %}
+                                
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        {{ form.first_name|as_crispy_field }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form.last_name|as_crispy_field }}
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        {{ form.email|as_crispy_field }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form.contact_number|as_crispy_field }}
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        {{ form.address|as_crispy_field }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form.city|as_crispy_field }}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-4">
+                                    <div class="col-12">
+                                        {{ form.location|as_crispy_field }}
+                                    </div>
+                                </div>
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-dark">
+                                        Submit <i class="fa fa-paper-plane ms-2"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+

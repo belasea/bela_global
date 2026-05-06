@@ -1,0 +1,167 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %} Update Order {{block.super}}{% endblock %}
+
+{% block content %}
+
+    <section class="upload-order my-3">
+        <div class="container-fluid">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body">
+                    <!-- Breadcrumb -->
+                    <div class="row">
+                        <div class="col mt-2">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <a href="#" class="text-primary">
+                                            Update Order
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <a href="{% url 'order-details' order.slug %}">
+                                          Back to {{ order }}
+                                        </a> 
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <!--Main Content-->
+                    <form method="post" action="{% url 'update-order' slug=order.slug %}">
+                        {% csrf_token %}
+                        <div class="product-info mb-3">
+                            <h3 class="text-center"> Products Information</h3>
+                            <hr>
+                            <div class="row g-3">
+                                <!-- Normal Products -->
+                                <div class="col-md-6">
+                                    <label class="form-label">Select Products</label>
+                                    <select name="products" class="select-item" multiple>
+                                        {% for product in products %}
+                                            <option value="{{ product.id }}"
+                                                {% if product.id in product_list %}selected{% endif %}>
+                                                {{ product.title }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Product Quantities</label>
+                                    <input type="text" class="form-control"
+                                        name="normal_quantities"
+                                        value="{{ normal_quantities|join:',' }}"
+                                        placeholder="e.g. 1,1,2" style="border-radius: 10px; padding:7px">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-info mb-4">
+                            <h3 class="text-center">Order Information</h3>
+                            <hr>
+                             <div class="row g-3">
+                                <!-- 
+                                <div class="col-md-3">
+                                    <label class="form-label">Delivery Method</label>
+                                    <input type="number" class="form-control"
+                                        name="delivery_method"
+                                        value="{{ order.delivery_method }}">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Delivery Charge</label>
+                                    <input type="number" class="form-control"
+                                        name="delivery_charge"
+                                        value="{{ order.delivery_charge }}">
+                                </div>
+                                -->
+                                <div class="col-md-4">
+                                    <label class="form-label">Voucher</label>
+                                    <input type="number" class="form-control"
+                                        name="voucher"
+                                        value="{{ order.voucher }}">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Received</label>
+                                    <input type="text" class="form-control"
+                                        name="received"
+                                        value="{{ order.received }}">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Notes</label>
+                                    <input type="text" class="form-control"
+                                        name="notes"
+                                        value="{{ order.notes }}">
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-center">Shipping Address</h3>
+                        <hr>
+                        <div class="billing-address mb-4">
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <label class="form-label">First Name</label>
+                                    <input type="text" class="form-control" name="first_name" value="{{ order.shipping_address.first_name }}">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" name="last_name" value="{{ order.shipping_address.last_name }}">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" name="email" value="{{ order.shipping_address.email }}">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Contact Number</label>
+                                    <input type="text" class="form-control" name="contact_number" value="{{ order.shipping_address.contact_number }}">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Country</label>
+                                    <select name="country" class="form-select">
+                                        <option value="">Select Country *</option>
+                                        {% for value, name in countries %}
+                                            <option value="{{ value }}" {% if order.country == value %}selected{% endif %}>{{ name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">City</label>
+                                    <input type="text" class="form-control" name="city" value="{{ order.shipping_address.city }}">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Address</label>
+                                    <input type="text" class="form-control" name="address" value="{{ order.shipping_address.address }}">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Location</label>
+                                    <input type="text" class="form-control" name="location" value="{{ order.shipping_address.location }}">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ================= BUTTON ================= -->
+                        <button type="submit" class="btn btn-dark w-100 shadow-sm">
+                            Update Order <i class="fa fa-paper-plane ms-1"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(document).ready(function() {
+            $('#products').change(function() {
+                var selectedProducts = $('#products option:selected').length;
+                if (selectedProducts > 0) {
+                    $('#quantity').attr('required', 'required');
+                } else {
+                    $('#quantity').removeAttr('required');
+                }
+            });
+        });
+    </script>
+
+
+{% endblock %}

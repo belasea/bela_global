@@ -6,6 +6,8 @@ from django.db.models import Sum, Avg, Count, Q
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from .utils import (
     order_unique_slug_generator, 
     cancelled_order_unique_slug_generator,
@@ -15,8 +17,7 @@ from offers.models import Coupon
 from addresses.models import Address
 from products.models import Product
 from carts.models import Cart
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+from bella_global.countries import COUNTRIES_TYPES  
 
 User = get_user_model()
 
@@ -29,7 +30,7 @@ ORDER_STATUS_CHOICES = (
 )
 
 class OrderManager(models.Manager):
-
+    
     def new_or_get(self, request, address_obj, cart_obj):
         created = False
         queryset = self.get_queryset().filter(
@@ -50,9 +51,12 @@ class OrderManager(models.Manager):
         user_obj = user if user and user.is_authenticated else None
         return self.model.objects.create(user=user_obj, shipping_address=shipping_address, cart=cart)
     
+    
+    
 class Order(models.Model):
     order_id = models.CharField(max_length=120, blank=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    country = models.CharField(max_length=150, choices=COUNTRIES_TYPES, blank=True, null=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     shipping_address = models.ForeignKey(Address, on_delete=models.PROTECT)
     status = models.CharField(max_length=120, default='created', choices=ORDER_STATUS_CHOICES)
@@ -79,6 +83,7 @@ class Order(models.Model):
     
     class Meta:
         ordering = ['-timestamp']
+        
 
     def save(self, *args, **kwargs):
         if not self.timestamp:

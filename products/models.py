@@ -3,7 +3,6 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from .utils import unique_slug_generator
 
-# --- MODELS ---
 
 class HomeCategory(models.Model):
     """Sections like 'New', 'Essentials', 'Star products'"""
@@ -147,7 +146,13 @@ class Product(models.Model):
     def pro_id(self):
         product_id = 'SKU000' + str(self.id)
         return product_id
-
+    
+    @property
+    def get_stock_for_country(self, country):
+        """Returns the InventoryStock record for a specific country."""
+        return self.inventorystock_set.filter(country=country).first()
+    
+   
 
 # --- SIGNALS ---
 @receiver(pre_save, sender=HomeCategory)

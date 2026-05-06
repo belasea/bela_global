@@ -59,14 +59,8 @@
                                 <div class="cart-sidebar-price-row">
                                     {{ item.product.price }} × {{ item.quantity }} = {{ item.line_total }} $
                                 </div>
-                                <!-- 
-                                <div class="cart-sidebar-qty-box">
-                                    <button class="decrease-quantity-btn btn cart-sidebar-qty-btn" onclick="this.parentNode.querySelector('input').stepDown()">-</button>
-                                    <input class="cart-sidebar-qty-input" type="number" value="{{ item.quantity }}" min="1">
-                                    <button class="increase-quantity-btn btn cart-sidebar-qty-btn" onclick="this.parentNode.querySelector('input').stepUp()">+</button>
-                                </div>
-                                -->
-                                <div class="button btn-group mb-3">
+                                
+                                <div class="button btn-group">
                                     <button class="decrease-quantity-btn btn btn-outline-secondary" style="max-width: 40px" data-cart-item-id="{{ item.id }}">
                                         <b>-</b>
                                     </button>
@@ -140,24 +134,24 @@
             </div>
         </div>
     {% else %}
-    <div class="cart-sidebar-header">
-        <h5 class="offcanvas-title text-uppercase fw-bold m-0 small tracking-wider">
-            Your Cart (0)
-        </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
-    </div>
-    <div class="container">
-        <div class="row min-vh-100 justify-content-center align-items-center">
-            <div class="col">
-                <div class="text-center">
-                    <img src="{% static 'img/cartEmpty.png' %}" alt="cart-img" class="img-fluid">
-                    <h4 class="my-3">Cart is empty</h4>
-                    <a class="btn btn-dark btn-lg" href="{% url 'category' %}">
-                        Click continue shopping
-                    </a>
+        <div class="cart-sidebar-header">
+            <h5 class="offcanvas-title text-uppercase fw-bold m-0 small tracking-wider">
+                Your Cart (0)
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="container">
+            <div class="row min-vh-100 justify-content-center align-items-center">
+                <div class="col">
+                    <div class="text-center">
+                        <img src="{% static 'img/cartEmpty.png' %}" alt="cart-img" class="img-fluid">
+                        <h4 class="my-3">Cart is empty</h4>
+                        <a class="btn btn-dark btn-lg" href="{% url 'category' %}">
+                            Click continue shopping
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     {% endif %}
 </div>

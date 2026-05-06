@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% load static %}
 
@@ -5,121 +6,160 @@
 
 {% block content %}
 
-    
-
     <!--=== Product Details Section ====-->
     <section class="product-details-section">
-        <div class="container-fluid p-0">
+        <div class="container-fluid">
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="product-details-img">
-                        <img src="{% static 'img/low.png' %}" alt="img missing" class="img-fluid">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="img missing" class="img-fluid">
+                        {% else %}
+                            <img src="{% static 'img/no-photo.png' %}" alt="img missing" class="img-fluid">
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-md-6">
-    <div class="product-premium-wrapper ps-lg-5">
-        <div class="brand-eyebrow d-flex align-items-center mb-2">
-            <span class="text-uppercase ls-2 fw-bold text-muted small">{{ product.category.title }}</span>
-            <div class="dot-separator mx-2"></div>
-            <span class="text-uppercase ls-1 text-secondary small">{{ product.sub_category.title }}</span>
-        </div>
-
-        <h1 class="pro-title display-5 fw-bold mb-3">{{ product.title }}</h1>
-
-        <div class="review-stars mb-4 small text-dark">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star-half-stroke"></i>
-            <span class="ms-2 text-muted">(4.8/5 - 120 Reviews)</span>
-        </div>
-
-        <div class="usage-group mb-5">
-            <label class="d-block mb-2 extra-small fw-black ls-2 text-dark">DESIGNED FOR</label>
-            <div class="d-flex gap-3">
-                <div class="pro-icon-circle" data-bs-toggle="tooltip" title="Baby"><i class="fa-solid fa-baby"></i></div>
-                <div class="pro-icon-circle" data-bs-toggle="tooltip" title="Child"><i class="fa-solid fa-child"></i></div>
-                <div class="pro-icon-circle" data-bs-toggle="tooltip" title="Adult"><i class="fa-solid fa-user"></i></div>
-                <div class="pro-icon-circle" data-bs-toggle="tooltip" title="Safe for Pregnancy"><i class="fa-solid fa-person-pregnant"></i></div>
-            </div>
-        </div>
-
-        <div class="price-action-card p-4 border bg-white mb-4">
-            <div class="d-flex justify-content-between align-items-start mb-3">
-                <div class="price-stack">
-                    <span class="h2 fw-black mb-0">${{ product.price }}</span>
-                    {% if product.old_price %}
-                        <div class="discount-pill mt-1">
-                            <span class="text-decoration-line-through text-muted small me-2">${{ product.old_price }}</span>
-                            <span class="badge rounded-pill bg-dark">SAVE {{ product.discount_percentage }}%</span>
+                    <div class="product-details-content">
+                        <!-- Category and sub category -->
+                        <div class="category-subcategory d-flex align-items-center mb-2">
+                            <span class="text-uppercase ls-2 fw-bold text-muted small">
+                                {{ product.category.title }}
+                            </span>
+                            <div class="dot-separator mx-2">/</div>
+                            <span class="text-uppercase ls-1 text-secondary small">
+                                {{ product.sub_category.title }}
+                            </span>
                         </div>
-                    {% endif %}
-                </div>
-                <div class="weight-badge small fw-bold border p-2 px-3 text-uppercase">
-                    {{ product.weight }}
-                </div>
-            </div>
+                        <!-- title -->
+                        <h1 class="display-5 fw-bold mb-3">
+                            {{ product.title }}
+                        </h1>
+                        <!-- title -->
+                        <div class="review-stars mb-4 small text-dark">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                            <span class="ms-2 text-muted">
+                                (4.8/5 - 120 Reviews)
+                            </span>
+                        </div>
+                        <!-- DESIGNED -->
+                        <div class="usage-group mb-5">
+                            <label class="d-block mb-2 extra-small fw-black ls-2 text-dark">
+                                DESIGNED FOR 
+                            </label>
+                            <div class="d-flex gap-3">
+                                <div class="pro-icon-circle" data-bs-toggle="tooltip" title="Baby">
+                                    <i class="fa-solid fa-baby"></i>
+                                </div>
+                                <div class="pro-icon-circle" data-bs-toggle="tooltip" title="Child">
+                                    <i class="fa-solid fa-child"></i>
+                                </div>
+                                <div class="pro-icon-circle" data-bs-toggle="tooltip" title="Adult">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+                                <div class="pro-icon-circle" data-bs-toggle="tooltip" title="Safe for Pregnancy">
+                                    <i class="fa-solid fa-person-pregnant"></i>
+                                </div>
+                            </div>
+                        </div>
 
-            <form method="post" action="{% url 'add-to-cart' %}">
-                {% csrf_token %}
-                <input type="hidden" name="product_id" value="{{ product.id }}">
-                <input type="hidden" name="quantity" value="1">
-                <button type="submit" class="btn btn-pro-add w-100 rounded-0 py-3 mb-2">
-                    ADD TO BAG
-                </button>
-                <p class="text-center extra-small text-muted mb-0 mt-2">
-                    <i class="fa-solid fa-truck-fast me-1"></i> Free Shipping on orders over $50
-                </p>
-            </form>
-        </div>
+                        <div class="price-action-card p-4 border bg-white mb-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="price-stack">
+                                    <span class="h2 fw-black mb-0">$ {{ product.price }}</span>
+                                    {% if product.old_price %}
+                                        <div class="discount-pill mt-1">
+                                            <span class="text-decoration-line-through text-muted small me-2">
+                                                $ {{ product.old_price }}
+                                            </span>
+                                            <span class="badge rounded-pill bg-dark">
+                                                SAVE {{ product.discount_percentage }}%
+                                            </span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="weight-badge small fw-bold border p-2 px-3 text-uppercase">
+                                    {{ product.weight }}
+                                </div>
+                            </div>
+                            {% if request.user.is_authenticated %}
+                                {% with stock_list=product.inventorystock_set.all %}
+                                    {% for s in stock_list %}
+                                        {% if s.country == request.user.country %}
+                                            {% if s.stock_quantity > 0 %}
+                                                {# --- STATUS: AVAILABLE --- #}
+                                                <form method="post" action="{% url 'add-to-cart' %}">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                                    <input type="hidden" name="quantity" value="1">
+                                                    <button type="submit" class="btn btn-pro-add w-100 rounded-0 py-2 mb-2">
+                                                        ADD TO BAG
+                                                    </button>
+                                                </form>
+                                            {% else %}
+                                                <!-- UNAVAILABLE -->
+                                                <button disabled class="btn btn-danger w-100 rounded-4 py-2 mb-2">
+                                                    Out of stock in {{ s.country }} 
+                                                </button>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endwith %}
+                            {% else %}
+                                <a href="{% url 'login' %}" class="btn btn-pro-add w-100 rounded-0 py-2 mb-2">
+                                    ADD TO BAG
+                                </a>
+                            {% endif %}
 
-        <div class="pro-description mb-5">
-             {{ product.description|safe }}
-        </div>
-
-        <div class="accordion accordion-flush" id="proAccordion">
-            <div class="accordion-item pro-acc-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed px-0 pro-acc-trigger" data-bs-toggle="collapse" data-bs-target="#acc-1">
-                        SUITABILITY & USAGE
-                    </button>
-                </h2>
-                <div id="acc-1" class="accordion-collapse collapse" data-bs-parent="#proAccordion">
-                    <div class="accordion-body px-0 text-muted lh-lg">
-                        {{ product.sub_category.right_for_me|safe }}
+                            <div class="pro-description my-3">
+                                {{ product.description|safe }}
+                            </div>
+                            <div class="accordion accordion-flush" id="proAccordion">
+                                <div class="accordion-item pro-acc-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed px-0 pro-acc-trigger" data-bs-toggle="collapse" data-bs-target="#acc-1">
+                                            SUITABILITY & USAGE
+                                        </button>
+                                    </h2>
+                                    <div id="acc-1" class="accordion-collapse collapse" data-bs-parent="#proAccordion">
+                                        <div class="accordion-body px-0 text-muted lh-lg">
+                                            {{ product.sub_category.right_for_me|safe }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
                     </div>
                 </div>
-            </div>
-            </div>
-    </div>
-</div>
             </div>
         </div>
     </section>
 
-    <!-- related -->
+    
+
     <section class="related-product-section py-5">
         <div class="container">
-            <h3 class="related-product-header mb-4">
-                Related Products
-            </h3>
+            <h3 class="display-5 fw-bold mb-3">Related Products</h3>
+            <hr>
             <div class="position-relative">
-                <!-- Left Arrow -->
                 <button class="slider-btn left-btn" onclick="scrollSlider(-1)">
                     &#10094;
                 </button>
-                <!-- Slider -->
+                
                 <div class="related-slider">
                     {% for item in related_products %}
-                        <div class="slider-item my-5">
+                        <div class="slider-item">
                             <div class="related-product-card">
                                 <div class="related-product-img">
                                     <a href="{% url 'product_details' item.slug %}">
                                         {% if item.image %}
-                                            <img src="{{ item.image.url }}">
+                                            <img src="{{ item.image.url }}" alt="{{ item.title }}">
                                         {% else %}
-                                            <img src="{% static 'img/no-photo.png' %}">
+                                            <img src="{% static 'img/no-photo.png' %}" alt="No photo">
                                         {% endif %}
                                     </a>
                                     <span class="related-product-category">
@@ -137,20 +177,15 @@
                                             {{ item.description|safe|truncatechars:30 }}
                                         </p>
                                     {% else %}
-                                        <h5>
-                                            No Description Found !
-                                        </h5>
+                                        <p class="text-muted">No Description Found!</p>
                                     {% endif %}
-                                    <!-- Optional price -->
-                                    <strong>৳ {{ item.price }}</strong>
+                                    <strong class="related-product-price">$ {{ item.price }}</strong>
                                 </div>
                             </div>
                         </div>
-                    {% empty %}
-                        <p>No related products found.</p>
                     {% endfor %}
                 </div>
-                <!-- Right Arrow -->
+
                 <button class="slider-btn right-btn" onclick="scrollSlider(1)">
                     &#10095;
                 </button>
@@ -158,8 +193,158 @@
         </div>
     </section>
 
-   
-    
+    <section class="comments-section py-5 bg-light">
+        <div class="container">
+            <h3 class="section-title mb-5">Customer Reviews ({{ comments.count }})</h3>
+            <div class="row">
+                <div class="col">
+                    {% for comment in comments %}
+                        <div class="comment-item mb-4" id="comment-{{ comment.id }}">
+                            <div class="d-flex">
+                                <div class="user-avatar">
+                                    <img src="https://ui-avatars.com/api/?name={{ comment.name|urlencode }}" alt="User">
+                                </div>
+                                <div class="comment-content ms-3 w-100">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="mb-0">
+                                            {{ comment.name }} 
+                                            <span class="date text-muted ms-2">{{ comment.created_on|date:"M d, Y" }}</span>
+                                        </h6>
+                                        
+                                        {% if user.is_superuser %}
+                                            <div class="d-flex align-items-center gap-2">
+                                                <button type="button" class="btn-reply-pro text-primary border-0 bg-transparent small fw-bold" 
+                                                        data-bs-toggle="modal" data-bs-target="#replyModal" 
+                                                        onclick="setupReply('{{ comment.id }}', '{{ comment.name }}')">
+                                                    <i class="fa-solid fa-reply me-1"></i> Reply
+                                                </button>
+
+                                                <button class="btn-reply-pro text-secondary border-0 bg-transparent small fw-bold" onclick="toggleEdit('comment-body-{{ comment.id }}', 'comment-form-{{ comment.id }}')">
+                                                    <i class="fa-solid fa-pen-to-square"></i> Edit
+                                                </button>
+
+                                                <form method="post" action="{% url 'comment_action' 'comment' comment.id %}" class="m-0">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="action" value="delete">
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger border-0 py-0" onclick="return confirm('Delete this comment?')">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </button>
+                                                </form>
+                                            </div>  
+                                        {% endif %}
+                                    </div>
+
+                                    <div id="comment-body-{{ comment.id }}">
+                                        <p class="comment-text mt-2">{{ comment.body }}</p>
+                                    </div>
+                                    
+                                    <div id="comment-form-{{ comment.id }}" style="display: none;" class="mt-2">
+                                        <form method="post" action="{% url 'comment_action' 'comment' comment.id %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="action" value="update">
+                                            <textarea name="body" class="form-control mb-2">{{ comment.body }}</textarea>
+                                            <button type="submit" class="btn btn-sm btn-success">Update</button>
+                                            <button type="button" class="btn btn-sm btn-light" onclick="toggleEdit('comment-body-{{ comment.id }}', 'comment-form-{{ comment.id }}')">Cancel</button>
+                                        </form>
+                                    </div>
+
+                                    {% for reply in comment.replies.all %}
+                                        <div class="reply-wrapper ms-4 mt-3 border-start ps-3" id="reply-{{ reply.id }}">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <div class="d-flex">
+                                                    <div class="user-avatar sm">
+                                                        <img src="https://ui-avatars.com/api/?name=Admin" alt="Admin">
+                                                    </div>
+                                                    <div class="comment-content ms-2">
+                                                        <h6 class="mb-0">
+                                                            {{ reply.name }} <span class="badge bg-dark ms-2">
+                                                                Admin
+                                                            </span>
+                                                        </h6>
+                                                        
+                                                        <div id="reply-body-{{ reply.id }}">
+                                                            <p class="comment-text mt-1">{{ reply.body }}</p>
+                                                        </div>
+
+                                                        <div id="reply-form-{{ reply.id }}" style="display: none;" class="mt-2">
+                                                            <form method="post" action="{% url 'comment_action' 'reply' reply.id %}">
+                                                                {% csrf_token %}
+                                                                <input type="hidden" name="action" value="update">
+                                                                <textarea name="body" class="form-control mb-2">{{ reply.body }}</textarea>
+                                                                <button type="submit" class="btn btn-sm btn-success">Update</button>
+                                                                <button type="button" class="btn btn-sm btn-light" onclick="toggleEdit('reply-body-{{ reply.id }}', 'reply-form-{{ reply.id }}')">Cancel</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {% if request.user.is_superuser %}
+                                                <div class="d-flex gap-2">
+                                                    <button class="btn btn-sm text-primary p-0 border-0" onclick="toggleEdit('reply-body-{{ reply.id }}', 'reply-form-{{ reply.id }}')">
+                                                        <i class="fa-solid fa-pen"></i>
+                                                    </button>
+                                                    <form method="post" action="{% url 'comment_action' 'reply' reply.id %}" class="m-0">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="action" value="delete">
+                                                        <button type="submit" class="btn btn-sm text-danger p-0 border-0" onclick="return confirm('Delete this reply?')">
+                                                            <i class="fa-solid fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>  
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    
+                    {% endfor %}
+                    <div class="add-comment-box p-4 bg-white shadow-sm">
+                        <h5>Leave a Review</h5>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label-custom">Full Name</label>
+                                    <input type="text" name="name" class="form-control custom-input" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label-custom">Email Address</label>
+                                    <input type="email" name="email" class="form-control custom-input" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" name="body" rows="4" placeholder="Share your experience..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-dark px-4">Submit Review</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>  
+
+    <div class="modal fade" id="replyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="parent_comment_id" id="parent_comment_id">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Reply to <span id="target_user"></span></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea name="reply_body" class="form-control" rows="4" placeholder="Write admin reply..." required></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-dark">Post Admin Reply</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <div class="main-assets-section">
         <div class="container">
@@ -184,107 +369,6 @@
         </div>
     </div>
 
-    <section class="comments-section py-5 bg-light">
-    <div class="container">
-        <h3 class="section-title mb-5">Customer Reviews ({{ comments.count }})</h3>
-        
-        <div class="row">
-            <div class="col-lg-8">
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-                    {% endfor %}
-                {% endif %}
-
-                {% for comment in comments %}
-                <div class="comment-item mb-4">
-                    <div class="d-flex">
-                        <div class="user-avatar">
-                            <img src="https://ui-avatars.com/api/?name={{ comment.name|urlencode }}" alt="User">
-                        </div>
-                        <div class="comment-content ms-3 w-100">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="mb-0">
-                                    {{ comment.name }} 
-                                    <span class="date text-muted ms-2">{{ comment.created_on|date:"M d, Y" }}</span>
-                                </h6>
-                                {% if user.is_superuser or user.is_staff %}
-                                
-                                <button type="button" class="btn-reply-pro" 
-                                        data-bs-toggle="modal" data-bs-target="#replyModal" 
-                                        onclick="setupReply('{{ comment.id }}', '{{ comment.name }}')">
-                                        <i class="fa-solid fa-reply me-1"></i> 
-                                        Reply
-                                </button>
-                                {% endif %}
-                            </div>
-                            <p class="comment-text mt-2">{{ comment.body }}</p>
-
-                            {% for reply in comment.replies.all %}
-                            <div class="reply-wrapper ms-4 mt-3 border-start ps-3">
-                                <div class="d-flex">
-                                    <div class="user-avatar sm">
-                                        <img src="https://ui-avatars.com/api/?name=Admin" alt="Admin">
-                                    </div>
-                                    <div class="comment-content ms-2">
-                                        <h6 class="mb-0">{{ reply.name }} <span class="badge bg-dark ms-2">Staff</span></h6>
-                                        <p class="comment-text mt-1">{{ reply.body }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-                {% empty %}
-                <p>No reviews yet.</p>
-                {% endfor %}
-
-                <div class="add-comment-box mt-5 p-4 bg-white shadow-sm">
-                    <h5>Leave a Review</h5>
-                    <form method="POST">
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label-custom">Full Name</label>
-                                <input type="text" name="name" class="form-control custom-input" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label-custom">Email Address</label>
-                                <input type="email" name="email" class="form-control custom-input" required>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <textarea class="form-control" name="body" rows="4" placeholder="Share your experience..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-dark px-4">Submit Review</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<div class="modal fade" id="replyModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <form method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="parent_comment_id" id="parent_comment_id">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Reply to <span id="target_user"></span></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <textarea name="reply_body" class="form-control" rows="4" placeholder="Write admin reply..." required></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-dark">Post Admin Reply</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
 
     <div class="experience-section">
         <div class="container-fluid p-0">
@@ -317,40 +401,64 @@
 
 
     <script>
-                function setupReply(commentId, name) {
-                    document.getElementById('parent_comment_id').value = commentId;
-                    document.getElementById('replyToName').innerText = name;
-                }
-                </script>
-    <script>
-const slider = document.querySelector('.related-slider');
+        function setupReply(commentId, name) {
+            document.getElementById('parent_comment_id').value = commentId;
+            document.getElementById('target_user').innerText = name;
+        }
+        function toggleEdit(displayId, formId) {
+            const displayElement = document.getElementById(displayId);
+            const formElement = document.getElementById(formId);
+            
+            if (displayElement.style.display === "none") {
+                displayElement.style.display = "block";
+                formElement.style.display = "none";
+            } else {
+                displayElement.style.display = "none";
+                formElement.style.display = "block";
+            }
 
-function scrollSlider(direction) {
-    const item = slider.querySelector('.slider-item');
-    const scrollAmount = item.offsetWidth + 15;
-
-    slider.scrollBy({
-        left: direction * scrollAmount,
-        behavior: 'smooth'
-    });
-}
-
-// Auto scroll every 3 seconds
-setInterval(() => {
-    slider.scrollBy({
-        left: 300,
-        behavior: 'smooth'
-    });
-
-    // reset to start when reaching end
-    if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 5) {
-        slider.scrollTo({ left: 0, behavior: 'smooth' });
-    }
-
-}, 3000);
-</script>
-
+            // Find the textarea inside this form and add the red border
+            const textArea = formElement.querySelector('textarea');
+            if (textArea) {
+                textArea.style.border = "1px solid #006b76";
+                textArea.focus(); // Pro tip: auto-focus so user can type immediately
+            }
+        }
+    </script>
     
+    <script>
+        const slider = document.querySelector('.related-slider');
+        function scrollSlider(direction) {
+            // Dynamically calculate width of one item + its gap
+            const item = slider.querySelector('.slider-item');
+            if (item) {
+                const scrollAmount = item.offsetWidth;
+                slider.scrollBy({
+                    left: direction * scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        // Auto-scroll Logic
+        let autoScroll = setInterval(() => {
+            const item = slider.querySelector('.slider-item');
+            if (item) {
+                const itemWidth = item.offsetWidth;
+                
+                // Reset to start if at the end
+                if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10) {
+                    slider.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    slider.scrollBy({ left: itemWidth, behavior: 'smooth' });
+                }
+            }
+        }, 5000);
+
+        // Stop auto-scroll when user hovers over the slider
+        slider.addEventListener('mouseenter', () => clearInterval(autoScroll));
+
+    </script>
+
 
 {% endblock %}
     

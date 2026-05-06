@@ -1,0 +1,156 @@
+<!-- BODY -->
+                                                                        <div class="modal-body">
+                                                                            <!-- SUMMARY -->
+                                                                            <div class="row g-2">
+                                                                                <div class="col-md-4">
+                                                                                    <div class="border rounded p-2 text-center">
+                                                                                        <small class="text-muted">
+                                                                                            Product Cost
+                                                                                        </small>
+                                                                                        <div class="fw-bold">
+                                                                                            $ {{ c.order.total_product_price }}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <div class="border rounded p-2 text-center">
+                                                                                        <small class="text-muted">
+                                                                                            Delivery Charge
+                                                                                        </small>
+                                                                                        <div class="fw-bold">
+                                                                                            ৳ {{ c.order.delivery_charge }}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <div class="border rounded p-2 text-center bg-light">
+                                                                                        <small class="text-muted">
+                                                                                            Total
+                                                                                        </small>
+                                                                                        <div class="fw-bold text-success">
+                                                                                            ৳ {{ c.order.amount_to_be_collect }}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- ADDRESS -->
+                                                                            <div class="mt-3">
+                                                                                <div class="border rounded p-2 bg-light">
+                                                                                    <strong>Address:</strong><br>
+                                                                                    {{ c.order.shipping_address.first_name }},
+                                                                                    {{ c.order.shipping_address.location }},
+                                                                                    {{ c.order.shipping_address.city }}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="notes">
+                                                                                <div class="row my-3">
+                                                                                    <div class="col-md-6 mb-3">
+                                                                                        <div class="border rounded p-2 bg-light">
+                                                                                            <strong>
+                                                                                                Order Notes : 
+                                                                                            </strong>
+                                                                                            <span class="mx-2">
+                                                                                                {{ c.notes|default:"No notes available" }}
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="border rounded p-2 bg-light">
+                                                                                            {% if c.order.notes %}
+                                                                                                <strong>
+                                                                                                    Customer Notes :
+                                                                                                </strong>
+                                                                                                <span class="mx-2">
+                                                                                                    {{ c.order.notes }}
+                                                                                                </span>
+                                                                                            {% else %}
+                                                                                                <strong>
+                                                                                                    No customer notes available 
+                                                                                                </strong>
+                                                                                            {% endif %}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- PRODUCTS TABLE -->
+                                                                            <div class="table-responsive my-3">
+                                                                                <table class="table table-sm table-hover align-middle">
+                                                                                    <thead class="table-dark text-center">
+                                                                                        <tr>
+                                                                                            <th class="text-start">
+                                                                                                Product
+                                                                                            </th>
+                                                                                            <th>Qty</th>
+                                                                                            <th>Price</th>
+                                                                                            <th>Total</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        {% for cart_item in c.order.cart.cart_items.all %}
+                                                                                        <tr>
+                                                                                            <!-- PRODUCT NAME -->
+                                                                                            <td>
+                                                                                                {{ cart_item.product.title }}
+                                                                                            </td>
+                                                                                            <!-- QTY -->
+                                                                                            <td class="text-center">
+                                                                                                {{ cart_item.quantity }}
+                                                                                            </td>
+                                                                                            <!-- PRICE -->
+                                                                                            <td class="text-center">
+                                                                                                $ {{ cart_item.product.price }}
+                                                                                            </td>
+                                                                                            <!-- TOTAL -->
+                                                                                            <td class="text-center fw-bold">
+                                                                                                $ {{ cart_item.product.price|mul:cart_item.quantity }}
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        {% empty %}
+                                                                                        <tr>
+                                                                                            <td colspan="4" class="text-center text-muted">
+                                                                                                No products found
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        {% endfor %}
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- FOOTER -->
+                                                                        <div class="modal-footer border-0 pt-0">
+                                                                            <button type="button"
+                                                                                class="btn btn-danger rounded-pill px-3 shadow-sm mx-1" data-bs-dismiss="modal">
+                                                                                Close
+                                                                            </button>
+                                                                            {% if request.user.is_staff %}
+                                                                                <a href="{% url 'update-customer-report' c.id %}"
+                                                                                class="btn btn-dark rounded-pill px-3 shadow-sm mx-1">
+                                                                                    Edit <i class="fa fa-edit ms-1"></i>
+                                                                                </a>
+                                                                            {% endif %}
+                                                                        </div>
+
+
+
+
+                                                                        <!-- SUMMARY CARDS -->
+                                                                                    <div class="row g-2 mb-3">
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="border rounded p-2 text-center bg-light">
+                                                                                                <small class="text-muted d-block">Product Cost</small>
+                                                                                                <span class="fw-bold">$ {{ c.order.total_product_price }}</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="border rounded p-2 text-center bg-light">
+                                                                                                <small class="text-muted d-block">Delivery</small>
+                                                                                                <span class="fw-bold">$ {{ c.order.delivery_charge }}</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="border rounded p-2 text-center bg-primary text-white">
+                                                                                                <small class="opacity-75 d-block">Total Collect</small>
+                                                                                                <span class="fw-bold">$ {{ c.order.amount_to_be_collect }}</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>

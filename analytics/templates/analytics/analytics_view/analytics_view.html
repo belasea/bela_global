@@ -1,0 +1,134 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+
+    <!-- 🔥 PAGE TITLE -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">📊 Analytics Dashboard</h3>
+    </div>
+
+    <!-- 🚀 KPI CARDS -->
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-4">
+            <div class="card shadow border-0 rounded-4 p-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="text-muted mb-1">Total Views</p>
+                        <h3 class="fw-bold">{{ total_views }}</h3>
+                    </div>
+                    <div class="icon bg-primary text-white">
+                        <i class="bi bi-eye-fill"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow border-0 rounded-4 p-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="text-muted mb-1">Total Sessions</p>
+                        <h3 class="fw-bold">{{ total_sessions }}</h3>
+                    </div>
+                    <div class="icon bg-success text-white">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow border-0 rounded-4 p-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="text-muted mb-1">Active Users</p>
+                        <h3 class="fw-bold">{{ active_users }}</h3>
+                    </div>
+                    <div class="icon bg-danger text-white">
+                        <i class="bi bi-person-check-fill"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 📈 TOP PRODUCTS -->
+    <div class="card shadow border-0 rounded-4">
+        <div class="card-header bg-white border-0">
+            <h5 class="fw-bold mb-0">🔥 Top Viewed Products</h5>
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table align-middle table-hover">
+                    <thead class="table-light text-center">
+                        <tr>
+                            <th>#</th>
+                            <th class="text-start">Product ID</th>
+                            <th>Views</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for item in top_products %}
+                        <tr class="text-center">
+                            <td>{{ forloop.counter }}</td>
+                            <td class="text-start">#{{ item.object_id }}</td>
+                            <td>
+                                <span class="badge bg-primary px-3 py-2">
+                                    {{ item.total }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center text-muted">
+                                No data available
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- 🎨 CUSTOM STYLE -->
+<style>
+    body {
+        background: #f6f8fb;
+    }
+
+    .card {
+        transition: 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-3px);
+    }
+
+    .icon {
+        width: 55px;
+        height: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 20px;
+    }
+
+    .table td, .table th {
+        vertical-align: middle;
+    }
+</style>
+
+{% endblock %}

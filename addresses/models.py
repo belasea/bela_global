@@ -2,6 +2,8 @@ from django.db import models
 from django.urls import reverse
 from django.conf import settings
 from django.core.validators import RegexValidator
+from bella_global.countries import COUNTRIES_TYPES  
+
 User = settings.AUTH_USER_MODEL
 
 
@@ -37,7 +39,7 @@ class Address(models.Model):
     )
     contact_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)
     address_type = models.CharField(max_length=120, choices=ADDRESS_TYPES)
-    country = models.CharField(max_length=200, blank=True, null=True)
+    country = models.CharField(max_length=150, choices=COUNTRIES_TYPES, blank=True, null=True)
     address = models.CharField(max_length=200)
     city = models.CharField(max_length=120)
     location = models.CharField(max_length=120, blank=True, null=True)

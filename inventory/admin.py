@@ -23,11 +23,12 @@ class InventoryAdmin(ImportExportModelAdmin):
     resource_class = InventoryResource
 
     list_display = [
-        'get_id', 'get_title', 'purchase_date', 'seller', 'quantity_cost', 'purchase_quantity',  
-        'stock_quantity', 'quantity_updated','update'
+        'get_id', 'get_title', 'country', 'purchase_date', 'seller', 'quantity_cost', 'purchase_quantity',  
+        'stock_quantity', 'quantity_updated',
     ]
+    list_filter = ('country',)
     search_fields = ['pro_id__title', 'seller']
-    list_editable = ['purchase_quantity', 'stock_quantity', 'quantity_cost', 'quantity_updated']
+    list_editable = ['purchase_quantity', 'country', 'stock_quantity', 'quantity_cost', 'quantity_updated']
     list_per_page = 20
     ordering = ['-purchase_date']
 
@@ -56,11 +57,12 @@ class InventoryStockResource(resources.ModelResource):
 class InventoryStockAdmin(ImportExportModelAdmin):
     resource_class = InventoryStockResource
     list_display = [
-        'id', 'pro_id', 'get_title', 'stock_quantity'
+        'id', 'pro_id', 'country', 'get_title', 'stock_quantity'
     ]
     # list_editable = ['stock_quantity']
     readonly_fields = ['stock_quantity']
     list_per_page = 20
+    list_filter = ('country',)
     search_fields = ['pro_id__title', 'pro_id__id']
 
     def get_id(self, obj):
