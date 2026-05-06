@@ -1,63 +1,23 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.db.models.functions import ExtractMonth, ExtractYear
+from django.http import StreamingHttpResponse
 import csv
 from decimal import Decimal
 from django.utils import timezone
 from datetime import datetime, timedelta
-from django.http import StreamingHttpResponse
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.urls import reverse
-from django.db.models import Prefetch, Q, Sum
+from django.db.models import Prefetch, Q, Sum, Count
 from addresses.models import Address
 from products.models import Product
 from orders.models import Order
 from carts.models import Cart
 from .models import CustomerReport
+from carts.models import Cart
 from .forms import CustomerReportForm
 from bella_global.countries import get_country_dropdown_data
-
-
-def user_dashboard(request):
-    if not request.user.is_authenticated:
-        return redirect('login')
-
-    # --- EXISTING ORDER LOGIC ---
-    query = request.GET.get('q', '').strip()
-    base_queryset = Order.objects.filter(user=request.user)
-    
-    if query:
-        base_queryset = base_queryset.filter(
-            Q(order_id__icontains=query) | Q(slug__icontains=query)
-        )
-
-    stats = base_queryset.aggregate(
-        total_spent=Sum('total_product_price')
-    )
-    total_orders = base_queryset.count()
-    total_spent = stats['total_spent'] or 0.00
-    total_cancelled = base_queryset.filter(cancelled=True).count()
-    latest_five_orders = base_queryset.order_by('-timestamp')[:5]
-
-    cart_obj, new_obj = Cart.objects.new_or_get(request)
-    cart_items_count = cart_obj.get_count() if cart_obj else 0
-
-    # --- PAGINATION ---
-    page = request.GET.get('page', 1)
-    paginator = Paginator(base_queryset.order_by('-timestamp'), 5)
-    orders = paginator.get_page(page)
-
-    context = {
-        'orders': orders,
-        'latest_five_orders': latest_five_orders,
-        'total_orders': total_orders,
-        'total_spent': total_spent,
-        'cart_items_count': cart_items_count,
-        'query': query,
-        'total_cancelled': total_cancelled
-    }
-    return render(request, "report/user_dashboard.html", context)
 
 
 # Customer =========================================================
@@ -508,46 +468,3 @@ def order_annual_sales(request):
     return render(request, 'report/sales_report/annual_sales_summary.html', context)
 
 
-from django.shortcuts import render
-from django.db.models import Count
-from carts.models import Cart
-
-
-def pending_carts(request):
-    # 1. Filter carts that have items AND no associated order
-    # 'order' is the lowercase name of the Order model (reverse relation)
-    pending_carts = Cart.objects.annotate(
-        items_count=Count('cart_items')
-    ).filter(
-        items_count__gt=0, # Must have items
-        order__isnull=True # Must NOT have an order
-    ).select_related('owner').prefetch_related('cart_items__product')
-
-    context = {
-        'pending_carts': pending_carts
-    }
-    return render(request, 'report/pending_carts/pending_carts.html', context)
-
-
-import csv
-from django.http import HttpResponse
-
-def export_pending_carts_csv(request):
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="abandoned_carts.csv"'
-    
-    writer = csv.writer(response)
-    writer.writerow(['Email', 'Products', 'Total Potential Value', 'Last Active'])
-
-    abandoned_carts = Cart.objects.annotate(c=Count('cart_items')).filter(c__gt=0, order__isnull=True)
-
-    for cart in abandoned_carts:
-        products = ", ".join([f"{i.quantity}x {i.product.title}" for i in cart.cart_items.all()])
-        writer.writerow([
-            cart.owner.email if cart.owner else "Guest",
-            products,
-            cart.get_total(),
-            cart.update.strftime("%Y-%m-%d")
-        ])
-    
-    return response

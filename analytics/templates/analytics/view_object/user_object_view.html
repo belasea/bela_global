@@ -1,0 +1,174 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+{% block title %} User Object View - {{block.super}} {% endblock %}
+
+{% block content %}
+
+    <section class="main-section my-3">
+        <div class="container-fluid">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body pb-0">
+                    <div class="row">
+                        <div class="col">
+                            <!-- Breadcrumb -->
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb custom-breadcrumb mb-2">
+                                    <li class="breadcrumb-item active">
+                                        <a href="{% url 'user-object-view' %}">User Object View</a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'dashboard' %}" class="text-dark">
+                                            Back to Dashboard
+                                        </a>
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="add-search">
+                                <div class="float-start mb-2">
+                                    <div class="download-modal-ui">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-dark rounded-pill px-3 shadow-sm" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModalCenter">
+                                            <i class="fa fa-download"></i> Export 
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModalCenter" tabindex="-1"
+                                            aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Download CSV Files</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="{% url 'download-user-object' %}" method="POST">
+                                                            {% csrf_token %}
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label class="form-label">Start Date</label>
+                                                                        <input type="date" name="start-date" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label class="form-label">End Date</label>
+                                                                        <input type="date" name="end-date" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="d-grid gap-2 mt-3">
+                                                                        <button class="btn btn-secondary">
+                                                                            <i class="fa fa-download"></i>
+                                                                            Click To Download
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="float-end mb-2">
+                                    <form method="GET" class="search">
+                                        <div class="input-group">
+                                            <input class="form-control rounded-start-pill" name="q" type="text" placeholder="Search here .."
+                                                value="{{ request.GET.q }}">
+                                            <button type="submit" class="btn btn-dark rounded-end-pill">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="main-table">
+                                <div class="table-responsive text-nowrap">
+                                    <table class="table table-bordered">
+                                        <thead class="table-dark">
+                                            <tr class="text-center">
+                                                <th scope="col">ID</th>
+                                                <th scope="col">E-mail</th>
+                                                <th scope="col">Contact Number</th>
+                                                <th scope="col">Ip Address</th>
+                                                <th scope="col">Content Type</th>
+                                                <th scope="col">Product Name</th>
+                                                <th scope="col">Active</th>
+                                                <th scope="col">Timestamp</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% if object_list %}
+                                                {% for obj in object_list %}
+                                                    <tr class="text-center">
+                                                        <td>{{ obj.id }}</td>
+                                                        <td>{{ obj.user.email }}</td>
+                                                        {% if obj.user.contact_number %}
+                                                            <td>{{ obj.user.contact_number }}</td>
+                                                        {% else %}
+                                                            <td>No Number Found !</td>
+                                                        {% endif %}
+                                                        <td>{{ obj.ip_address }}</td>
+                                                        <td>{{ obj.content_type }}</td>
+                                                        <td style="word-break: break-all; white-space: normal; overflow: hidden; width:400px; text-align: left;">
+                                                            {{ obj.content_object.title }}
+                                                        </td>
+                                                        <td>
+                                                            {% if obj.user.is_active %}
+                                                                <span class="badge bg-success">Active</span>
+                                                            {% else %}
+                                                                <span class="badge bg-secondary">Inactive</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>{{ obj.timestamp }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            {% else %}
+                                                <tr>
+                                                    <td colspan="11">
+                                                        <div class="alert alert-dark alert-dismissible fade show text-center" role="alert">
+                                                            <strong>Oops!</strong> No results found for
+                                                            <span class="text-success font-weight-bold">{{ query }},</span>
+                                                            try a different search.
+                                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                        </div>
+                                                        <h5 class="text-center my-3">
+                                                            <a href="{% url 'user-object-view' %}">
+                                                                <i class="fa fa-undo"></i>  Reload this Page!
+                                                            </a>
+                                                        </h5>
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            {% if object_list %}
+                                {% include "dashboard/pagination.html" with object_list=object_list %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

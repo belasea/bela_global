@@ -2,7 +2,6 @@ from django.urls import path
 from .import views
 
 urlpatterns = [
-    path('user-dashboard', views.user_dashboard, name="user-dashboard"),
     
     # Customer Report ==============================================
     path('customer-report/', views.customer_report, name='customer-report'),
@@ -15,7 +14,4 @@ urlpatterns = [
     path('export-sales-report/', views.export_sales_report, name='export-sales-report'),
     path('annual-sales/', views.order_annual_sales, name='annual-sales'),
     
-    # 
-    path('pending-carts/', views.pending_carts, name="pending-carts")
-
 ]

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'addresses.apps.AddressesConfig',
     'orders.apps.OrdersConfig',
     'report.apps.ReportConfig',
+    'analytics.apps.AnalyticsConfig',
     # Library and dependency
     'django.contrib.humanize',
     'mathfilters',
@@ -69,6 +70,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    # ADD analytics
+    'analytics.middleware.UserSessionMiddleware',
 ]
 
 ROOT_URLCONF = 'bella_global.urls'

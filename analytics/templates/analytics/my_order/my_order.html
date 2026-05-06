@@ -1,10 +1,11 @@
 {% extends 'dashboard/base_dashboard.html' %}
 {% load static %}
-{% block title %} Example List - {{block.super}} {% endblock %}
+{% block title %} My Order List - {{block.super}} {% endblock %}
 
 {% block content %}
 
-    <section class="dashboard-content my-3">
+
+    <section class="order-pdf-list my-3">
         <div class="container-fluid">
             <div class="card shadow-sm border-0 rounded-3">
                 <div class="card-body mb-0 pb-0">
@@ -14,12 +15,12 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        <a href="#" class="text-primary">
-                                            Example List
+                                        <a href="{% url 'order-pdf-list' %}" class="text-primary">
+                                            Order List
                                         </a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        <a href="{% url 'dashboard' %}">
+                                        <a href="{% url 'user-dashboard' %}">
                                           Back to Dashboard
                                         </a> 
                                     </li>
@@ -43,6 +44,7 @@
                                     <div class="modal fade" id="dropdownBrandModal" tabindex="-1" aria-labelledby="dropdownBrandModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
+                                                
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="dropdownBrandModalLabel">
                                                         Order Export
@@ -50,7 +52,7 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="#" method="POST">
+                                                    <form action="{% url 'order-csv-by-date' %}" method="POST">
                                                         {% csrf_token %}
                                                         <div class="row">
                                                             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -108,7 +110,13 @@
                                     <thead>
                                         <tr class="text-center">
                                             <th scope="col"># SN</th>
+                                            <th scope="col">Order Number</th>
+                                            <th scope="col">Order Date</th>
+                                            <th scope="col">Country</th>
+                                            <th scope="col">Order Status</th>
                                             <th scope="col">Action</th>
+                                            <th scope="col">Download</th>
+                                            <th scope="col">Cancelled</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -116,6 +124,51 @@
                                             {% for order in object_list %}
                                                 <tr class="text-center">
                                                 <td>{{ forloop.counter }}</td>
+                                                <td>{{ order.slug }}</td>
+                                                <td>{{ order.timestamp }}</td>
+                                                <td>{{ order.country }}</td>
+                                                <td class="text-capitalize">
+                                                    <span class="badge order-status px-3  delivered">
+                                                        <i class="fa-solid fa-circle-xmark me-1"></i> 
+                                                        {{ order.status }}
+                                                    </span>
+                                                </td>
+                                                <td class="text-center">
+                                                    {% if order.cancelled %}
+                                                        <!-- Cancelled -->
+                                                            <a href="#">
+                                                                <span class="badge order-status cancelled">
+                                                                <i class="fa fa-times-circle me-1"></i>
+                                                                Order Cancelled
+                                                            </span>
+                                                        </a>
+                                                    {% else %}
+                                                        <a href="{% url 'cancelled-order' order.slug %}" class="btn btn-warning btn-sm rounded-pill px-3 shadow-sm mx-1">
+                                                            <i class="fa fa-times-circle me-1"></i>
+                                                            Cancel Order
+                                                        </a>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    <a href="{% url 'create-pdf' order.slug %}" target="_blank" class="btn btn-success rounded-pill btn-sm px-3 shadow-sm mx-1">
+                                                        <i class="fa fa-eye mx-1"></i> PDF View
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    {% if order.cancelled %}
+                                                        <a href="{% url 'cancelled-orders-list' %}">
+                                                            <!-- Cancelled -->
+                                                            <span class="badge order-status px-3  cancelled">
+                                                                <i class="fa-solid fa-circle-xmark me-1"></i> Yes
+                                                            </span>
+                                                        </a>
+                                                    {% else %}
+                                                        <span class="badge order-status delivered px-3 ">
+                                                            <i class="fa-solid fa-circle-xmark me-1"></i> No
+                                                        </span>
+                                                    {% endif %}
+                                                </td>
+                                            </tr> 
                                             {% endfor %}
                                         {% else %}
                                             <!-- No Query -->

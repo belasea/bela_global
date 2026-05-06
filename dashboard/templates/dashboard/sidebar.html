@@ -184,22 +184,25 @@
                 </a>
                 <ul id="setup-activity-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="{% url 'user_list' %}">
-                            <i class="fas fa-users" style="font-size: 13px;"></i>
-                            <span>User List</span>
+                        <a href="{% url 'pending-carts' %}">
+                            <i class="fas fa-shopping-cart" style="font-size: 13px;"></i>
+                            <span>Pending Carts</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{% url 'user-object-view' %}">
                             <i class="fas fa-eye" style="font-size: 13px;"></i>
-                            <span>Product View</span>
+                            <span>View Product </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'user-session' %}">
+                            <i class="fas fa-users" style="font-size: 13px;"></i>
+                            <span>User Session</span>
                         </a>
                     </li>
                 </ul>
             </li>
-
-            
-            
         </ul>
         <!-- Custom Button at Bottom -->
     </aside>

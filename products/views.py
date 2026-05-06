@@ -3,10 +3,13 @@ from django.contrib.auth.decorators import user_passes_test
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.template.loader import render_to_string
+from django.contrib import messages
+from django.contrib.contenttypes.models import ContentType
+from analytics.models import ObjectViewed
+from analytics.utils import get_client_ip
 from products.models import Category, SubCategory, Product
 from comments.models import Product, Comment, Reply
 from comments.forms import CommentForm
-from django.contrib import messages
 
 
 def category_view(request):
@@ -63,8 +66,17 @@ def product_list_view(request, category_slug, subcategory_slug):
     return render(request, 'products/subcategory.html', context)
 
 
+
 def product_details(request, slug):
     product = get_object_or_404(Product, slug=slug, active=True)
+    # TRACK VIEW
+    ObjectViewed.objects.create(
+        user=request.user if request.user.is_authenticated else None,
+        ip_address=get_client_ip(request),
+        content_type=ContentType.objects.get_for_model(product),
+        object_id=product.id
+    )
+
     related_products = Product.objects.filter(
         category=product.category, active=True
     ).exclude(id=product.id)[:10]
