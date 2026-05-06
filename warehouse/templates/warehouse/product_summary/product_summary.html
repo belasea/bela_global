@@ -1,0 +1,158 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+{% block title %} Product Summary - {{ block.super }} {% endblock %}
+
+{% block content %}
+
+    <section class="content-upload my-3">
+        <div class="container-fluid">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body">
+                    <!-- Breadcrumb -->
+                    <div class="row">
+                        <div class="col">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb custom-breadcrumb mb-2">
+                                    <li class="breadcrumb-item active">
+                                        <a href="{% url 'normal-product-summary' %}" class="fw-bold">
+                                            Product Summary
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'dashboard' %}" class="text-dark ">
+                                            Back to Dashboard
+                                        </a>
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <!-- Search & Download -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="search-download">
+                                <div class="float-start mb-2">
+                                    <div class="download-csv">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-dark w-100 rounded-pill px-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                            <i class="fa fa-plus"></i> Export
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <!-- Header -->
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalCenterTitle">
+                                                            Warehouse Summary
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <!-- Body -->
+                                                    <div class="modal-body">
+                                                        <!-- Today Summary -->
+                                                        <a href="{% url 'export-today-product-summary' %}" class="btn btn-dark w-100 mb-3">
+                                                            Today Product Summary <i class="fa fa-paper-plane"></i>
+                                                        </a>
+                                                        <!-- Download CSV Form -->
+                                                        <form action="{% url 'product-summary-by-date-csv' %}" method="POST">
+                                                            {% csrf_token %}
+                                                            <div class="row g-3">
+                                                                <div class="col-md-6">
+                                                                    <label class="form-label">Start Date</label>
+                                                                    <input type="date" name="start-date" class="form-control">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label class="form-label">End Date</label>
+                                                                    <input type="date" name="end-date" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="mt-3">
+                                                                <button type="submit" class="btn btn-dark w-100">
+                                                                    Download By Date <i class="fa fa-paper-plane"></i>
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Search Box Here -->
+                                <div class="float-end mb-2">
+                                    <!-- Search -->
+                                    <form method="GET" class="search" style="max-width: 300px;">
+                                        <div class="input-group">
+                                            <input class="form-control rounded-start-pill"
+                                                name="q"
+                                                type="text"
+                                                placeholder="Search..."
+                                                value="{{ request.GET.q }}">
+                                            <button type="submit"
+                                                    class="btn btn-dark rounded-end-pill">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Main Content-->
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive custom-scroll" id="dragTable">
+                                <table class="table table-bordered">
+                                    <thead class="table-dark sticky-top">
+                                        <tr class="text-center">                
+                                            <th scope="col" class="sticky-top wd-lg-25p">ID</th>
+                                            <th scope="col" class="sticky-top wd-lg-25p">SKU Number</th>
+                                            <th scope="col" class="sticky-top wd-lg-25p">Product Title</th>
+                                            <th scope="col" class="sticky-top wd-lg-25p">Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for key, value in products.items %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td class="text-center">{{ key }}</td>
+                                                <td>{{ value.product_name }}</td>
+                                                <td class="text-center">{{ value.value }}</td>
+                                            </tr>
+                                        {% empty %}
+                                            <!-- No Query -->
+                                            <tr>
+                                                <td colspan="4" class="text-center">
+                                                    <div class="alert alert-dark alert-dismissible fade show text-center" role="alert">
+                                                        <strong>Oops!</strong> No results found for 
+                                                        <span class="text-danger fw-bold mx-2">{{ query }}, </span> try a different search.
+                                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                    </div>
+                                                    <h5 class="text-center my-3">
+                                                        <a href="{% url 'normal-product-summary' %}" class="text-decoration-none">
+                                                            <i class="fa fa-undo"></i> Reload this Page!
+                                                        </a>
+                                                    </h5>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- pagination -->
+                     <div class="row">
+                        <div class="col mt-3">
+                            {% if object_list %}
+                                {% include "dashboard/pagination.html" with object_list=object_list %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

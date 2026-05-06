@@ -36,6 +36,8 @@ urlpatterns = [
     path('', include('inventory.urls')),
     path('', include('report.urls')),
     path('', include('analytics.urls')),
+    path('', include('warehouse.urls')),
+    
     path('summernote/', include('django_summernote.urls')),
 ]
 

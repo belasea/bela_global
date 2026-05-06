@@ -1,0 +1,305 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+{% block title %} Warehouses List - {{ block.super }} {% endblock %}
+
+{% block content %}
+
+    <section class="content-upload my-3">
+        <div class="container-fluid">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body pb-2">
+                    <!-- Breadcrumb -->
+                    <div class="row">
+                        <div class="col">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb custom-breadcrumb mb-2">
+                                    <li class="breadcrumb-item active">
+                                        <a href="{% url 'warehouse-list' %}" class="fw-bold">Warehouse List</a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'dashboard' %}" class="text-dark ">
+                                            Back to Dashboard
+                                        </a>
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <!-- Search & Download -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="search-download">
+                                <div class="float-start mb-2">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-dark w-100 rounded-pill px-3 shadow-sm" data-bs-toggle="modal"
+                                            data-bs-target="#dropdownBrandModal">
+                                        <i class="fa fa-plus"></i> Add 
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="dropdownBrandModal" tabindex="-1" aria-labelledby="dropdownBrandModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="dropdownBrandModalLabel">Add Warehouse</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{% url 'add-warehouse' %}" method="POST" enctype="multipart/form-data">
+                                                        {% csrf_token %}
+
+                                                        <div class="row">
+                                                            <div class="col mb-3">
+                                                                <label for="selectProduct" class="form-label">Select Order Number *</label>
+                                                                <select class="select-item" id="selectProduct" name="order_number">
+                                                                    <option value="">Please Select Order ID...</option>
+                                                                    {% for order in order_number %}
+                                                                        <option value="{{ order.id }}">
+                                                                            {{ order.slug }}
+                                                                        </option>
+                                                                    {% endfor %}
+                                                                </select>
+
+                                                                {% if form.order_number.errors %}
+                                                                    <div class="text-danger mt-1">
+                                                                        {% for error in form.order_number.errors %}
+                                                                            <small>{{ error }}</small>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-3">
+                                                                <label for="date" class="form-label">Date</label>
+                                                                <input type="date" id="date" name="date" class="form-control" required>
+                                                            </div>
+
+                                                            <div class="col-md-6 mb-3">
+                                                                <label for="request_by" class="form-label">Request by *</label>
+                                                                <input type="text" id="request_by" class="form-control"
+                                                                    placeholder="Request by *" name="request_by" required>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <button type="submit" class="btn btn-dark w-100">
+                                                                    Submit <i class="fa fa-paper-plane"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="float-end mb-2 mx-1">
+                                    <a href="{% url 'export-warehouse-csv' %}" class="btn btn-dark">
+                                        <i class="fa fa-download me-1"></i> Export
+                                    </a>
+                                </div>
+                                <!-- Search Box Here -->
+                                <div class="float-end mb-2">
+                                    <!-- Search -->
+                                    <form method="GET" class="search" style="max-width: 300px;">
+                                        <div class="input-group">
+                                            <input class="form-control rounded-start-pill"
+                                                name="q"
+                                                type="text"
+                                                placeholder="Search..."
+                                                value="{{ request.GET.q }}">
+                                            <button type="submit"
+                                                    class="btn btn-dark rounded-end-pill">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Main Content-->
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive custom-scroll" id="dragTable">
+                                <table class="table table-bordered">
+                                    <thead class="table-dark sticky-top">
+                                        <tr class="text-center">
+                                            <th scope="col" class="sticky-top wd-lg-25p">ID</th>
+                                            <th scope="col" class="sticky-top wd-lg-25p">Action</th>
+                                            <th scope="col" class="sticky-top wd-lg-25p">Order Number</th>
+                                            <th scope="col" class="sticky-top wd-lg-25p">Product Name</th>
+                                            <th scope="col" class="sticky-top wd-lg-25p">Quantity</th>
+                                            <th scope="col" class="sticky-top wd-lg-25p">Notes</th>
+                                            <th scope="col" class="sticky-top wd-lg-25p">Date</th>
+                                            <th scope="col" class="sticky-top wd-lg-25p">Request By</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if object_list %}
+                                            {% for obj in object_list %}
+                                                {% for product in obj.order_number.cart.cart_items.all %}
+                                                    <tr>
+                                                        <th scope="row" class="text-center">{{ obj.id }}</th>
+                                                        <td>
+                                                            {% if request.user.is_staff %}
+                                                                <!-- Button -->
+                                                                <button type="button" class="btn btn-primary mx-2 shadow-sm"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#dropdownModal{{ obj.id }}">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </button>
+
+                                                                <!-- Modal -->
+                                                                <div class="modal fade" id="dropdownModal{{ obj.id }}" tabindex="-1">
+                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                        <div class="modal-content">
+
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title">Update Warehouse</h5>
+                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                                            </div>
+
+                                                                            <div class="modal-body">
+                                                                                <form action="{% url 'update-warehouse' obj.id %}?page={{ request.GET.page }}" method="POST">
+                                                                                    {% csrf_token %}
+
+                                                                                    <!-- Order Select -->
+                                                                                    <div class="mb-3">
+                                                                                        <label class="form-label">Select Order Number *</label>
+                                                                                        <select class="form-select" name="order_number">
+                                                                                            <option value="">Please Select Order ID...</option>
+                                                                                            {% for order in order_number %}
+                                                                                                <option value="{{ order.id }}"
+                                                                                                    {% if order.id == obj.order_number.id %}selected{% endif %}>
+                                                                                                    {{ order.slug }}
+                                                                                                </option>
+                                                                                            {% endfor %}
+                                                                                        </select>
+                                                                                    </div>
+
+                                                                                    <!-- Date -->
+                                                                                    <div class="mb-3">
+                                                                                        <label class="form-label">Date</label>
+                                                                                        <input type="date" name="date"
+                                                                                            value="{{ obj.date|date:'Y-m-d' }}"
+                                                                                            class="form-control" required>
+                                                                                    </div>
+
+                                                                                    <!-- Request By -->
+                                                                                    <div class="mb-3">
+                                                                                        <label class="form-label">Request by *</label>
+                                                                                        <input type="text" name="request_by"
+                                                                                            value="{{ obj.request_by }}"
+                                                                                            class="form-control" required>
+                                                                                    </div>
+
+                                                                                    <button type="submit" class="btn btn-dark w-100">
+                                                                                        Update <i class="fa fa-paper-plane"></i>
+                                                                                    </button>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            {% endif %}
+                                                            <!-- Only Superuser Can do it -->
+                                                            {% if request.user.is_superuser %}
+                                                                <span class="download-modal-ui">
+                                                                    <button type="button" class="btn btn-danger shadow-sm" data-bs-toggle="modal" data-bs-target="#dropdownDeleteModal{{ obj.id }}">
+                                                                        <i class="fa fa-trash"></i>
+                                                                    </button>
+
+                                                                    <div class="modal fade" id="dropdownDeleteModal{{ obj.id }}" tabindex="-1" aria-labelledby="dropdownDeleteModalLabel" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-dialog-centered">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="dropdownDeleteModalLabel">
+                                                                                        Delete {{ obj.order_number }} 
+                                                                                    </h5>
+                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                </div>
+                                                                                <div class="modal-body text-center">
+                                                                                    <form action="{% url 'delete-warehouse' obj.id  %}" method="POST">
+                                                                                        {% csrf_token %}
+                                                                                        <i class="fa fa-exclamation-triangle modal-icon"></i>
+                                                                                        <h6 class="text-danger">{{ obj.order_number }}</h6>
+                                                                                        <p class="mb-4">Are you sure you want to delete this item?</p>
+                                                                                        
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="submit" class="btn btn-confirm">
+                                                                                                <i class="fa fa-check"></i> Yes Delete it!
+                                                                                            </button>
+                                                                                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">
+                                                                                                <i class="fa fa-times"></i> Cancel
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="text-center">{{ obj.order_number }}</td>
+                                                        <td>
+                                                            <!-- Product Title -->
+                                                            {{ product.product.title|truncatechars:100 }}
+                                                        </td>
+                                                        <td class="text-center">{{ product.quantity }}</td>
+                                                        <td >
+                                                            {% if obj.order_number.notes %}
+                                                                {{ obj.order_number.notes|truncatechars:100 }}
+                                                            {% else %}
+                                                                <p class="text-center">No notes</p>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="text-center">{{ obj.date }}</td>
+                                                        <td class="text-center">{{ obj.request_by }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            {% endfor %}
+                                        {% else %}
+                                            <!-- No Query -->
+                                            <tr>
+                                                <td colspan="10" class="text-center">
+                                                    <div class="alert alert-dark alert-dismissible fade show text-center" role="alert">
+                                                        <strong>Oops!</strong> No results found for 
+                                                        <span class="text-danger fw-bold mx-2">{{ query }}, </span> try a different search.
+                                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                    </div>
+                                                    <h5 class="text-center my-3">
+                                                        <a href="{% url 'warehouse-list' %}" class="text-decoration-none">
+                                                            <i class="fa fa-undo"></i> Reload this Page!
+                                                        </a>
+                                                    </h5>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- pagination -->
+                     <div class="row">
+                        <div class="col">
+                            {% if object_list %}
+                                {% include "dashboard/pagination.html" with object_list=object_list %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock content %}
