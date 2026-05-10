@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.conf import settings
 from django.core.validators import RegexValidator
-from bella_global.countries import COUNTRIES_TYPES  
+from the_bella.countries import COUNTRIES_TYPES  
 
 User = settings.AUTH_USER_MODEL
 

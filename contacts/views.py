@@ -2,7 +2,7 @@ import csv
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from notification.models import Notification
 from .forms import ContactForm, ReplayContactForm
 from .models import Contact
@@ -11,7 +11,7 @@ from django.core.mail import send_mail
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from datetime import datetime
-from bella_global.local_settings import BASE_URL
+from the_bella.local_settings import BASE_URL
 
 
 # Contact Page ====================================================

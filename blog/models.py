@@ -3,7 +3,6 @@ from django.db.models.signals import pre_save
 from .utils import blog_unique_slug_generator
 
 
-
 class Category(models.Model):
     title = models.CharField(max_length=120)
     slug = models.SlugField(null=True, blank=True, max_length=50)

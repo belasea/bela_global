@@ -16,7 +16,7 @@ from addresses.forms import BillingForm, shippingForm
 from orders.models import Order, CancelledOrder, ReturnedOrder
 from inventory.models import Inventory, InventoryStock, InventoryTransaction
 from report.models import CustomerReport
-from bella_global.countries import COUNTRIES_TYPES
+from the_bella.countries import COUNTRIES_TYPES
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 import csv

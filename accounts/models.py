@@ -1,5 +1,5 @@
 from django.db import models
-from bella_global.countries import COUNTRIES_TYPES  
+from the_bella.countries import COUNTRIES_TYPES  
 from django.contrib.auth.models import (
     BaseUserManager,
     AbstractUser

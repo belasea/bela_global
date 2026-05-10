@@ -1,19 +1,12 @@
 
-from django.db.models import JSONField
 from django.db import models
-from django.contrib.auth import get_user_model
-from offers.models import Coupon
-from products.models import Product
+from django.db.models import JSONField
 from decimal import Decimal
 from django.utils import timezone
-import re
-from django.db.models import Sum, F
 from decimal import Decimal, InvalidOperation
-
-
-
-User = get_user_model()
-
+from offers.models import Coupon
+from products.models import Product
+from accounts.models import User
 
 class CartManager(models.Manager):
     def new_or_get(self, request):
