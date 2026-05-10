@@ -1,6 +1,6 @@
 <img src='static/img/website.png' alt='image missing'/>
 
-<h1 align="center" id='header'>Sea Bright Education</h1>
+<h1 align="center" id='header'>The Bella</h1>
 <div align="center">
 <!-- Gmail Account -->
 <a href="mailto:jayed.swe@gmail.com">
@@ -61,8 +61,8 @@ source venv/bin/activate
 venv\Scripts\activate
 
 # Step 2 : Clone project
-git clone git@github.com:belasea/bella_global.git
-cd bella_global
+git clone git@github.com:belasea/the_bella.git
+cd the_bella
 
 # Step 3 : Install Packages
 pip install -r requirements.txt
@@ -71,7 +71,8 @@ pip install -r requirements.txt
 python manage.py runserver
 
 # Step 5 : makemigrations
-python manage.py makemigrations accounts about blog contacts home notification products
+python manage.py makemigrations about accounts addresses analytics blog carts comments contacts home inventory notification offers orders products report warehouse
+
 
 
 python manage.py migrate

@@ -42,6 +42,7 @@ docs/_build/
 __pycache__/
 migrations/
 
+
 *.so
 .fleet
 .vscode
@@ -59,6 +60,7 @@ staticfiles/
 # DB
 db.sqlite3
 db.sqlite3-journal
+local_settings.py
 
 # dotenv
 *.env
@@ -70,3 +72,5 @@ prod.env
 mediafile/
 dump.rdb/
 dump.rdb
+
+delete_migration_pycache.py

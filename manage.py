@@ -3,6 +3,7 @@
 import os
 import sys
 
+# gunicorn --bind 0.0.0.0:8000 the_bella.wsgi
 
 def main():
     """Run administrative tasks."""

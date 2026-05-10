@@ -2,8 +2,8 @@ import os
 import shutil
 
 # Define your possible root directories
-windows_root = 'E:/Project/Others-Projects/HRM/hrms'
-mac_root = '/Users/belase/project/office/website/bella_global/bella_global'
+windows_root = 'E:/Project/Others-Projects/'
+mac_root = '/Users/belase/project/office/website/bella_global/the_bella'
 
 # List of directories to delete
 directories_to_delete = ['__pycache__', 'migrations']
