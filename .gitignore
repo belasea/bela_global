@@ -61,6 +61,7 @@ staticfiles/
 db.sqlite3
 db.sqlite3-journal
 local_settings.py
+delete_migration_pycache.py
 
 # dotenv
 *.env
