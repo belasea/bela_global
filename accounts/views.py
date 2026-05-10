@@ -7,7 +7,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import RegisterForm, LoginForm, UserUpdateForm
 from .models import User
 from notification.models import Notification
-from bella_global.local_settings import BASE_URL
+from the_bella.local_settings import BASE_URL
 import csv
 
 

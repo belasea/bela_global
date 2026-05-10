@@ -13,11 +13,9 @@ from django.db.models import Prefetch, Q, Sum, Count
 from addresses.models import Address
 from products.models import Product
 from orders.models import Order
-from carts.models import Cart
 from .models import CustomerReport
-from carts.models import Cart
 from .forms import CustomerReportForm
-from bella_global.countries import get_country_dropdown_data
+from the_bella.countries import get_country_dropdown_data
 
 
 # Customer =========================================================

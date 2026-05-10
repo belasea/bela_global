@@ -5,7 +5,7 @@ from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from django.utils import timezone
 from products.models import Product
-from bella_global.countries import COUNTRIES_TYPES
+from the_bella.countries import COUNTRIES_TYPES
 from .utils import inventory_unique_slug_generator
 
 # --- Inventory Manager ---

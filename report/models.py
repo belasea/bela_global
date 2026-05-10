@@ -1,8 +1,6 @@
 from django.db import models
 from orders.models import Order
-from bella_global.countries import COUNTRIES_TYPES  
-
-# Create your models here.
+from the_bella.countries import COUNTRIES_TYPES  
 
 class CustomerManagerQueryset(models.query.QuerySet):
     def by_range(self, start_date, end_date=None):

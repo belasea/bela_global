@@ -1,6 +1,6 @@
 from django.db import models
 from orders.models import Order
-from bella_global.countries import COUNTRIES_TYPES
+from the_bella.countries import COUNTRIES_TYPES
 
 class WarehouseOrderDetailQueryset(models.query.QuerySet):
     # This QuerySet filter date by date

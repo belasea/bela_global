@@ -2,24 +2,19 @@ from django.utils import timezone
 from django.utils.timezone import now
 import datetime
 from decimal import Decimal
-from django.db.models import Sum, Avg, Count, Q
+from django.db.models import Count
 from django.db import models
-from django.contrib.auth import get_user_model
-from django.utils.text import slugify
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from .utils import (
     order_unique_slug_generator, 
     cancelled_order_unique_slug_generator,
     returned_order_unique_slug_generator
 )
-from offers.models import Coupon
 from addresses.models import Address
 from products.models import Product
 from carts.models import Cart
-from bella_global.countries import COUNTRIES_TYPES  
+from accounts.models import User
+from the_bella.countries import COUNTRIES_TYPES  
 
-User = get_user_model()
 
 ORDER_STATUS_CHOICES = (
     ('created', 'Created'),
