@@ -12,7 +12,7 @@ a{
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: #001229;
+    /* background-color: #001229; */
     margin: 0;
     overflow-x: hidden;
 }
@@ -38,8 +38,8 @@ body {
 Main Content
 =============================== */
 .main-content {
-    margin-top: 100px;
-    margin-left: 150px;
+    /* margin-top: 100px;
+    margin-left: 150px; */
     background-color: #fff;
     min-height: 100vh;
     display: flex;
@@ -1752,8 +1752,13 @@ Comments & Replies
     font-size: 0.95rem;
 }
 
-.continue-shopping:hover {
-    color: #001229;
+
+.continue-shopping-btn{
+    background-color: #EB1C68;
+    color: #FFF;
+    border: 1px solid #EB1C68;
+    padding: 12px;
+    border-radius: 10px;
 }
 
 .payment-badges i {
@@ -2436,7 +2441,7 @@ contact-section
     right: 40px;
     width: 48px;
     height: 48px;
-    background-color: #001229;
+    background-color: #EB1C68;
     color: #fff;
     border: none;
     border-radius: 50%;
@@ -2460,14 +2465,14 @@ contact-section
 }
 
 .jump-to-top-btn:hover {
-    background-color: #003580;
+    background-color: #EB1C68;
     box-shadow: 0 6px 20px rgba(0, 18, 41, 0.4);
 }
 
 
 /* Background */
 .login {
-    background: linear-gradient(135deg, #1e3c72, #001229);
+    background: linear-gradient(135deg, #EB1C68, #001229);
 }
 
 /* Card Styling */

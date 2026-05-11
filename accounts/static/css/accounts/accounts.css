@@ -35,12 +35,16 @@ body {
 }
 
 a {
-  color: #22c18b;
+  color: #EB1C68;
   text-decoration: none;
 }
 a:hover {
-  color: #717ff5;
+  color: #ff6aa2;
   text-decoration: none;
+}
+
+.icon{
+  color: #EB1C68 !important;
 }
 
 hr {
@@ -58,7 +62,7 @@ hr {
 }
 
 .logo-text {
-  color: #22c18b !important;
+  color: #EB1C68 !important;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -69,7 +73,7 @@ hr {
 }
 
 .logo-text:hover {
-  color: #ff4500 !important;
+  color: #EB1C68 !important;
   transform: scale(1.05);
   cursor: pointer;
 }
@@ -107,7 +111,7 @@ hr {
 
 .cache-clear {
   background-color: #fbfbfb;
-  color: #188753 !important;
+  color: #EB1C68 !important;
   /* font-size: 14px; */
   font-style: normal;
   font-weight: 500;
@@ -116,7 +120,7 @@ hr {
 }
 
 .cache-clear button {
-  color: #188753 !important;
+  color: #EB1C68 !important;
 }
 
 .menu-search {
@@ -252,7 +256,7 @@ hr {
   right: 15px;
   bottom: 15px;
   z-index: 99999;
-  background: #198754;
+  background: #EB1C68;
   width: 40px;
   height: 40px;
   border-radius: 4px;
@@ -266,7 +270,7 @@ hr {
 }
 
 .back-to-top:hover {
-  background: #198754;
+  background: #EB1C68;
   color: #fff;
 }
 
@@ -324,14 +328,14 @@ hr {
 
 /* Confirm Delete button */
 .modal-footer .btn-confirm {
-  background-color: #dc3545; /* Bootstrap danger */
+  background-color: #EB1C68;
   color: #fff;
   border: none;
   transition: all 0.2s ease;
 }
 
 .modal-footer .btn-confirm:hover {
-  background-color: #b02a37;
+  background-color: #EB1C68;
 }
 
 /* Cancel button */
@@ -369,12 +373,13 @@ hr {
 }
 
 .custom-submit-btn {
-  background: linear-gradient(90deg, #198754, #a97856);
+  /* background: linear-gradient(135deg, #EB1C68, #ff6aa2); */
+  background-color: #EB1C68;
   color: #fff;
   padding: 9px 18px;
   min-width: 120px;
   border-radius: 8px;
-  border: 1px solid #78c7cc;
+  border: 1px solid #EB1C68;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -385,9 +390,11 @@ hr {
 
 /* Hover effect */
 .custom-submit-btn:hover {
-  background: linear-gradient(135deg, #a6a7a8, #141515);
+  background-color: #EB1C68;
+   /* background: linear-gradient(135deg,#ff6aa2, #EB1C68); */
+  border: 1px solid #EB1C68;
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-  border: 1px solid #a6a7a8;
+
 }
 
 /*=======================================================
@@ -447,9 +454,9 @@ hr {
 }
 
 .submit-btn {
-  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-  border: 1px solid #bf0000;
-  background-color: #bf0000;
+  /* background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593); */
+  border: 1px solid #EB1C68;
+  background-color: #EB1C68;
   color: #ffffff;
   padding: 6px;
   min-width: 100px;
@@ -459,7 +466,7 @@ hr {
 /* Center the loader in the page */
 .loader {
   border: 5px solid #4154f1;
-  border-top: 5px solid #22c18b;
+  border-top: 5px solid #EB1C68;
   border-radius: 50%;
   width: 80px;
   height: 80px;

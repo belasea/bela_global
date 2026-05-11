@@ -41,7 +41,7 @@
                                     </div>
                                     <form method="POST">
                                         {% csrf_token %}
-                                        <div class="row">
+                                        <div class="row g-2">
                                             <div class="form-group col-md-6 mt-3">
                                                 <input type="text" class="form-control" placeholder="First name *" name="first_name">
                                                 <span class="text-danger">{{ form.first_name.errors }}</span>
@@ -64,17 +64,9 @@
                                         </div>
                                         <!-- country -->
                                         <div class="form-group col my-3">
-                                            <select class="form-select pro-input" name="country">
-                                                <option value="" selected>Select Country *</option>
-                                                {% for value, name in form.fields.country.choices %}
-                                                    <option value="{{ value }}" 
-                                                        {% if form.country.value == value or request.user.country == value %}selected{% endif %}>
-                                                        {{ name }}
-                                                    </option>
-                                                {% endfor %}
-                                            </select>
+                                            
                                         </div>
-                                        <div class="row">
+                                        <div class="row g-2">
                                             <!-- Gender -->
                                             <div class="form-group col-md-6 mb-3">
                                                 <select class="form-control" name="gender">
@@ -83,12 +75,25 @@
                                                 </select>
                                                 <span class="text-danger">{{ form.gender.errors }}</span>
                                             </div>
-
-                                            <!-- Date of Birth -->
+                                            <div class="form-group col-md-6 mb-3">
+                                                <select class="form-select pro-input" name="country">
+                                                    <option value="" selected>Select Country *</option>
+                                                    {% for value, name in form.fields.country.choices %}
+                                                        <option value="{{ value }}" 
+                                                            {% if form.country.value == value or request.user.country == value %}selected{% endif %}>
+                                                            {{ name }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <!-- Date of Birth 
                                             <div class="form-group col-md-6 mb-3">
                                                 <input type="date" class="form-control" placeholder="Date of birth" name="date_of_birth">
                                                 <span class="text-danger">{{ form.date_of_birth.errors }}</span>
                                             </div>
+                                            -->
                                         </div>
 
                                         <!-- Password -->
