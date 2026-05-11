@@ -130,13 +130,13 @@ Python shell script
 <summary style="cursor:pointer">Solution</summary>
 
 ```py
-# Create the setup.sh file using echo
+# Create the restart.sh file using echo
 
-echo @echo off > setup.sh
+echo @echo off > restart.sh
 
-# Step 2: Open file using nano setup.sh
+# Step 2: Open file using nano restart.sh
 
-nano setup.sh
+nano restart.sh
 
 past here 
 
@@ -149,11 +149,11 @@ ctrl + x and Y then Enter
 
 # Step 3: Make the script executable:
 
-chmod +x setup.sh
+chmod +x restart.sh
 
 # Step 4: Execute the script:
 
-./setup.sh
+./restart.sh
 
 ```
 </details>

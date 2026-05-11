@@ -54,203 +54,140 @@ Main Content
 
 
 
-
-
-/* ===============================
-Navbar
-=============================== */
+/* Navbar Styling */
 .navbar-section {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background-color: #fff;
-    transition: box-shadow 0.3s ease;
-    border-bottom: 1px solid #eaeaea;
+    background-color: #ffffff;
 }
 
-.navbar-section.scrolled {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
-    border-bottom: 1px solid transparent;
-}
-
-.navbar {
-    background-color: #fff !important;
-    padding: 1rem 0;
-    transition: 0.3s;
-}
-
-/* ===============================
-Dropdown Menu
-=============================== */
-.dropdown-parent {
-    position: relative;
-}
-
-/* Hidden by default */
-.dropdown-menu-custom {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 300px;
-    background: #f5f6f8;
-    padding: 20px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(15px);
-    transition: 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    z-index: 999;
-}
-
-/* Show on hover */
-.dropdown-parent:hover .dropdown-menu-custom {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-/* List style */
-.dropdown-menu-custom ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.dropdown-menu-custom li {
-    margin-bottom: 8px;
-}
-
-.dropdown-menu-custom a {
-    text-decoration: none;
-    color: #6c7a89;
-    font-size: 14px;
-    transition: 0.3s;
-}
-
-/* Hover effect */
-.dropdown-menu-custom a:hover {
-    color: #001229;
-    padding-left: 5px;
-}
-
-/* Logo */
-.logo-container {
-    text-align: left;
-    line-height: 1.1;
-    margin-right: 40px;
-}
-
-.logo-main {
-    letter-spacing: 3px;
-    color: #001229;
-    font-weight: 800;
-    font-size: 1.3rem;
-}
-
-.logo-sub {
-    font-size: 0.6rem;
-    border-top: 1.5px solid #004a99;
-    border-bottom: 1.5px solid #d91a21;
-    padding: 1px 0;
-    margin: 3px 0;
-    font-weight: 700;
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-}
-
-.logo-year {
-    font-size: 0.5rem;
-    color: var(--text-gray);
-    text-align: center;
-}
-
-/* Nav Links */
 .nav-link {
-    color: var(--text-gray) !important;
-    font-size: 0.85rem;
-    font-weight: 500;
-    padding: 0.5rem 1.2rem !important;
+    color: #333 !important;
     text-transform: uppercase;
-    position: relative;
-}
-
-/* Hover underline */
-.nav-link::after {
-    content: "";
-    position: absolute;
-    width: 0%;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background: var(--brand-dark);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
     transition: 0.3s;
 }
 
-.nav-link:hover::after {
+.nav-link:hover {
+    color: #000 !important;
+    opacity: 0.7;
+}
+
+/* Professional Search Box (500px) */
+.search-container {
+    max-width: 500px;
     width: 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-/* Utility */
-.utility-box {
-    font-size: 0.75rem;
-    margin-bottom: 5px;
+.search-form {
+    display: flex;
+    align-items: center;
+    background: #f4f4f4; /* Light grey background */
+    border-radius: 50px; /* Pill shape */
+    padding: 4px 15px;
+    border: 1px solid transparent;
+    transition: 0.3s ease;
 }
 
-.lang-link {
-    color: var(--text-gray);
-    text-decoration: none;
-    font-weight: bold;
-    margin-left: 12px;
-}
-
-.lang-link.active {
-    color: var(--brand-dark);
-}
-
-/* ===============================
-Search Overlay
-=============================== */
-.search-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+.search-form:focus-within {
     background: #fff;
-    padding: 30px 0;
-    transform: translateY(-100%);
-    transition: 0.4s ease;
-    z-index: 9999;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-color: #000;
+    box-shadow: 0 0 0 4px rgba(0,0,0,0.05);
 }
 
-.search-overlay.active {
-    transform: translateY(0);
-}
-
-.search-box {
-    position: relative;
-    max-width: 700px;
-}
-
-.search-box input {
-    width: 100%;
+.search-input {
     border: none;
-    border-bottom: 2px solid #000;
-    font-size: 1.2rem;
-    padding: 10px 40px 10px 0;
+    background: transparent;
+    padding: 8px;
+    width: 100%;
+    font-size: 0.9rem;
     outline: none;
 }
 
-.close-search {
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-size: 28px;
+.search-btn {
     border: none;
-    background: none;
-    cursor: pointer;
+    background: transparent;
+    color: #555;
+    padding: 5px 10px;
 }
+
+/* Cart Badge adjustment */
+.cart-badge .cart-count {
+    font-weight: 600;
+}
+
+/* Mobile specific overrides */
+@media (max-width: 991.98px) {
+    .search-container {
+        position: static;
+        transform: none;
+        max-width: 100%;
+    }
+    
+    .navbar-collapse {
+        padding-top: 1rem;
+    }
+}
+
+
+/* Ensure the sticky header stays above all other content */
+.navbar-section.sticky-top {
+    top: 0;
+    z-index: 1020;
+    background-color: #fff; /* Prevents content from showing through */
+}
+
+/* Hover Effect for Menu Links */
+.navbar-nav .nav-link {
+    position: relative;
+    color: #333;
+    padding: 0.5rem 0;
+    margin: 0 1rem;
+    transition: color 0.3s ease;
+}
+
+/* The Animated Underline */
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #000; /* Or your brand color */
+    transition: width 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 100%;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #000 !important;
+}
+
+/* Utility Icons Hover (Cart/User) */
+.navbar-nav .nav-link i {
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.navbar-nav .nav-link:hover i {
+    transform: translateY(-2px);
+    opacity: 0.7;
+}
+
+@media (max-width: 991px) {
+    .navbar-section {
+        padding: 5px 0;
+    }
+    .navbar-brand img {
+        height: 35px; /* Shrink logo slightly on mobile */
+    }
+}
+
+
 
 /* Base nav link */
 .cart-badge {

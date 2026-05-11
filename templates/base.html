@@ -37,85 +37,82 @@
                 </div>
             </div>
         </div>
+        
         <!--===== Navbar ====-->
-        <div class="navbar-section">
-            <div class="container">
-                <nav class="navbar navbar-expand-lg">
-                    <div class="container-fluid px-4">
-                        <div class="collapse navbar-collapse w-100 order-1 order-lg-0" id="mainNav">
-                            <ul class="navbar-nav me-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'blog' %}">
-                                        Blog
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'category' %}">
-                                        Products
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <a class="navbar-brand mx-lg-auto order-0" href="{% url 'home' %}">
-                            <img src="{% static 'img/logo/brand-logo.png' %}" alt="">
+        <div class="navbar-section shadow-sm sticky-top">
+            <!-- Top Brand Logo (Desktop Only) -->
+            <div class="container-fluid d-none d-lg-block border-bottom my-2">
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <a href="{% url 'home' %}">
+                            <img src="{% static 'img/logo/brand-logo.png' %}" alt="Brand">
                         </a>
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-white mb-3">
+                <div class="container-fluid px-4">
+                    
+                    <!-- Logo (Mobile Only) -->
+                    <a class="navbar-brand d-lg-none" href="{% url 'home' %}">
+                        <img src="{% static 'img/logo/brand-logo.png' %}" alt="Brand" style="height: 40px;">
+                    </a>
 
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+                    <!-- Search Container (Desktop: Centered) -->
+                    <div class="search-container mx-auto d-none d-lg-block">
+                        <form action="{% url 'search' %}" method="get" class="search-form">
+                            <input type="text" name="q" class="search-input" placeholder="Search for products, skin concerns...">
+                            <button class="search-btn" type="submit">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </form>
+                    </div>
 
-                        <div class="collapse navbar-collapse w-100 order-3" id="mainNav">
-                            <!-- Utility -->
-                                <div class="utility-box d-none d-lg-block">
-                                    <!--===== Search Overlay ====-->
-                                    <div class="search-overlay" id="searchOverlay">
-                                        <div class="search-box container">
-                                            <form action="{% url 'search' %}" method="get">
-                                                <input type="text" name="q" placeholder="Search for products, skin concerns...">
-                                                <button class="close-search" id="closeSearch">&times;</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            <ul class="navbar-nav ms-auto align-items-center">
-                                <li class="nav-item me-2">
-                                    <!-- Search Icon -->
-                                    <a href="javascript:void(0)" class="nav-link" id="openSearch">
-                                        <i class="bi bi-search fw-bold"></i>
-                                    </a>
-                                </li>
-                                
-                                <li class="nav-item">
-                                    <a class="nav-link cart-badge" href="{% url 'cart-list' %}">
-                                        <i class="fa-solid fa-cart-shopping"></i>
-                                        <span class="cart-count">
-                                            ({% if request.session.cart_items %} 
-                                                {{ request.session.cart_items }}
-                                            {% else %}0{% endif %})
-                                        </span>
-                                    </a>
-                                </li>
+                    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                                <li class="nav-item">
-                                    {% if request.user.is_authenticated %}
-                                        <a class="nav-link" href="{% url 'dashboard' %}">
-                                            <i class="fa-solid fa-user"></i>
-                                        </a>
-                                    {% else %}
-                                        <a class="nav-link" href="{% url 'login' %}">
-                                            <i class="fa-solid fa-right-to-bracket"></i>
-                                        </a>
-                                    {% endif %}
-                                </li>
-                            </ul>
+                    <div class="collapse navbar-collapse" id="primaryNav">
+                        <!-- Left Links -->
+                        <ul class="navbar-nav me-auto order-lg-1">
+                            <li class="nav-item"><a class="nav-link fw-medium" href="{% url 'blog' %}">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link fw-medium" href="{% url 'category' %}">Products</a></li>
+                        </ul>
+
+                        <!-- Mobile Search (Visible only in collapse) -->
+                        <div class="d-lg-none my-3">
+                            <form action="{% url 'search' %}" method="get" class="search-form">
+                                <input type="text" name="q" class="search-input" placeholder="Search...">
+                                <button class="search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </form>
                         </div>
 
+                        <!-- Right Links (Utility) -->
+                        <ul class="navbar-nav ms-auto align-items-center order-lg-3">
+                            <li class="nav-item">
+                                <a class="nav-link p-2" href="{% url 'cart-list' %}">
+                                    <div class="position-relative">
+                                        <i class="fa-solid fa-cart-shopping fs-5"></i>
+                                        <span class="badge rounded-pill bg-black position-absolute top-0 start-100 translate-middle" style="font-size: 0.6rem;">
+                                            {% if request.session.cart_items %}{{ request.session.cart_items }}{% else %}0{% endif %}
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item ms-lg-3">
+                                {% if request.user.is_authenticated %}
+                                    <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa-solid fa-user fs-5"></i></a>
+                                {% else %}
+                                    <a class="nav-link" href="{% url 'login' %}"><i class="fa-solid fa-right-to-bracket fs-5"></i></a>
+                                {% endif %}
+                            </li>
+                        </ul>
                     </div>
-                </nav>
-            </div>
+                </div>
+            </nav>
         </div>
 
+        
         <!--=============== 
         Messages Framework
         =============== -->
