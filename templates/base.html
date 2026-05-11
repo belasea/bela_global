@@ -21,32 +21,54 @@
 
     <!--===== Main Content ====-->
     <section class="main-content">
+
+        <div class="top-header bg-black text-white py-2">
+            <div class="container-fluid px-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="social-links d-flex gap-3">
+                        <a href="#" class="text-white small"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="text-white small"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="text-white small"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="text-white small"><i class="fa-solid fa-copyright"></i></a>
+                    </div>
+                    <div class="announcement-text">
+                        <p class="mb-0 small fw-light">Now Accepting Apple Pay & Google Pay</p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!--===== Navbar ====-->
         <div class="navbar-section">
             <div class="container">
                 <nav class="navbar navbar-expand-lg">
                     <div class="container-fluid px-4">
-                        <!-- Logo -->
-                        <a class="navbar-brand p-0" href="{% url 'home' %}">
-                            <div class="logo-container">
-                                <div class="logo-main">
-                                    <img src="{% static 'img/logo/brand-logo.png' %}" class="img-fluid" alt="">
-                                </div>
-                            </div>
+                        <div class="collapse navbar-collapse w-100 order-1 order-lg-0" id="mainNav">
+                            <ul class="navbar-nav me-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'blog' %}">
+                                        Blog
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'category' %}">
+                                        Products
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <a class="navbar-brand mx-lg-auto order-0" href="{% url 'home' %}">
+                            <img src="{% static 'img/logo/brand-logo.png' %}" alt="">
                         </a>
-                        <!-- Toggle -->
+
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                             <span class="navbar-toggler-icon"></span>
                         </button>
 
-                        <!-- Menu -->
-                        <div class="collapse navbar-collapse" id="mainNav">
-                            <div class="ms-auto d-flex flex-column align-items-end">
-
-                                <!-- Utility -->
+                        <div class="collapse navbar-collapse w-100 order-3" id="mainNav">
+                            <!-- Utility -->
                                 <div class="utility-box d-none d-lg-block">
-                                    
-                                     <!--===== Search Overlay ====-->
+                                    <!--===== Search Overlay ====-->
                                     <div class="search-overlay" id="searchOverlay">
                                         <div class="search-box container">
                                             <form action="{% url 'search' %}" method="get">
@@ -56,62 +78,39 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Nav Links -->
-                                <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{% url 'category' %}">
-                                            Products
+                            <ul class="navbar-nav ms-auto align-items-center">
+                                <li class="nav-item me-2">
+                                    <!-- Search Icon -->
+                                    <a href="javascript:void(0)" class="nav-link" id="openSearch">
+                                        <i class="bi bi-search fw-bold"></i>
+                                    </a>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link cart-badge" href="{% url 'cart-list' %}">
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                        <span class="cart-count">
+                                            ({% if request.session.cart_items %} 
+                                                {{ request.session.cart_items }}
+                                            {% else %}0{% endif %})
+                                        </span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    {% if request.user.is_authenticated %}
+                                        <a class="nav-link" href="{% url 'dashboard' %}">
+                                            <i class="fa-solid fa-user"></i>
                                         </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{% url 'blog' %}">Blog</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link cart-badge" href="{% url 'cart-list' %}">
-                                            <i class="fa-solid fa-cart-shopping"></i>
-                                            <span class="nav-text">Carts</span>
-                                            <span class="cart-count">
-                                                {% if request.session.cart_items %}
-                                                    ({{ request.session.cart_items }})
-                                                {% else %}
-                                                    0
-                                                {% endif %}
-                                            </span>
+                                    {% else %}
+                                        <a class="nav-link" href="{% url 'login' %}">
+                                            <i class="fa-solid fa-right-to-bracket"></i>
                                         </a>
-                                    </li>
-                                    <!--authenticated-->
-                                    <li class="nav-item">
-                                        {% if request.user.is_authenticated %}
-                                            {% if request.user.is_moderator or request.user.is_superuser  %}
-                                                <!-- Redirect Moderators to their specific dashboard -->
-                                                <a class="nav-link" href="{% url 'dashboard' %}">
-                                                    <i class="fa-solid fa-gauge-high"></i>
-                                                    <span>Dashboard</span>
-                                                </a>
-                                            {% else %}
-                                                <!-- Redirect regular Users to the standard dashboard -->
-                                                <a class="nav-link" href="{% url 'user-dashboard' %}">
-                                                    <i class="fa-solid fa-gauge-high"></i>
-                                                    <span>{{ request.user.first_name }}</span>
-                                                </a>
-                                            {% endif %}
-                                        {% else %}
-                                            <!-- Show Login for guests -->
-                                            <a class="nav-link" href="{% url 'login' %}">
-                                                <i class="fa-solid fa-right-from-bracket"></i>
-                                                <span>Login</span>
-                                            </a>
-                                        {% endif %}
-                                    </li>
-                                    <li>
-                                        <!-- Search Icon -->
-                                        <a href="javascript:void(0)" class="nav-link" id="openSearch">
-                                            <i class="bi bi-search fw-bold"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                                    {% endif %}
+                                </li>
+                            </ul>
                         </div>
+
                     </div>
                 </nav>
             </div>
@@ -146,11 +145,11 @@
         <div class="container">
             <div class="row">
                 <div class="col py-4 py-md-5">
-                    <p class="text-uppercase small tracking-wider mb-3 mb-md-4 px-2">
-                        Made in Korea
+                     <p class="text-uppercase small tracking-wider mb-3 mb-md-4 px-2">
+                        Made in Koria
                     </p>
                     <h2 class="fw-light mb-4 px-2">
-                        The Bella is a Korea laboratory that formulates dermatological skincare products 
+                        Bella Gloabl is a French laboratory that formulates dermatological skincare products 
                         that are accessible and provide real results to preserve and restore your skin's natural balance.
                     </h2>
                 </div>

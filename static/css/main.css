@@ -53,6 +53,9 @@ Main Content
 }
 
 
+
+
+
 /* ===============================
 Navbar
 =============================== */
@@ -2472,7 +2475,7 @@ contact-section
 
 /* Background */
 .login {
-    background: linear-gradient(135deg, #EB1C68, #001229);
+    background: linear-gradient(135deg, #1e3c72, #001229);
 }
 
 /* Card Styling */

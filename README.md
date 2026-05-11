@@ -138,6 +138,13 @@ echo @echo off > setup.sh
 
 nano setup.sh
 
+past here 
+
+echo "Restarting Nginx...."
+sudo systemctl restart nginx
+echo "Restarting Gunicorn..."
+sudo systemctl restart gunicorn
+
 ctrl + x and Y then Enter
 
 # Step 3: Make the script executable:
@@ -168,15 +175,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '2abbb66e6262d8a471b69c7jayedhossainjibona03a0c74bjibon969'
 
 
-ALLOWED_HOSTS = ['*', '206.189.47.110']
+ALLOWED_HOSTS = ['*', '']
 BASE_URL = ""
 
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'sea_bright_db',    # Database Name
+       'NAME': '_db',    # Database Name
        'USER': 'dbadmin',            # User Name
-       'PASSWORD': 'seaBright75#@!DB',  # Password for Postgresql
+       'PASSWORD': '75#@!DB',  # Password for Postgresql
        'HOST': '127.0.0.1',          # Django Server
        'PORT': '5432',               # default port for Postgresql
    }
@@ -189,7 +196,7 @@ try:
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = 'seabright@gmail.com'
+    EMAIL_HOST_USER = '@gmail.com'
     EMAIL_HOST_PASSWORD = 'bopeqjiwmwntxekl'
 except:
     pass
