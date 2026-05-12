@@ -21,29 +21,47 @@ from .forms import (
 ==========================================="""
 
 def warehouse_list(request):
+    
+    query = request.GET.get('q', '').strip()
+    page = request.GET.get('page', 1)
+    per_page = 10
+
+    # 1. Authentication Check
+    if not request.user.is_authenticated:
+        context = {
+            'error': 'Login required'
+        }
+        return render(request, 'warehouse/warehouse_order/warehouse_order.html', context)
+    
+    user_country = getattr(request.user, 'country', None)
     queryset = WarehouseOrderDetail.objects.all()
-    query = request.GET.get('q')
+
+    if user_country:
+        queryset = queryset.filter(country__iexact=user_country)
+    else:
+        queryset = queryset.none()
+    
     if query:
-        # Using strip method to remove extra white space
-        query = query.strip()
-        queryset = WarehouseOrderDetail.objects.filter(
-            Q(request_by__icontains=query) |
+        queryset = queryset.filter(
+            Q(slug__icontains=query) | 
+            Q(order_id__icontains=query) |
             Q(order_number__slug__iexact=query) |
             Q(order_number__slug__icontains=query) |
             Q(order_number__slug__contains=query) |
             Q(order_number__slug__startswith=query)
         ).distinct()
-    print("Query", query)
-    page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 10)
+    
+    # 7. Pagination
+    paginator = Paginator(queryset, per_page)
     try:
-        posts = paginator.page(page)
+        obj = paginator.page(page)
     except PageNotAnInteger:
-        posts = paginator.page(1)
+        obj = paginator.page(1)
     except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
+        obj = paginator.page(paginator.num_pages)
+        
     context = {
-        'object_list': posts,
+        'object_list': obj,
         'page': page,
         'order_number': Order.objects.values('id', 'slug').order_by('-timestamp')
     }

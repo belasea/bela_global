@@ -2406,12 +2406,12 @@ section
     border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-
 /* --- Footer Base --- */
 .footer-section {
-    background-color: #E61E6E; /* Your Brand Pink */
-    color: #ffffff;
+    background-color: #eeeeee;
+    color: #2d2d2d; 
     font-family: 'Inter', sans-serif;
+    border-top: 1px solid #eeeeee; 
 }
 
 /* --- Social Icons --- */
@@ -2422,25 +2422,26 @@ section
 }
 
 .social-icon-pro {
-    color: rgba(255, 255, 255, 0.8);
+    color: #555555;            /* Mid-gray icons */
     font-size: 1.4rem;
     transition: all 0.3s ease;
     text-decoration: none;
 }
 
 .social-icon-pro:hover {
-    color: #ffffff;
-    transform: translateY(-3px); /* Subtle lift */
+    color: #000000;            /* Pop to black on hover */
+    transform: translateY(-3px);
 }
 
 /* --- The "Glass" Divider --- */
 .border-top-glass {
-    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Semi-transparent white line */
+    /* Changed from white-glass to a subtle dark-glass/grey line */
+    border-top: 1px solid rgba(0, 0, 0, 0.1); 
 }
 
 /* --- Footer Links --- */
 .footer-link-pro {
-    color: rgba(255, 255, 255, 0.9);
+    color: #444444;            /* Darker gray for links */
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 500;
@@ -2450,8 +2451,7 @@ section
 }
 
 .footer-link-pro:hover {
-    color: #ffffff;
-    opacity: 1;
+    color: #000000;            /* Full black on hover */
     text-decoration: underline;
     text-underline-offset: 5px;
 }
@@ -2459,7 +2459,7 @@ section
 /* --- Copyright Text --- */
 .copyright-text {
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: #888888;            /* Soft gray for secondary info */
     margin-top: 20px;
     letter-spacing: 1px;
 }
@@ -2468,7 +2468,7 @@ section
 @media (max-width: 768px) {
     .footer-link-pro {
         font-size: 0.8rem;
-        width: 100%; /* Full width on mobile for better tapping */
+        width: 100%;
         text-align: center;
         margin-bottom: 5px;
     }
@@ -2481,7 +2481,6 @@ section
         gap: 1.5rem !important;
     }
 }
-
 /* ===============================
    Jump to Top Button
 =============================== */
@@ -3253,4 +3252,48 @@ blockquote {
     letter-spacing: 2px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px); 
+}
+
+
+
+/* --- Card Container --- */
+.item-card.bg-pink {
+    background-color: #f7a8c4; /* Soft pink background matching the image */
+    padding: 60px 20px;       /* Generous vertical padding for the centered look */
+    text-align: center;       /* Centers the image and text */
+    border-radius: 0;         /* The image shows a sharp-edged container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;        /* Adjust based on your preferred aspect ratio */
+}
+
+/* --- Product Image --- */
+.item-card img {
+    height: auto;
+    margin-bottom: 40px;      /* Space between product and text */
+    /* Subtle shadow to make the product pop against the pink background */
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1)); 
+}
+
+/* --- Text Content --- */
+.item-info a {
+    text-decoration: none;    /* Removes default link underline */
+}
+
+.item-info h5 {
+    color: #c91e63 !important; /* Deep magenta/pink brand name color */
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;      /* Spaced out uppercase look */
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.item-info .description {
+    color: #1a2b48;            /* Dark navy/slate color for the description */
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin: 0;
 }

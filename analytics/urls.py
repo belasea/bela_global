@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('user-dashboard/', views.user_dashboard, name="user-dashboard"),
-    path('my_order_list/', views.my_order_list, name="my_order_list"),
+    path('my-orders/', views.my_orders, name="my-orders"),
     
     # pending_carts =====================================================
     path('pending-carts/', views.pending_carts, name="pending-carts"),

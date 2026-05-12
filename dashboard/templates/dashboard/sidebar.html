@@ -154,19 +154,19 @@
                 </a>
                 <ul id="setup-export-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="">
+                        <a href="{% url 'user_list' %}">
                             <i class="fas fa-map-marked-alt" style="font-size: 13px;"></i>
                             <span>User List</span>
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="{% url 'contact-list' %}">
                             <i class="fas fa-clipboard-list" style="font-size: 13px;"></i>
                             <span>Contact List</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{% url 'billing-addresses' %}">
                             <i class="fas fa-truck-loading" style="font-size: 13px;"></i>
                             <span>Address List</span>
                         </a>
@@ -211,21 +211,21 @@
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
-                <a class="nav-link dashboard-link" href="{% url 'dashboard' %}">
+                <a class="nav-link dashboard-link" href="{% url 'user-dashboard' %}">
                 <i class="fas fa-tachometer-alt me-2"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
             <!--Order List-->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{% url 'order-pdf-list' %}">
+                <a class="nav-link collapsed" href="{% url 'my-orders' %}">
                     <i class="fas fa-shopping-bag text-dark"></i>
                     <span>Order List</span>
                 </a>
             </li>
             <!--Tracking My Parcel-->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{% url 'order-pdf-list' %}">
+                <a class="nav-link collapsed" href="#">
                     <i class="fas fa-shipping-fast text-dark"></i>
                     <span>Parcel Tracking</span>
                 </a>

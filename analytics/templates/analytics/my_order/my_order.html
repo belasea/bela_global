@@ -15,8 +15,8 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        <a href="{% url 'order-pdf-list' %}" class="text-primary">
-                                            Order List
+                                        <a href="{% url 'my-orders' %}" class="text-primary">
+                                            Orders List
                                         </a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
@@ -52,7 +52,7 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="{% url 'order-csv-by-date' %}" method="POST">
+                                                    <form action="#" method="POST">
                                                         {% csrf_token %}
                                                         <div class="row">
                                                             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -156,7 +156,7 @@
                                                 </td>
                                                 <td>
                                                     {% if order.cancelled %}
-                                                        <a href="{% url 'cancelled-orders-list' %}">
+                                                        <a href="#">
                                                             <!-- Cancelled -->
                                                             <span class="badge order-status px-3  cancelled">
                                                                 <i class="fa-solid fa-circle-xmark me-1"></i> Yes

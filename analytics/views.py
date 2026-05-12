@@ -87,7 +87,7 @@ def user_dashboard(request):
     return render(request, "analytics/user_dashboard/user_dashboard.html", context)
 
 
-def my_order_list(request):
+def my_orders(request):
     query = request.GET.get('q', '').strip()
     page = request.GET.get('page', 1)
     per_page = 10
@@ -169,7 +169,7 @@ def pending_carts(request):
         'page': page,
         'query': query,
     }
-    return render(request, 'report/pending_carts/pending_carts.html', context)
+    return render(request, 'analytics/pending_carts/pending_carts.html', context)
 
 
 def export_pending_carts(request):
