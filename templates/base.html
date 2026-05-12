@@ -15,6 +15,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap)" rel="stylesheet">
 
 </head>
 <body>
@@ -41,21 +42,21 @@
         <!--===== Navbar ====-->
         <div class="navbar-section shadow-sm sticky-top">
             <!-- Top Brand Logo (Desktop Only) -->
-            <div class="container-fluid d-none d-lg-block border-bottom my-2">
+            <div class="container-fluid d-none d-lg-block my-2">
                 <div class="row">
-                    <div class="col d-flex justify-content-center">
-                        <a href="{% url 'home' %}">
-                            <img src="{% static 'img/logo/brand-logo.png' %}" alt="Brand">
+                    <div class="col d-flex justify-content-center border-bottom">
+                        <a href="{% url 'home' %}" class="py-2">
+                            <img  src="{% static 'img/logo/bella.webp' %}" alt="Brand">
                         </a>
                     </div>
                 </div>
             </div>
-            <nav class="navbar navbar-expand-lg navbar-light bg-white mb-3">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white mb-2">
                 <div class="container-fluid px-4">
                     
                     <!-- Logo (Mobile Only) -->
                     <a class="navbar-brand d-lg-none" href="{% url 'home' %}">
-                        <img src="{% static 'img/logo/brand-logo.png' %}" alt="Brand" style="height: 40px;">
+                        <img src="{% static 'img/logo/logov.webp' %}" alt="Brand">
                     </a>
 
                     <!-- Search Container (Desktop: Centered) -->
@@ -63,7 +64,7 @@
                         <form action="{% url 'search' %}" method="get" class="search-form">
                             <input type="text" name="q" class="search-input" placeholder="Search for products, skin concerns...">
                             <button class="search-btn" type="submit">
-                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <i class="fa-solid fa-magnifying-glass search-icon-pro"></i>
                             </button>
                         </form>
                     </div>
@@ -75,8 +76,16 @@
                     <div class="collapse navbar-collapse" id="primaryNav">
                         <!-- Left Links -->
                         <ul class="navbar-nav me-auto order-lg-1">
-                            <li class="nav-item"><a class="nav-link fw-medium" href="{% url 'blog' %}">Blog</a></li>
-                            <li class="nav-item"><a class="nav-link fw-medium" href="{% url 'category' %}">Products</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-pro" href="{% url 'blog' %}">
+                                    <span>Blog</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-pro" href="{% url 'category' %}">
+                                    <span>Products</span>
+                                </a>
+                            </li>
                         </ul>
 
                         <!-- Mobile Search (Visible only in collapse) -->
@@ -92,7 +101,7 @@
                             <li class="nav-item">
                                 <a class="nav-link p-2" href="{% url 'cart-list' %}">
                                     <div class="position-relative">
-                                        <i class="fa-solid fa-cart-shopping fs-5"></i>
+                                        <i class="fa-solid fa-cart-shopping fs-5 text-dark"></i>
                                         <span class="badge rounded-pill bg-black position-absolute top-0 start-100 translate-middle" style="font-size: 0.6rem;">
                                             {% if request.session.cart_items %}{{ request.session.cart_items }}{% else %}0{% endif %}
                                         </span>
@@ -101,9 +110,13 @@
                             </li>
                             <li class="nav-item ms-lg-3">
                                 {% if request.user.is_authenticated %}
-                                    <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa-solid fa-user fs-5"></i></a>
+                                    <a class="nav-link" href="{% url 'dashboard' %}">
+                                        <i class="fa-solid fa-user fs-5"></i>
+                                    </a>
                                 {% else %}
-                                    <a class="nav-link" href="{% url 'login' %}"><i class="fa-solid fa-right-to-bracket fs-5"></i></a>
+                                    <a class="nav-link" href="{% url 'login' %}">
+                                        <i class="fa-solid fa-right-to-bracket fs-5"></i>
+                                    </a>
                                 {% endif %}
                             </li>
                         </ul>
@@ -111,6 +124,8 @@
                 </div>
             </nav>
         </div>
+
+     
 
         
         <!--=============== 
@@ -138,74 +153,33 @@
     </section>
 
     <!--============ Footer Section ===========-->
-    <footer class="bg-navy text-white pt-5 pb-4">
+    <footer class="footer-section">
         <div class="container">
-            <div class="row">
-                <div class="col py-4 py-md-5">
-                     <p class="text-uppercase small tracking-wider mb-3 mb-md-4 px-2">
-                        Made in Koria
-                    </p>
-                    <h2 class="fw-light mb-4 px-2">
-                        Bella Gloabl is a French laboratory that formulates dermatological skincare products 
-                        that are accessible and provide real results to preserve and restore your skin's natural balance.
-                    </h2>
-                </div>
-            </div>
-            <hr class="border-secondary my-4 my-md-5">
-            <div class="row align-items-center gy-4">
-                <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-start gap-4">
-                    <a href="{% url 'contact-us' %}" class="text-white text-decoration-none fw-bold small">
-                        Contact
-                    </a>
-                    <a href="{% url 'faq' %}" class="text-white text-decoration-none fw-bold small">
-                        FAQ
-                    </a>
-                </div>
-                <!-- Social media Link -->
-                <div class="col-12 col-md-4 text-center">
-                    <div class="d-flex justify-content-center gap-4 fs-5">
-                        <a href="#" class="text-white opacity-50 social-icon">
-                            <i class="bi bi-instagram"></i>
-                        </a>
-                        <a href="#" class="text-white opacity-50 social-icon">
-                            <i class="bi bi-facebook"></i></a>
-                        <a href="#" class="text-white opacity-50 social-icon">
-                            <i class="bi bi-twitter-x"></i>
-                        </a>
-                        <a href="#" class="text-white opacity-50 social-icon">
-                            <i class="bi bi-youtube"></i>
-                        </a>
+            <div class="row pt-5 pb-4">
+                <div class="col-12 text-center">
+                    <div class="social-wrapper">
+                        <a href="#" class="social-icon-pro"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon-pro"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon-pro"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="social-icon-pro"><i class="bi bi-youtube"></i></a>
                     </div>
-                </div>
-                <div class="col-12 col-md-4 text-center text-md-end">
-                    <span class="fst-italic opacity-50 small">#togetherformyskin</span>
                 </div>
             </div>
 
-            <div class="row mt-5 pt-4 border-top-refined small gy-3 text-center text-md-start footer-link-container">
-                <div class="col-12 col-md-9 d-flex flex-wrap justify-content-center justify-content-md-start gap-3 gap-md-4">
-                    <span class="copyright-text w-100 w-md-auto mb-2 mb-md-0">
-                        © THEBELLA 2026
-                    </span>
-                    <a href="{% url 'legal-notice' %}" class="footer-link">
-                        Legal Notice
-                    </a>
-                    <a href="{% url 'terms' %}" class="footer-link">
-                        Terms
-                    </a>
-                    <a href="{% url 'personal-data-policy' %}" class="footer-link">
-                        Personal Data Policy
-                    </a>
-                    <a href="{% url 'cookie-policy' %}" class="footer-link">
-                         Policy
-                    </a>
+            <div class="row mt-2 py-4 border-top-glass">
+                <div class="col-12 col-md-8 d-flex flex-wrap justify-content-center justify-content-md-start gap-4 mb-4 mb-md-0">
+                    <a href="{% url 'legal-notice' %}" class="footer-link-pro">Legal Notice</a>
+                    <a href="{% url 'terms' %}" class="footer-link-pro">Terms</a>
+                    <a href="{% url 'personal-data-policy' %}" class="footer-link-pro">Privacy Policy</a>
+                    <a href="{% url 'cookie-policy' %}" class="footer-link-pro">Cookies</a>
                 </div>
-                <div class="col-12 col-md-3 text-center text-md-end">
-                    <a href="{% url 'international' %}" class="footer-link">
-                        International <i class="bi bi-globe ms-1"></i>
-                    </a>
+
+                <div class="col-12 col-md-4 d-flex justify-content-center justify-content-md-end gap-4">
+                    <a href="{% url 'contact-us' %}" class="footer-link-pro">Contact</a>
+                    <a href="{% url 'faq' %}" class="footer-link-pro">FAQ</a>
                 </div>
             </div>
+
         </div>
     </footer>
 

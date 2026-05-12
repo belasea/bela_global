@@ -171,68 +171,7 @@
         </div>
     </div>
 
-    <!--============== Skincare Layout ===========-->
-    <div class="skincare-layout" id="skincare-section">
-        <div class="container">
-            {% if skincare %}
-                <div class="row align-items-center g-5">
-                    <div class="col-md-4">
-                        <a href="{% url 'category' %}">
-                            <div class="stack-container">
-                                <img with="320" height="392" src="{{ skincare.left_img_a.url }}" class="pro-img content-a" alt="Skin Care A">
-                                <img with="320" height="392" src="{{ skincare.left_img_b.url }}" class="pro-img content-b" alt="Skin Care B">
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col-md-4 text-center">
-                        <div class="circle-icon">
-                            <svg class="progress-ring" width="60" height="60">
-                                <circle stroke="#f0f2f5" stroke-width="1.5" fill="transparent" r="26" cx="30" cy="30"/>
-                                <circle id="spinner-path" stroke="#7d8ea3" stroke-width="1.5" fill="transparent" r="26" cx="30" cy="30"/>
-                            </svg>
-                        </div>
-                        <div class="label-wrapper mb-3">
-                            <p class="text-uppercase tracking-widest small mb-0">
-                                {{ skincare.center_label }}
-                            </p>
-                        </div>
-                        <div class="stack-container">
-                            <h2 class="brand-title content-a">
-                                {{ skincare.center_title_a }}
-                            </h2>
-                            <h2 class="brand-title content-b">
-                                {{ skincare.center_title_b }}
-                            </h2>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="right-images-overlap-container">
-                            <div class="stack-container img-overlap-top">
-                                <img with="250" height="245" src="{{ skincare.right_top_img_a.url }}" class="pro-img content-a" alt="image">
-                                <img with="250" height="245" src="{{ skincare.right_top_img_b.url }}" class="pro-img content-b" alt="image">
-                            </div>
-                            <div class="stack-container img-overlap-bottom">
-                                <img with="250" height="245" src="{{ skincare.right_bottom_img_a.url }}" class="pro-img content-a" alt="image">
-                                <img with="250" height="245" src="{{ skincare.right_bottom_img_b.url }}" class="pro-img content-b" alt="image">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% else %}
-                <div class="row align-items-center g-5">
-                    <div class="col my-5 text-center">
-                        <h2 class="text-muted">Skincare Unavailable</h2>
-                        <p class="lead">
-                            The requested Skincare document is currently being updated or is not available at this time.
-                        </p>
-                        <hr class="w-25 mx-auto">
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-    </div>
+   
     
     <!--====== related ========-->
     <div class="related-skin mb-5">
