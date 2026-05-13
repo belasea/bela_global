@@ -2408,7 +2408,7 @@ section
 
 /* --- Footer Base --- */
 .footer-section {
-    background-color: #eeeeee;
+    background-color: #FFFFFF !important;
     color: #2d2d2d; 
     font-family: 'Inter', sans-serif;
     border-top: 1px solid #eeeeee; 
